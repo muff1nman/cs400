@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "types.h"
+
 #include "calc.tab.h"
 
 FILE *yyin = NULL;
@@ -21,10 +23,12 @@ int yyparse(char const *filename)
 {
    FILE *yyout;
    int token;
-   Flow* flows = (Flow*) malloc( NUM_TYPES * sizeof( Flow ));
 
-   // TODO check malloc
-   
+   Flow* flows = (Flow*)  malloc( 11* sizeof(Flow));
+
+   //initialize current to an empty string
+   char* current = (char*) malloc(sizeof(char));
+   *current = '\0';
    
    yyin = fopen(filename, "rt");
    if (!yyin)
@@ -40,7 +44,7 @@ int yyparse(char const *filename)
       return -2;
    }
 
-   while (token=yylex( flows ))
+   while (token=yylex(flows, &current))
       ExportToken(yyout, token, yytext);
    ExportToken(yyout, token, yytext);
    

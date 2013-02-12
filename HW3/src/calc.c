@@ -3,51 +3,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h> 
-#include "calc.tab.h"
 #include "types.h"
+#include "calc.tab.h"
 
-int yylex(Flow* flows)
+int yylex(Flow* flows, char** start)
 {
    static int tokens = 0;
    
-   int token;
+   int token = 267;
    int yychar;
 
-//   yychar = fgetc( yyin );
-//
-//   feed( yychar );
-//
-//   if ( isEndState( /* any */ ) ){
-//       yytext = getValue();
-//       resetStates( /* all  */);
-//       return token;
-//   } else { 
-//       yylex(flows);
-//   }
-   
-   //----------------------------------------------------------
-   // This code is junk placeholder code to give an initial
-   // lexer that will compile and run and do something.
-   
-   yychar = fgetc(yyin); // File assumed to be open and ready
-   if (EOF == yychar)
-   {
-      token = END;
-      yytext = (char *) malloc(11*sizeof(char));
-      sprintf(yytext, "%i", tokens);
+   yychar = fgetc( yyin );
+
+   feed( yychar, flows );
+   if ( isEndState( flows ) ){
+       // TODO copy yytext from saved string
+   //   yytext = ....;
+   //   TODO reset start
+      resetStates( *start, flows );
+      return token;
+   } else {
+      yylex( flows, start );
    }
-   else
-   {
-      token = BAD;
-      yytext = (char *) malloc(4*sizeof(char));
-      if (isgraph(yychar)&&('#' != yychar))
-         sprintf(yytext, "%c", yychar);
-      else
-         sprintf(yytext, "#%02X", (yychar&0xFF));
-   }
-   //----------------------------------------------------------
-   
-   return token;
+   // should not get here
+   // TODO add check
 }
 
 int main(int argc, char *argv[])
@@ -60,10 +39,6 @@ int main(int argc, char *argv[])
    }
    
    yyparse(argv[1]);
-   
-   // uncommented for easier testing
-   //printf("Hit ENTER to exit.");
-   //fgetc(stdin);
    
    return 0;
 }
