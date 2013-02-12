@@ -49,8 +49,9 @@ int main(int argc, char *argv[])
    
    yyparse(argv[1]);
    
-   printf("Hit ENTER to exit.");
-   fgetc(stdin);
+   // uncommented for easier testing
+   //printf("Hit ENTER to exit.");
+   //fgetc(stdin);
    
    return 0;
 }
