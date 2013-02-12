@@ -3,15 +3,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h> 
-
 #include "calc.tab.h"
+#include "types.h"
 
-int yylex(void)
+int yylex(Flow* flows)
 {
    static int tokens = 0;
    
    int token;
    int yychar;
+
+//   yychar = fgetc( yyin );
+//
+//   feed( yychar );
+//
+//   if ( isEndState( /* any */ ) ){
+//       yytext = getValue();
+//       resetStates( /* all  */);
+//       return token;
+//   } else { 
+//       yylex(flows);
+//   }
    
    //----------------------------------------------------------
    // This code is junk placeholder code to give an initial

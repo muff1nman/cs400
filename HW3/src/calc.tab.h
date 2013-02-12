@@ -18,6 +18,8 @@
 #define EOLCMT  (270) // [First twenty characters with certain replacements]
 #define BLKCMT  (271) // [First twenty characters with certain replacements]
 
+#include "types.h"
+
 int yyparse(char const *filename);
 
 extern FILE *yyin;
