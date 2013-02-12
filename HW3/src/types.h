@@ -30,15 +30,11 @@ typedef enum {
     NEWLINE, EOLCMT, BLKCMT, END 
 } TokenType;
 
-typedef enum {
-    CONTINUE, NEXT, ABORT
-} State;
-
 // returns a string based on the enum TokenType
 const char* toString( TokenType x );
 
-// function type
-typedef State (*Function)( char );
+// function type, NOTE the second char should be an extra paramater
+typedef bool (*Function)( char );
 
 //type -> arrayfunctions
 //        currentFuncIndex
@@ -46,23 +42,20 @@ typedef State (*Function)( char );
 //        char* begin
 //
 //each function returns one of the following: continue, next, abort
+struct FlowNode;
+struct FunctionNodePair;
+typedef struct FlowNode FlowNode;
+typedef struct FunctionNodePair FunctionNodePair;
 
-typedef struct {
+struct FunctionNodePair {
+    Function* transition;
+    FlowNode* nextNode;
+};
+
+struct FlowNode{
+    TokenType state;
     size_t arraySize;
-    char* begin;
-    size_t currentFunc;
-    Function* functions;
-} Flow;
-
-// increment all Flow's by character
-void feed( char next, Flow* flows );
-
-// check for any endStates on Flows by looking at the function index
-// return -1 if none were found
-// return -2 if multiple were found
-TokenType isEndState( Flow* flows );
-
-void resetStates( char* begin, Flow* flows );
-
+    FunctionNodePair* transitions;
+};
 
 #endif
