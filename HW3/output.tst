@@ -1,4 +1,3 @@
-<DIV> /
 <BLKCMT> ********************
 <NEWLINE> 4
 <NEWLINE> 5
@@ -29,9 +28,9 @@
 <NEWLINE> 10
 <ID> R5
 <ASSIGN> =
-<FLT> 2E=6
-<NEWLINE> 11
+<FLT> 2E-6
 <SEMI> ;
+<NEWLINE> 11
 <ID> R7
 <ASSIGN> =
 <SUB> -
@@ -64,6 +63,6 @@
 <EXP> ^
 <ID> R5
 <SEMI> ;
-<EOLCMT>  EOL comment
+<EOLCMT> #20EOL#20comment
 <NEWLINE> 15
 <END>
