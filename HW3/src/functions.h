@@ -25,7 +25,7 @@
 
 bool isCharacter( char supplied, char desired );
 
-bool isDigit( char supplied, char empty );
+bool isDigit( char supplied );
 
 bool isCharacter_R( char supplied );
 

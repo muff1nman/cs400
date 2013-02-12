@@ -10,20 +10,35 @@
 FILE *yyin = NULL;
 char *yytext = NULL;
 
+FlowNode* acceptingState( TokenType end_state ){
+    FlowNode* final = (FlowNode*) malloc( sizeof( FlowNode ));
+    final->state = end_state;
+    final->arraySize = 0;
+    final->transitions = NULL;
+}
+
 FlowNode* init_ID(){
-    // TODO
+    int PATHS = 1;
+    FlowNode* R = (FlowNode*) malloc( sizeof( FlowNode ));
+    R->state = BAD;
+    R->arraySize = PATHS;
+
+    R->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
+    (R->transitions+0)->transition = &isDigit;
+    (R->transitions+0)->nextNode = acceptingState( ID );
+
     return NULL;
 }
 
 FlowNode* initializeTree(){
-    static const int PATHS = 1;
+    int PATHS = 1;
     FlowNode* root = (FlowNode*) malloc( sizeof( FlowNode) );
     root->state = BAD;
     root->arraySize = PATHS;
 
-    FunctionNodePair* trans = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
-    (trans+0)->transition = &isCharacter_R;
-    (trans+0)->nextNode = init_ID();
+    root->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
+    (root->transitions+0)->transition = &isCharacter_R;
+    (root->transitions+0)->nextNode = init_ID();
 
     return NULL;
 }

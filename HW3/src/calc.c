@@ -7,7 +7,12 @@
 #include "calc.tab.h"
 
 FlowNode* functionWants( char nextChar, FlowNode* current ){
-    // TODO
+    int i;
+    for( i = 0; i < current->arraySize; ++i ){
+        if ((*((current->transitions + i)->transition))( nextChar )){
+            return (current->transitions + i)->nextNode;
+        }
+    }
     return NULL;
 }
 
