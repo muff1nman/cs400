@@ -1,7 +1,7 @@
 all: a.out
 
-a.out :  calc.c calc.tab.o types.o functions.o
-	gcc calc.c calc.tab.o types.o functions.o
+a.out :  calc.c calc.tab.o types.o functions.o additional.o
+	gcc calc.c calc.tab.o types.o functions.o additional.o
 
 calc.tab.o: calc.tab.h calc.tab.c types.h functions.h
 	gcc -c calc.tab.c
@@ -11,6 +11,9 @@ types.o: types.h types.c
 
 functions.o : functions.h functions.c
 	gcc -c functions.c
+
+additional.o : additional.h additional.c
+	gcc -c additional.c
 
 test:
 	./a.out ../input.txt
