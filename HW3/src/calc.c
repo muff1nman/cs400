@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h> 
+#include <string.h>
 #include "types.h"
 #include "calc.tab.h"
+#include "additional.h"
 
 FlowNode* functionWants( char nextChar, FlowNode* current ){
     int i;
@@ -44,18 +46,18 @@ int yylex( FlowNode* root, char** start)
     
     while( (next = functionWants( yychar, current )) != NULL ) {
         current = next;
-        //TODO: append character to string
+        append( yychar, start);
         //get new character
         yychar = fgetc( yyin );
         // TODO check all input for error.  
     }
 
     // save left over character
-    //tokens = yychar;
+    tokens = yychar;
     // populate yytext based on data collected
-    //TODO: populate( yytext, &start );
-    // TODO: get the token from the current
-    return 250;
+    strcpy( yytext, *start );
+    // get the token from the current
+    return current->state;
 }
 
 int main(int argc, char *argv[])
