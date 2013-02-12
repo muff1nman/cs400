@@ -16,6 +16,8 @@
  * =====================================================================================
  */
 
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -24,3 +26,7 @@
 bool isCharacter( char supplied, char desired );
 
 bool isDigit( char supplied, char empty );
+
+bool isCharacter_R( char supplied );
+
+#endif

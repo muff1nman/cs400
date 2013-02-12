@@ -36,19 +36,13 @@ const char* toString( TokenType x );
 // function type, NOTE the second char should be an extra paramater
 typedef bool (*Function)( char );
 
-//type -> arrayfunctions
-//        currentFuncIndex
-//        arraySize
-//        char* begin
-//
-//each function returns one of the following: continue, next, abort
 struct FlowNode;
 struct FunctionNodePair;
 typedef struct FlowNode FlowNode;
 typedef struct FunctionNodePair FunctionNodePair;
 
 struct FunctionNodePair {
-    Function* transition;
+    Function transition;
     FlowNode* nextNode;
 };
 

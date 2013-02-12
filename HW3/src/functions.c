@@ -14,3 +14,8 @@ bool isDigit( char supplied, char empty ) {
 
     return false;
 }
+
+
+bool isCharacter_R( char supplied ){
+    return isCharacter( supplied, 'R' );
+}

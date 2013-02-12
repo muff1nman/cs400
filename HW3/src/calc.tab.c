@@ -4,11 +4,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "types.h"
-
+#include "functions.h"
 #include "calc.tab.h"
 
 FILE *yyin = NULL;
 char *yytext = NULL;
+
+FlowNode* init_ID(){
+    // TODO
+    return NULL;
+}
+
+FlowNode* initializeTree(){
+    static const int PATHS = 1;
+    FlowNode* root = (FlowNode*) malloc( sizeof( FlowNode) );
+    root->state = BAD;
+    root->arraySize = PATHS;
+
+    FunctionNodePair* trans = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
+    (trans+0)->transition = &isCharacter_R;
+    (trans+0)->nextNode = init_ID();
+
+    return NULL;
+}
+
+void destroyTree(FlowNode* root){
+    int i;
+    for (i = 0; i < root->arraySize; ++i ){
+        destroyTree((root->transitions + i)->nextNode);
+        (root->transitions + i)->nextNode = NULL;
+    }
+    free( root->transitions );
+    root->transitions = NULL;
+    free( root );
+    root = NULL;
+}
 
 // TODO modify to use the string representation of token and have the token type
 // be the enum TokenType
@@ -25,7 +55,7 @@ int yyparse(char const *filename)
 {
    FILE *yyout;
    int token;
-   FlowNode* root;
+   FlowNode* root = initializeTree();
 
    //initialize current to an empty string
    char* current = (char*) malloc(sizeof(char));
@@ -47,6 +77,9 @@ int yyparse(char const *filename)
 
    while (token=yylex(root, &current))
       ExportToken(yyout, token, yytext);
+
+   destroyTree( root );
+   free( current );
    
    fclose(yyin);
    fclose(yyout);
