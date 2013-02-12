@@ -10,6 +10,8 @@
 FILE *yyin = NULL;
 char *yytext = NULL;
 
+// TODO modify to use the string representation of token and have the token type
+// be the enum TokenType
 int ExportToken(FILE *yyout, int token, char *yytext)
 {
     fprintf(yyout, "<%03i> %s\n", token, ((yytext)? yytext:""));
@@ -23,8 +25,7 @@ int yyparse(char const *filename)
 {
    FILE *yyout;
    int token;
-
-   Flow* flows = (Flow*)  malloc( 11* sizeof(Flow));
+   FlowNode* root;
 
    //initialize current to an empty string
    char* current = (char*) malloc(sizeof(char));
@@ -44,7 +45,7 @@ int yyparse(char const *filename)
       return -2;
    }
 
-   while (token=yylex(flows, &current))
+   while (token=yylex(root, &current))
       ExportToken(yyout, token, yytext);
    ExportToken(yyout, token, yytext);
    

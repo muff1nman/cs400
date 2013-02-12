@@ -6,27 +6,43 @@
 #include "types.h"
 #include "calc.tab.h"
 
-int yylex(Flow* flows, char** start)
+FlowNode* functionWants( char nextChar, FlowNode* current ){
+    // TODO
+    return NULL;
+}
+
+int yylex( FlowNode* root, char** start)
 {
-   static int tokens = 0;
-   
-   int token = 267;
-   int yychar;
+    //left over from last iteration
+    static int tokens = 0;
+    // TODO, remove later, just so that it compiles and runs.
+    int token = 267;
+    int yychar;
+    FlowNode* current = root;
+    FlowNode* next;
 
-   yychar = fgetc( yyin );
+    // get only if tokens empty.
+    if ( tokens == 0 ) {
+        yychar = fgetc( yyin );
+    } else {
+        yychar = tokens;
+        tokens = 0;
+    }
 
-   feed( yychar, flows );
-   if ( isEndState( flows ) ){
-       // TODO copy yytext from saved string
-   //   yytext = ....;
-   //   TODO reset start
-      resetStates( *start, flows );
-      return token;
-   } else {
-      yylex( flows, start );
-   }
-   // should not get here
-   // TODO add check
+    while( (next = functionWants( yychar, current )) != NULL ) {
+        current = next;
+        //TODO: append character to string
+        //get new character
+        yychar = fgetc( yyin );
+        // TODO check all input for error.  
+    }
+
+    // save left over character
+    tokens = yychar;
+    // populate yytext based on data collected
+    //TODO: populate( yytext, &start );
+    // TODO: get the token from the current
+    return token;
 }
 
 int main(int argc, char *argv[])
