@@ -47,7 +47,6 @@ int yyparse(char const *filename)
 
    while (token=yylex(root, &current))
       ExportToken(yyout, token, yytext);
-   ExportToken(yyout, token, yytext);
    
    fclose(yyin);
    fclose(yyout);

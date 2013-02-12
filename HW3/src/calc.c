@@ -15,11 +15,14 @@ int yylex( FlowNode* root, char** start)
 {
     //left over from last iteration
     static int tokens = 0;
-    // TODO, remove later, just so that it compiles and runs.
-    int token = 267;
     int yychar;
     FlowNode* current = root;
     FlowNode* next;
+    static bool done = false;
+
+    if ( done ) {
+        return 0;
+    }
 
     // get only if tokens empty.
     if ( tokens == 0 ) {
@@ -29,6 +32,11 @@ int yylex( FlowNode* root, char** start)
         tokens = 0;
     }
 
+    // TODO test for EOF and set flag for no more tokens
+    if ( yychar < 0 ) {
+        done = true;
+    }
+    
     while( (next = functionWants( yychar, current )) != NULL ) {
         current = next;
         //TODO: append character to string
@@ -38,11 +46,11 @@ int yylex( FlowNode* root, char** start)
     }
 
     // save left over character
-    tokens = yychar;
+    //tokens = yychar;
     // populate yytext based on data collected
     //TODO: populate( yytext, &start );
     // TODO: get the token from the current
-    return token;
+    return 250;
 }
 
 int main(int argc, char *argv[])
