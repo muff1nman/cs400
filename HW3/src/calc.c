@@ -60,7 +60,7 @@ int yylex( FlowNode* root, char** start)
     // populate yytext based on data collected
     yytext = (char*) malloc( sizeof(char) * strlen(*start) + 1 );
     strcpy( yytext, *start );
-
+    scrub( &yytext );
     // empty *start
     free(*start);
     *start = (char*) malloc(sizeof(char));

@@ -20,7 +20,15 @@
 #define ADDITIONAL_H
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 void append(char s, char** string);
+
+// edits the string to adhere to the doc conventions for non-graphical
+// characters.
+void scrub( char** string );
+
+bool isGraphical( char x );
+
 
 #endif
