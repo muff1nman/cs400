@@ -10,6 +10,15 @@
 FILE *yyin = NULL;
 char *yytext = NULL;
 
+FlowNode* initNode(int paths, TokenType state){
+    FlowNode* R = (FlowNode*) malloc( sizeof( FlowNode ));
+    R->state = state;
+    R->arraySize = paths;
+    R->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * paths );
+    // !NOTE! the transitions are not initializaed
+    return R;
+}
+
 FlowNode* acceptingState( TokenType end_state ){
     FlowNode* final = (FlowNode*) malloc( sizeof( FlowNode ));
     final->state = end_state;
@@ -19,27 +28,30 @@ FlowNode* acceptingState( TokenType end_state ){
 }
 
 FlowNode* init_ID(){
-    int PATHS = 1;
-    FlowNode* R = (FlowNode*) malloc( sizeof( FlowNode ));
-    R->state = BAD;
-    R->arraySize = PATHS;
-
-    R->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
+    FlowNode* R = initNode( 1, BAD );
     (R->transitions+0)->transition = &isDigit;
     (R->transitions+0)->nextNode = acceptingState( ID );
+    return R;
+}
 
+FlowNode* init_BAD() {
+    FlowNode* R = initNode( 1, BAD );
+    (R->transitions+0)->transition = &notStart;
+    (R->transitions+0)->nextNode = R;
     return R;
 }
 
 FlowNode* initializeTree(){
-    int PATHS = 1;
-    FlowNode* root = (FlowNode*) malloc( sizeof( FlowNode) );
-    root->state = BAD;
-    root->arraySize = PATHS;
+    FlowNode* root = initNode( 3, BAD );
 
-    root->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * PATHS );
     (root->transitions+0)->transition = &isCharacter_R;
     (root->transitions+0)->nextNode = init_ID();
+
+    (root->transitions+1)->transition = &isCharacter_EOF;
+    (root->transitions+1)->nextNode = acceptingState( END );
+
+    (root->transitions+2)->transition = &notStart;
+    (root->transitions+2)->nextNode = init_BAD();
 
     return root;
 }
@@ -47,7 +59,12 @@ FlowNode* initializeTree(){
 void destroyTree(FlowNode* root){
     int i;
     for (i = 0; i < root->arraySize; ++i ){
-        destroyTree((root->transitions + i)->nextNode);
+        // handle recursive
+        if (( root->transitions + i )->nextNode == root ){
+            // don't do anything because it will get handled soon
+        } else {
+            destroyTree((root->transitions + i)->nextNode);
+        }
         (root->transitions + i)->nextNode = NULL;
     }
     free( root->transitions );
@@ -95,12 +112,11 @@ int yyparse(char const *filename)
        ExportToken(yyout, token, yytext);
    ExportToken(yyout, token, yytext);
 
-   destroyTree( root );
    free( current );
    
    fclose(yyin);
    fclose(yyout);
-   
+   destroyTree( root );
    return 0;
 }
 

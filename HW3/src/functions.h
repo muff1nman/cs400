@@ -22,11 +22,18 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "types.h"
+#include <stdio.h>
 
 bool isCharacter( char supplied, char desired );
 
 bool isDigit( char supplied );
 
 bool isCharacter_R( char supplied );
+
+bool isCharacter_EOF( char supplied );
+
+bool anything( char supplied );
+
+bool notStart( char supplied );
 
 #endif

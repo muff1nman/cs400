@@ -33,12 +33,25 @@ int yylex( FlowNode* root, char** start)
         yychar = tokens;
         tokens = 0;
     }
+
+    // do special for EOF
+    if ( yychar == EOF ) {
+        yytext = (char*) malloc( sizeof(char) * 4 );
+        strcpy( yytext, "end");
+        return END;
+    }
     
     while( (next = functionWants( yychar, current )) != NULL ) {
         current = next;
         append( yychar, start);
         //get new character
         yychar = fgetc( yyin );
+        // do special for EOF
+        if ( yychar == EOF ) {
+            yytext = (char*) malloc( sizeof(char) * 4 );
+            strcpy( yytext, "end");
+            return END;
+        }
         // TODO check all input for error.  
     }
 
