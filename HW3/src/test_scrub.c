@@ -29,4 +29,5 @@ int main() {
     printf("Before: %s\n", test );
     scrub( &test );
     printf("After: %s\n", test );
+    return 0;
 }

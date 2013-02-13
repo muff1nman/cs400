@@ -20,10 +20,10 @@ test:
 	diff ../output.tst calc.tkn
 
 test_function:
-	gcc test_function.c functions.c -o test_function.out
+	gcc test_function.c functions.c -o test_function.out -g -Wall
 
 test_scrub:
-	gcc additional.c test_scrub.c -o test_scrub.out
+	gcc additional.c test_scrub.c -o test_scrub.out -g -Wall
 
 clean:
 	@rm -f a.out *.o *.tkn
