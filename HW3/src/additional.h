@@ -20,6 +20,7 @@
 #define ADDITIONAL_H
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 
 void append(char s, char** string);

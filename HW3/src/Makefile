@@ -19,8 +19,11 @@ test:
 	./a.out ../input.txt
 	diff ../output.tst calc.tkn
 
-test_functions:
-	gcc test_function.c functions.c -o test.out
+test_function:
+	gcc test_function.c functions.c -o test_function.out
+
+test_scrub:
+	gcc additional.c test_scrub.c -o test_scrub.out
 
 clean:
 	@rm -f a.out *.o *.tkn
