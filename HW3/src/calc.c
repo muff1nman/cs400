@@ -25,11 +25,6 @@ int yylex( FlowNode* root, char** start)
     int yychar;
     FlowNode* current = root;
     FlowNode* next;
-    static bool done = false;
-
-    if ( done ) {
-        return 0;
-    }
 
     // get only if tokens empty.
     if ( tokens == 0 ) {
@@ -37,11 +32,6 @@ int yylex( FlowNode* root, char** start)
     } else {
         yychar = tokens;
         tokens = 0;
-    }
-
-    // TODO test for EOF and set flag for no more tokens
-    if ( yychar < 0 ) {
-        done = true;
     }
     
     while( (next = functionWants( yychar, current )) != NULL ) {
@@ -52,6 +42,7 @@ int yylex( FlowNode* root, char** start)
         // TODO check all input for error.  
     }
 
+    yytext = "hello";
     // save left over character
     tokens = yychar;
     // populate yytext based on data collected

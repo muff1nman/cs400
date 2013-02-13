@@ -15,6 +15,7 @@ FlowNode* acceptingState( TokenType end_state ){
     final->state = end_state;
     final->arraySize = 0;
     final->transitions = NULL;
+    return final;
 }
 
 FlowNode* init_ID(){
@@ -27,7 +28,7 @@ FlowNode* init_ID(){
     (R->transitions+0)->transition = &isDigit;
     (R->transitions+0)->nextNode = acceptingState( ID );
 
-    return NULL;
+    return R;
 }
 
 FlowNode* initializeTree(){
@@ -40,7 +41,7 @@ FlowNode* initializeTree(){
     (root->transitions+0)->transition = &isCharacter_R;
     (root->transitions+0)->nextNode = init_ID();
 
-    return NULL;
+    return root;
 }
 
 void destroyTree(FlowNode* root){
@@ -57,19 +58,20 @@ void destroyTree(FlowNode* root){
 
 // TODO modify to use the string representation of token and have the token type
 // be the enum TokenType
-int ExportToken(FILE *yyout, int token, char *yytext)
+int ExportToken(FILE *yyout, TokenType token, char *yytext)
 {
-    fprintf(yyout, "<%03i> %s\n", token, ((yytext)? yytext:""));
-    if (yytext)
-       free(yytext);
-    yytext = NULL;
+    fprintf(yyout, "<%s> %s\n", toString(token), ((yytext)? yytext:""));
+    //if (yytext)
+        // TODO
+       //free(yytext);
+    //yytext = NULL;
     return 0;
 }
 
 int yyparse(char const *filename)
 {
    FILE *yyout;
-   int token;
+   TokenType token;
    FlowNode* root = initializeTree();
 
    //initialize current to an empty string
@@ -90,8 +92,9 @@ int yyparse(char const *filename)
       return -2;
    }
 
-   while (token=yylex(root, &current))
-      ExportToken(yyout, token, yytext);
+   while ((token=yylex(root, &current)) != END)
+       ExportToken(yyout, token, yytext);
+   ExportToken(yyout, token, yytext);
 
    destroyTree( root );
    free( current );

@@ -7,7 +7,7 @@ void append(char s, char** string){
     new[strlen(old)] = s;
     new[strlen(old) + 1] = '\0';
     free( old );
-    old = new;
+    *string = new;
     new = NULL;
 }
 
