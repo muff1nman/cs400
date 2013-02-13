@@ -15,6 +15,7 @@ FlowNode* initNode(int paths, TokenType state){
     R->state = state;
     R->arraySize = paths;
     R->transitions = (FunctionNodePair*) malloc( sizeof(FunctionNodePair) * paths );
+    R->markedForDeletion = false;
     // !NOTE! the transitions are not initializaed
     return R;
 }
@@ -24,6 +25,7 @@ FlowNode* acceptingState( TokenType end_state ){
     final->state = end_state;
     final->arraySize = 0;
     final->transitions = NULL;
+    final->markedForDeletion = false;
     return final;
 }
 
@@ -58,9 +60,10 @@ FlowNode* initializeTree(){
 
 void destroyTree(FlowNode* root){
     int i;
+    root->markedForDeletion = true;
     for (i = 0; i < root->arraySize; ++i ){
         // handle recursive
-        if (( root->transitions + i )->nextNode == root ){
+        if (( root->transitions + i )->nextNode->markedForDeletion ){
             // don't do anything because it will get handled soon
         } else {
             destroyTree((root->transitions + i)->nextNode);

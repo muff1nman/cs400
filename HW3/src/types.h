@@ -50,6 +50,7 @@ struct FlowNode{
     TokenType state;
     size_t arraySize;
     FunctionNodePair* transitions;
+    bool markedForDeletion; // Note this is a workaround so I don't have to implement a tree traversal algorithm :P
 };
 
 #endif
