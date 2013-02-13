@@ -61,10 +61,9 @@ void destroyTree(FlowNode* root){
 int ExportToken(FILE *yyout, TokenType token, char *yytext)
 {
     fprintf(yyout, "<%s> %s\n", toString(token), ((yytext)? yytext:""));
-    //if (yytext)
-        // TODO
-       //free(yytext);
-    //yytext = NULL;
+    if (yytext)
+       free(yytext);
+    yytext = NULL;
     return 0;
 }
 

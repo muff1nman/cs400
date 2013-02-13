@@ -42,11 +42,17 @@ int yylex( FlowNode* root, char** start)
         // TODO check all input for error.  
     }
 
-    yytext = "hello";
     // save left over character
     tokens = yychar;
     // populate yytext based on data collected
+    yytext = (char*) malloc( sizeof(char) * strlen(*start) + 1 );
     strcpy( yytext, *start );
+
+    // empty *start
+    free(*start);
+    *start = (char*) malloc(sizeof(char));
+    **start = '\0';
+    
     // get the token from the current
     return current->state;
 }
