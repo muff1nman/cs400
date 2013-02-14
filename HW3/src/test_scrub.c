@@ -20,14 +20,22 @@
 #include "additional.h"
 
 int main() {
-    char* test = (char*) malloc( sizeof(char) * 20 );
-    strcpy( test, "hello");
+    const char* test = "hello!";
+    const char* test2 = "h e@ll\no";
+    char* new_test;
+    //strcpy( test, "hello");
+    //printf("Before: %s\n", test );
+    //scrub( &test );
+    //printf("After: %s\n", test );
     printf("Before: %s\n", test );
-    scrub( &test );
-    printf("After: %s\n", test );
-    strcpy( test, "h l\no");
-    printf("Before: %s\n", test );
-    scrub( &test );
-    printf("After: %s\n", test );
+    new_test = scrub( test );
+    printf("After: %s\n", new_test );
+    free( new_test );
+    new_test = NULL;
+
+    printf("Before: %s\n", test2 );
+    new_test = scrub( test2 );
+    printf("After: %s\n", new_test );
+    free( new_test );
     return 0;
 }

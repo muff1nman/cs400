@@ -27,7 +27,7 @@ void append(char s, char** string);
 
 // edits the string to adhere to the doc conventions for non-graphical
 // characters.
-void scrub( char** string );
+char* scrub(const char* string );
 
 bool isGraphical( char x );
 
