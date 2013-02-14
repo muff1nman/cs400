@@ -17,7 +17,7 @@ additional.o : additional.h additional.c
 
 test:
 	./a.out ../input.txt
-	diff ../output.tst calc.tkn
+	diff -y ../output.tst calc.tkn
 
 test_function:
 	gcc test_function.c functions.c -o test_function.out -g -Wall

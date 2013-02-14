@@ -25,10 +25,13 @@ int yylex( FlowNode* root, char** start)
     int yychar;
     FlowNode* current = root;
     FlowNode* next;
+    // TODO remove:  hours
+    static int chars = 0;
 
     // get only if tokens empty.
     if ( tokens == 0 ) {
         yychar = fgetc( yyin );
+        ++chars;
     } else {
         yychar = tokens;
         tokens = 0;
@@ -46,6 +49,7 @@ int yylex( FlowNode* root, char** start)
         append( yychar, start);
         //get new character
         yychar = fgetc( yyin );
+        ++chars;
         // do special for EOF
         if ( yychar == EOF ) {
             yytext = (char*) malloc( sizeof(char) * 4 );
@@ -63,7 +67,7 @@ int yylex( FlowNode* root, char** start)
     free(*start);
     *start = (char*) malloc(sizeof(char));
     **start = '\0';
-    
+    printf("numchars: %i\n", chars );
     // get the token from the current
     return current->state;
 }

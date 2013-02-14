@@ -46,4 +46,26 @@ bool isCharacterStar( char supplied );
 
 bool isNotCharacter_EOF( char supplied );
 
+bool isPeriod( char supplied );
+
+bool isPlusMinus( char supplied );
+
+bool isCharacter_E( char supplied );
+
+bool isCharacterCP( char supplied );
+
+bool isCharacterOP( char supplied );
+
+bool isCharacterNewline( char supplied );
+
+bool isCharacterPlus( char supplied );
+
+bool isCharacterMinus( char supplied );
+
+bool isCharacterSemi( char supplied );
+
+bool isCharacterEXP( char supplied );
+
+bool isCharacterEquals( char supplied );
+
 #endif

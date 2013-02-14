@@ -77,8 +77,57 @@ FlowNode* init_DIV(){
     return node;
 }
 
+FlowNode* initLeftINT() {
+    FlowNode* node = initNode(1, BAD);
+    // we will take care of children in the call to initCenter
+    return node;
+}
+
+FlowNode* initRightINT() {
+    FlowNode* node = initNode( 3, INT );
+    // we will take care of children in the call to initCenter
+    return node;
+}
+
+// no return FlowNode* here because this function is already linked to the Right
+// and Left nodes
+void initCenterINT( FlowNode* leftchild, FlowNode* rightchild ) {
+    FlowNode* fltNoE = initNode( 2, FLT );
+    FlowNode* fltWithE = initNode( 1, FLT );
+    FlowNode* intermediateE = initNode( 2, BAD );
+    FlowNode* intermediatePlusMinus = initNode( 1, BAD );
+
+    (leftchild->transitions+0)->transition = &isDigit;
+    (leftchild->transitions+0)->nextNode = fltNoE;
+
+    (rightchild->transitions+0)->transition = &isPeriod;
+    (rightchild->transitions+0)->nextNode = fltNoE;
+    (rightchild->transitions+1)->transition = &isDigit;
+    (rightchild->transitions+1)->nextNode = rightchild;
+    (rightchild->transitions+2)->transition = &isCharacter_E;
+    (rightchild->transitions+2)->nextNode = intermediateE;
+
+    (fltNoE->transitions+0)->transition = &isDigit;
+    (fltNoE->transitions+0)->nextNode = fltNoE;
+    (fltNoE->transitions+1)->transition = &isCharacter_E;
+    (fltNoE->transitions+1)->nextNode = intermediateE;
+
+    (intermediateE->transitions+0)->transition = &isDigit;
+    (intermediateE->transitions+0)->nextNode = fltWithE;
+    (intermediateE->transitions+1)->transition = &isPlusMinus;
+    (intermediateE->transitions+1)->nextNode = intermediatePlusMinus;
+
+    (intermediatePlusMinus->transitions+0)->transition = &isDigit;
+    (intermediatePlusMinus->transitions+0)->nextNode = fltWithE;
+
+    (fltWithE->transitions+0)->transition = &isDigit;
+    (fltWithE->transitions+0)->nextNode = fltWithE;
+
+}
+
 FlowNode* initializeTree(){
-    FlowNode* root = initNode( 4, BAD );
+    // TODO CHECK ALL MALOCS
+    FlowNode* root = initNode( 16, BAD );
 
     (root->transitions+0)->transition = &isCharacter_R;
     (root->transitions+0)->nextNode = init_ID();
@@ -89,13 +138,49 @@ FlowNode* initializeTree(){
     (root->transitions+2)->transition = &isCharacter_slash;
     (root->transitions+2)->nextNode = init_DIV();
 
-    (root->transitions+3)->transition = &notStart;
-    (root->transitions+3)->nextNode = init_BAD();
+    (root->transitions+3)->transition = &isDigit;
+    (root->transitions+3)->nextNode = initRightINT();
+
+    (root->transitions+4)->transition = &isPeriod;
+    (root->transitions+4)->nextNode = initLeftINT();
+
+    initCenterINT( (root->transitions+4)->nextNode, (root->transitions+3)->nextNode);
+
+    (root->transitions+5)->transition = &isCharacterOP;
+    (root->transitions+5)->nextNode = acceptingState( OPAREN );
+
+    (root->transitions+6)->transition = &isCharacterCP;
+    (root->transitions+6)->nextNode = acceptingState( CPAREN );
+
+    (root->transitions+7)->transition = &isCharacterNewline;
+    (root->transitions+7)->nextNode = acceptingState( NEWLINE );
+
+    (root->transitions+9)->transition = &isCharacterStar;
+    (root->transitions+9)->nextNode = acceptingState( MUL );
+
+    (root->transitions+10)->transition = &isCharacterEquals;
+    (root->transitions+10)->nextNode = acceptingState( ASSIGN );
+
+    (root->transitions+11)->transition = &isCharacterEXP;
+    (root->transitions+11)->nextNode = acceptingState( EXP );
+
+    (root->transitions+12)->transition = &isCharacterPlus;
+    (root->transitions+12)->nextNode = acceptingState( ADD );
+
+    (root->transitions+13)->transition = &isCharacterMinus;
+    (root->transitions+13)->nextNode = acceptingState( SUB );
+
+    (root->transitions+14)->transition = &isCharacterSemi;
+    (root->transitions+14)->nextNode = acceptingState( SEMI );
+
+    (root->transitions+15)->transition = &notStart;
+    (root->transitions+15)->nextNode = init_BAD();
 
     return root;
 }
 
 void destroyTree(FlowNode* root){
+    printf("Destroying Node");
     int i;
     root->markedForDeletion = true;
     for (i = 0; i < root->arraySize; ++i ){

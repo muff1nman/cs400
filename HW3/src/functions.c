@@ -30,18 +30,18 @@ bool anything( char supplied ) {
 
 bool notStart( char supplied ){
     return !isCharacter( supplied, 'R') &&
-//        !isCharacter( supplied, '(') &&
-//        !isCharacter( supplied, ')') &&
-//        !isCharacter( supplied, '=') &&
-//        !isCharacter( supplied, '^') &&
-//        !isCharacter( supplied, '*') &&
+        !isCharacter( supplied, '(') &&
+        !isCharacter( supplied, ')') &&
+        !isCharacter( supplied, '=') &&
+        !isCharacter( supplied, '^') &&
+        !isCharacter( supplied, '*') &&
         !isCharacter( supplied, '/') &&
-//        !isCharacter( supplied, '+') &&
-//        !isCharacter( supplied, '-') &&
-//        !isCharacter( supplied, ';') &&
-//        !isCharacter( supplied, '.') &&
-//        !isCharacter( supplied, '\n') &&
- //       !isDigit( supplied ) && 
+        !isCharacter( supplied, '+') &&
+        !isCharacter( supplied, '-') &&
+        !isCharacter( supplied, ';') &&
+        !isCharacter( supplied, '.') &&
+        !isCharacter( supplied, '\n') &&
+        !isDigit( supplied ) && 
         !isCharacter_EOF( supplied );
 }
 
@@ -59,4 +59,50 @@ bool isCharacterStar( char supplied ) {
 
 bool isNotCharacter_EOF( char supplied ) {
     return !isCharacter_EOF( supplied );
+}
+
+bool isPeriod( char supplied ) {
+    return isCharacter( supplied, '.' );
+}
+
+bool isCharacter_E( char supplied ) {
+    return isCharacter( supplied, 'E' )
+        || isCharacter( supplied, 'e' );
+}
+
+bool isPlusMinus( char supplied ) {
+    return isCharacter( supplied, '+') ||
+        isCharacter( supplied, '-' );
+}
+
+bool isCharacterCP( char supplied ){
+    return isCharacter( supplied, ')');
+}
+
+bool isCharacterOP( char supplied ){
+    return isCharacter( supplied, '(' );
+}
+
+bool isCharacterNewline( char supplied ) {
+    return isCharacter( supplied, '\n');
+}
+
+bool isCharacterPlus( char supplied ){
+    return isCharacter( supplied, '+');
+}
+
+bool isCharacterMinus( char supplied ){
+    return isCharacter( supplied, '-' );
+}
+
+bool isCharacterSemi( char supplied ){
+    return isCharacter( supplied, ';');
+}
+
+bool isCharacterEXP( char supplied ){
+    return isCharacter( supplied, '^');
+}
+
+bool isCharacterEquals( char supplied ) {
+    return isCharacter( supplied, '=' );
 }
