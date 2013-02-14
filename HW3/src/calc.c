@@ -57,11 +57,10 @@ int yylex( FlowNode* root, char** start)
 
     // save left over character
     tokens = yychar;
-    scrub( start );
     // populate yytext based on data collected
-    free(yytext);
-    yytext = (char*) malloc( sizeof(char) * (strlen(*start) + 1 ));
-    strcpy( yytext, *start );
+    //yytext = scrub( *start );
+    yytext = (char*) malloc( sizeof(char) * (1 + strlen(*start)));
+    strcpy( yytext, *start);
     // empty *start
     free(*start);
     *start = (char*) malloc(sizeof(char));

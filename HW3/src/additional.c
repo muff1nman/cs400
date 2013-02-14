@@ -19,8 +19,8 @@ char* scrub( const char* string ) {
     char* newstr;
     // how much larger is the string going to be?
     for ( i = 0; i<oldlen; ++i ){
-        if ( isGraphical( string[i] ) ){
-            ++i;
+        if ( !isGraphical( string[i] ) ){
+            ++charsChanged;
         }
     }
 
@@ -29,22 +29,14 @@ char* scrub( const char* string ) {
     // copy that shit over
     for( i = 0, j = 0; i<oldlen; ++i, ++j ){
         if ( !isGraphical( string[i] )){
-            printf("%i ",j); 
-            printf("%i ",j+1); 
-            printf("%i ",j+2); 
             newstr[j] = '#';
-            // WARNING, TODO: does not check for overflow here!! Assumes only a
-            // two digit integer
-            //itoa((int) string[i], (newstr + j + 1), 10);
             snprintf( (newstr + j + 1), 3,"%02x", (int) string[i]);
             j +=2; // we moved forward two spaces.
         } else {
-            printf("%i ",j); 
             newstr[j] =(char) string[i];
         }
     }
 
-    printf(" null: %i ",j); 
     // don't forget the null character
     newstr[j] = '\0';
 

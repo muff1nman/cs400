@@ -35,7 +35,7 @@ bool notStart( char supplied ){
 //        !isCharacter( supplied, '=') &&
 //        !isCharacter( supplied, '^') &&
 //        !isCharacter( supplied, '*') &&
-//        !isCharacter( supplied, '/') &&
+        !isCharacter( supplied, '/') &&
 //        !isCharacter( supplied, '+') &&
 //        !isCharacter( supplied, '-') &&
 //        !isCharacter( supplied, ';') &&
@@ -43,4 +43,20 @@ bool notStart( char supplied ){
 //        !isCharacter( supplied, '\n') &&
  //       !isDigit( supplied ) && 
         !isCharacter_EOF( supplied );
+}
+
+bool isCharacter_slash( char supplied ) {
+    return isCharacter( supplied, '/');
+}
+
+bool isAnythingbutEOFNEW( char supplied ) {
+    return !isCharacter_EOF( supplied ) && !isCharacter( supplied, '\n' );
+}
+
+bool isCharacterStar( char supplied ) {
+    return isCharacter( supplied, '*' );
+}
+
+bool isNotCharacter_EOF( char supplied ) {
+    return !isCharacter_EOF( supplied );
 }

@@ -24,6 +24,8 @@
 #include "types.h"
 #include <stdio.h>
 
+// THIS WOULD BE SOOO MUCH EASIER WITH TEMPLATES!
+
 bool isCharacter( char supplied, char desired );
 
 bool isDigit( char supplied );
@@ -32,8 +34,16 @@ bool isCharacter_R( char supplied );
 
 bool isCharacter_EOF( char supplied );
 
+bool isCharacter_slash( char supplied );
+
 bool anything( char supplied );
 
 bool notStart( char supplied );
+
+bool isAnythingbutEOFNEW( char supplied );
+
+bool isCharacterStar( char supplied );
+
+bool isNotCharacter_EOF( char supplied );
 
 #endif

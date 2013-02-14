@@ -43,8 +43,42 @@ FlowNode* init_BAD() {
     return R;
 }
 
+FlowNode* init_DIV(){
+    FlowNode* node = initNode(2, DIV );
+    FlowNode* eolcmt = initNode(1, EOLCMT );
+    FlowNode* blkcmt = initNode(2, BAD );
+    FlowNode* blkcmt_mid = initNode(3, BAD);
+
+    (node->transitions+0)->transition = &isCharacter_slash;
+    (node->transitions+0)->nextNode = eolcmt;
+
+    (node->transitions+1)->transition = &isCharacterStar;
+    (node->transitions+1)->nextNode = blkcmt;
+
+    (eolcmt->transitions+0)->transition = &isAnythingbutEOFNEW;
+    (eolcmt->transitions+0)->nextNode = eolcmt;
+
+    (blkcmt->transitions+0)->transition = &isCharacterStar;
+    (blkcmt->transitions+0)->nextNode = blkcmt_mid;
+
+    // possibly route to EOF bad
+    (blkcmt->transitions+1)->transition = &isNotCharacter_EOF;
+    (blkcmt->transitions+1)->nextNode = blkcmt;
+
+    (blkcmt_mid->transitions+0)->transition = &isCharacterStar;
+    (blkcmt_mid->transitions+0)->nextNode = blkcmt_mid;
+
+    (blkcmt_mid->transitions+1)->transition = &isCharacter_slash;
+    (blkcmt_mid->transitions+1)->nextNode = acceptingState( BLKCMT );
+
+    (blkcmt_mid->transitions+2)->transition = &anything;
+    (blkcmt_mid->transitions+2)->nextNode = blkcmt;
+
+    return node;
+}
+
 FlowNode* initializeTree(){
-    FlowNode* root = initNode( 3, BAD );
+    FlowNode* root = initNode( 4, BAD );
 
     (root->transitions+0)->transition = &isCharacter_R;
     (root->transitions+0)->nextNode = init_ID();
@@ -52,8 +86,11 @@ FlowNode* initializeTree(){
     (root->transitions+1)->transition = &isCharacter_EOF;
     (root->transitions+1)->nextNode = acceptingState( END );
 
-    (root->transitions+2)->transition = &notStart;
-    (root->transitions+2)->nextNode = init_BAD();
+    (root->transitions+2)->transition = &isCharacter_slash;
+    (root->transitions+2)->nextNode = init_DIV();
+
+    (root->transitions+3)->transition = &notStart;
+    (root->transitions+3)->nextNode = init_BAD();
 
     return root;
 }
@@ -81,7 +118,7 @@ void destroyTree(FlowNode* root){
 int ExportToken(FILE *yyout, TokenType token, char *yytext)
 {
     fprintf(yyout, "<%s> %s\n", toString(token), ((yytext)? yytext:""));
-    if (yytext)
+    if (NULL != yytext)
        free(yytext);
     yytext = NULL;
     return 0;
