@@ -18,10 +18,17 @@
                                            (define inputted_num (string->number (read-line
                                                                   (current-input-port))))
                                            (if (not(number? inputted_num))
-                                             (getRow) inputted_num))
+                                             ((printf "Not a number\n")(getRow)) 
+                                             inputted_num))
 
                             (define/public (getSticks)
-                                             1)))
+                                           (printf "Please the number of@;
+                                                   sticks to take: ")
+                                           (define inputted_num (string->number (read-line
+                                                                  (current-input-port))))
+                                           (if (not(number? inputted_num))
+                                             ((printf "Not a number\n")(getSticks))
+                                             inputted_num))))
 
 (provide RandomPlayer%)
 (define RandomPlayer% (class* Identifier% (Player)

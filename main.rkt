@@ -31,8 +31,8 @@
 (define (getRow board player )
   (define row_i (send player getRow ))
   (if (isValidRowIndex? board row_i ) 
-    row_i 
-    ((printf "Not valid row\n" )(getRow board player))))
+    ((printf "here?" ) row_i )
+    ((printf "Not valid row\n" ) (getRow board player))))
 
 (define (getSticks board player row_i)
   (define num_sticks (send player getSticks ))
@@ -43,6 +43,7 @@
 
 (define (NIM board players )
   (define row_i (getRow board (first players)))
+  (printf "Here?")
   (define n_sticks (getSticks board (first players) row_i))
   (define newBoard (removeFromBoard board row_i n_sticks))
   (if (isEndGame? newBoard ) 
