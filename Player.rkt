@@ -40,11 +40,15 @@
                             (init id name)
                             (super-new [id id] [name name])
 
+                            ; Note that the RandomPlayer does not know what rows
+                            ; are empty so may choose an invalid row
                             (define/public (getRow board)
                                            (+ 1 (random (length board) )))
 
                             (define/public (getSticks board rowChosen)
-                                             1)))
+                                             (+ 1 (random 
+                                                    (length 
+                                                      (list-ref board (- rowChosen 1))))))))
 
 ; BEGIN AI FUNCTIONALITY
 
