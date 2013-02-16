@@ -2,4 +2,8 @@
 #lang racket
 
 (define (NIM board players )
-  (print "Playing Game"))
+  (printf "Playing Game\n"))
+
+(define some_board "")
+(define players (list "" ""))
+(NIM some_board players)
