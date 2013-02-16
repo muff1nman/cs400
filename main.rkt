@@ -36,6 +36,9 @@
   ; possible security issue here.. but not really sure how rackets printf works
   (printf "~a is next.\n" (get-field name player)))
 
+(define (displayChoices row sticks )
+  (printf "Player is removing ~a sticks from row ~a!\n" sticks row ))
+
 (define (removeFromBoard board row_index sticks )
   (if (= (length board) 0) board 
     (if (eq? row_index 1) 
@@ -74,6 +77,7 @@
   (displayPlayerNext (first players ))
   (define row_i (getRow board (first players)))
   (define n_sticks (getSticks board (first players) row_i))
+  (displayChoices row_i n_sticks )
   (define newBoard (removeFromBoard board row_i n_sticks))
   (if (isEndGame? newBoard ) 
     ((lambda (board) (printf "Done!\n") (displayGameBoard board) "Who won?") newBoard )
