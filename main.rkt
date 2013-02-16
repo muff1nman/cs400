@@ -67,7 +67,7 @@
      board player)))
 
 (define (getSticks board player row_i)
-  (define num_sticks (send player getSticks board))
+  (define num_sticks (send player getSticks board row_i))
   (if (isValidNumSticks? board row_i num_sticks) 
     num_sticks 
     ( (lambda (board player row_i) 
