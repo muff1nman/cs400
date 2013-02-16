@@ -3,12 +3,13 @@
 
 (require "Player.rkt")
 
-; test for end game
-(define (isEndGame? board )
-  (ormap isValidRow? board ))
-
+; test that row still has pieces left
 (define (isValidRow? row )
   (> (length row) 0))
+
+; test for end game
+(define (isEndGame? board )
+  (not(ormap isValidRow? board )))
 
 ; a valid row is one that has at least one stick 
 (define (isValidRowIndex? board row_index )
@@ -18,15 +19,19 @@
     (isValidRow? (list-ref board row_index))))
 
 ; a valid number of sticks is when the number of sticks is equal to or less than
-; the number of sticks in the given row 
+; the number of sticks in the given row  and positive
 (define (isValidNumSticks? board row_index sticks)
-  #f)
+  (and (positive? sticks) (<= sticks (length (list-ref board row_index)) )))
 
 (define (displayGameBoard board )
   (printf "Displaying game board\n" ))
 
+(define (displayPlayerNext player )
+  ; possible security issue here.. but not really sure how rackets printf works
+  (printf "~a is next.\n" (get-field name player)))
+
 (define (removeFromBoard board row sticks )
-  (printf "Removed stuff\n"))
+  board)
 
 (define (getRow board player )
   (define row_i (send player getRow ))
@@ -46,16 +51,18 @@
         (getSticks board player row_i )) 
      board player row_i)))
 
-
+; assumes there is only two players (see reverse)
 (define (NIM board players )
+  (displayGameBoard board )
+  (displayPlayerNext (first players ))
   (define row_i (getRow board (first players)))
   (define n_sticks (getSticks board (first players) row_i))
   (define newBoard (removeFromBoard board row_i n_sticks))
   (if (isEndGame? newBoard ) 
     (printf "Done!\n")  
-    ((printf "Not Done..\n") (NIM newBoard (reverse players)))))
+    (NIM newBoard (reverse players))))
 
-(define some_board (list '(x x x) '(x) '(x x) ) )
+(define some_board (list '(x x x) '(x x x) '(x x) ) )
 (define players (list (new HumanPlayer% [id 1] [name "Player 1"]) 
                       (new AIPlayer% [id 2] [name "Player 2"] )))
 
