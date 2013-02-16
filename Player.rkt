@@ -18,7 +18,7 @@
                                            (define inputted_num (string->number (read-line
                                                                   (current-input-port))))
                                            (if (not(number? inputted_num))
-                                             ((printf "Not a number\n")(getRow)) 
+                                             ( (lambda () (printf "Not a number\n")(getRow)))
                                              inputted_num))
 
                             (define/public (getSticks)
@@ -26,7 +26,7 @@
                                            (define inputted_num (string->number (read-line
                                                                   (current-input-port))))
                                            (if (not(number? inputted_num))
-                                             ((printf "Not a number\n")(getSticks))
+                                             ( (lambda () (printf "Not a number\n")(getSticks)))
                                              inputted_num))))
 
 (provide RandomPlayer%)

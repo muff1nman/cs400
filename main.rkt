@@ -32,18 +32,23 @@
   (define row_i (send player getRow ))
   (if (isValidRowIndex? board row_i ) 
     row_i 
-    ((printf "Invalid row index\n") (getRow board player))))
+    ((lambda (board player) 
+       (printf "Invalid row index\n") 
+       (getRow board player))
+     board player)))
 
 (define (getSticks board player row_i)
   (define num_sticks (send player getSticks ))
   (if (isValidNumSticks? board row_i num_sticks) 
     num_sticks 
-    ((printf "Not a valid number of sticks\n")(getSticks board player row_i ))))
+    ( (lambda (board player row_i) 
+        (printf "Not a valid number of sticks\n")
+        (getSticks board player row_i )) 
+     board player row_i)))
 
 
 (define (NIM board players )
   (define row_i (getRow board (first players)))
-  (printf "Here?")
   (define n_sticks (getSticks board (first players) row_i))
   (define newBoard (removeFromBoard board row_i n_sticks))
   (if (isEndGame? newBoard ) 
