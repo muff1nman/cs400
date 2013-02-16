@@ -21,8 +21,9 @@
 ; a valid number of sticks is when the number of sticks is equal to or less than
 ; the number of sticks in the given row  and positive
 (define (isValidNumSticks? board row_index sticks)
-  (and (positive? sticks) (<= sticks (length (list-ref board (- row_index 1))
-                                             ))))
+  (and 
+    (positive? sticks) 
+    (<= sticks (length (list-ref board (- row_index 1))))))
 
 (define (displayRow row label )
   (printf "Row ~a: ~a\n" label (string-join (map symbol->string row) " "))
@@ -75,7 +76,7 @@
   (define n_sticks (getSticks board (first players) row_i))
   (define newBoard (removeFromBoard board row_i n_sticks))
   (if (isEndGame? newBoard ) 
-    (printf "Done!\n")  
+    ((lambda (board) (printf "Done!\n") (displayGameBoard board) "Who won?") newBoard )
     (NIM newBoard (reverse players))))
 
 (define some_board (list '(x x x) '(x x x) '(x x) ) )
