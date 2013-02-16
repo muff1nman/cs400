@@ -41,10 +41,39 @@
                             (super-new [id id] [name name])
 
                             (define/public (getRow board)
-                                             1)
+                                           (+ 1 (random (length board) )))
 
                             (define/public (getSticks board)
                                              1)))
+
+(define (rowBitSum arrayInts )
+  (foldr 
+    (lambda (x sum )
+      (bitwise-xor sum x ))
+    0
+    arrayInts))
+
+(define (nimSum board)
+  (rowBitSum (map length board )))
+
+(define (isHeapDecrease? row sum)
+  (< (bitwise-xor sum (length row)) (length row)))
+
+(define (heapDifference row sum)
+  (- (length row) (bitwise-xor sum (length row)) ))
+
+; returns an index to the row. current can be either zero or one for indexing
+(define (findHeap board current nimSum)
+  (if (= 0 (length board )) (- current 1)
+    (if (isHeapDecrease? (first board) nimSum) 
+      current 
+      (findHeap (rest board) (+ 1 current) nimSum))))
+
+; returns the number of sticks to remove
+(provide findNumberSticks)
+(define (findNumberSticks board)
+  (define optimal (heapDifference (list-ref board (- (findHeap board 0 (nimSum board)) 0)) (nimSum board)))
+  (if (positive? optimal) optimal 1))
 
 (provide AIPlayer%)
 (define AIPlayer% (class* Identifier% (Player)
@@ -52,7 +81,7 @@
                             (super-new [id id] [name name])
 
                             (define/public (getRow board)
-                                             1)
+                                           (findHeap board 1 (nimSum board)))
 
                             (define/public (getSticks board)
-                                             1)))
+                                             (findNumberSticks board))))
