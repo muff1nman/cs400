@@ -23,8 +23,12 @@
 (define (isValidNumSticks? board row_index sticks)
   (and (positive? sticks) (<= sticks (length (list-ref board row_index)) )))
 
+(define (displayRow row label )
+  (printf "Row ~a: ~a\n" label (string-join (map symbol->string row) " "))
+  (+ label 1))
+
 (define (displayGameBoard board )
-  (printf "Displaying game board\n" ))
+  (foldl displayRow 1 board ))
 
 (define (displayPlayerNext player )
   ; possible security issue here.. but not really sure how rackets printf works
