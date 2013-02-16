@@ -34,6 +34,11 @@
                                                  (getSticks board rowChosen))
                                               board )
                                              inputted_num))))
+; BEGIN RANDOM FUNCTIONALITY
+(define (randomRow board [randgen (make-pseudo-random-generator)])
+  (+ 1 (random (length board) randgen)))
+
+; END RANDOM FUNCTIONALITY
 
 (provide RandomPlayer%)
 (define RandomPlayer% (class* Identifier% (Player)
@@ -44,7 +49,7 @@
                             ; Note that the RandomPlayer does not know what rows
                             ; are empty so may choose an invalid row
                             (define/public (getRow board)
-                                           (+ 1 (random (length board) randGen )))
+                                           (randomRow board randGen))
 
                             (define/public (getSticks board rowChosen)
                                              (+ 1 (random 
@@ -71,14 +76,14 @@
   (- (length row) (bitwise-xor sum (length row)) ))
 
 ; returns an index to the row. current can be either zero or one for indexing
-(define (findHeap board current nimSum)
-  (if (= 0 (length board )) (- current 1)
+; if an optimal index cannot be determined, return a random row
+(define (findHeap board sameboard current nimSum )
+  (if (= 0 (length board )) (randomRow sameboard)
     (if (isHeapDecrease? (first board) nimSum) 
       current 
-      (findHeap (rest board) (+ 1 current) nimSum))))
+      (findHeap (rest board) sameboard (+ 1 current) nimSum))))
 
 ; returns the number of sticks to remove
-(provide findNumberSticks)
 (define (findNumberSticks board)
   ; so a little explaining:  The optimal number of sticks to remove is the
   ; difference between the original number of sticks in the optimal row and the
@@ -86,7 +91,7 @@
   ; indexing given to findHeap and in the getRow method.  This is because we would
   ; like to return a 1 based index in the getRow method like a human would but for
   ; dealing with the board functions such as list-ref require zero based indexing
-  (define optimal (heapDifference (list-ref board (- (findHeap board 0 (nimSum board)) 0)) (nimSum board)))
+  (define optimal (heapDifference (list-ref board (- (findHeap board board 1 (nimSum board)) 1)) (nimSum board)))
   (if (positive? optimal) optimal 1))
 
 ; END AI FUNCTIONALITY
@@ -97,7 +102,7 @@
                             (super-new [id id] [name name])
 
                             (define/public (getRow board)
-                                           (findHeap board 1 (nimSum board)))
+                                           (findHeap board board 1 (nimSum board)))
 
                             (define/public (getSticks board rowChosen)
                                              (findNumberSticks board))))

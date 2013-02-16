@@ -89,11 +89,12 @@
        (printf "\n======================\n")
        (printf "Game Over!\n") 
        (displayGameBoard board) 
-       (printf "~a Won!\n" (get-field name (first players)))) newBoard )
+       (printf "~a Won!\n" (get-field name (first players)))
+       (get-field id (first players))) newBoard )
     (NIM newBoard (reverse players))))
 
 (define some_board (list '(x x x) '(x x x) '(x x) ) )
-(define players (list (new RandomPlayer% [id 1] [name "Player 1"]) 
+(define players (list (new HumanPlayer% [id 1] [name "Player 1"]) 
                       (new AIPlayer% [id 2] [name "Player 2"] )))
 
 (NIM some_board players)
