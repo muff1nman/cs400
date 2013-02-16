@@ -14,14 +14,15 @@
 ; a valid row is one that has at least one stick 
 (define (isValidRowIndex? board row_index )
   (and 
-    (< row_index (length board)) 
+    (<= row_index (length board)) 
     (positive? row_index) 
-    (isValidRow? (list-ref board row_index))))
+    (isValidRow? (list-ref board (- row_index 1)))))
 
 ; a valid number of sticks is when the number of sticks is equal to or less than
 ; the number of sticks in the given row  and positive
 (define (isValidNumSticks? board row_index sticks)
-  (and (positive? sticks) (<= sticks (length (list-ref board row_index)) )))
+  (and (positive? sticks) (<= sticks (length (list-ref board (- row_index 1))
+                                             ))))
 
 (define (displayRow row label )
   (printf "Row ~a: ~a\n" label (string-join (map symbol->string row) " "))
@@ -34,8 +35,19 @@
   ; possible security issue here.. but not really sure how rackets printf works
   (printf "~a is next.\n" (get-field name player)))
 
-(define (removeFromBoard board row sticks )
-  board)
+(define (removeFromBoard board row_index sticks )
+  (if (= (length board) 0) board 
+    (if (eq? row_index 1) 
+      (cons 
+        (removeFromRow (first board) sticks ) 
+        (removeFromBoard (rest board) (- row_index 1) sticks))
+      (cons 
+        (first board) 
+        (removeFromBoard (rest board) (- row_index 1) sticks)))))
+
+(define (removeFromRow row sticks)
+  (if (<  (length row) 1) row 
+    (if (<= sticks 0 ) row (removeFromRow (rest row ) (- sticks 1) ))))
 
 (define (getRow board player )
   (define row_i (send player getRow ))
