@@ -1,23 +1,15 @@
 #lang racket
 
-(provide Player)
-(define Player "")
-
 (provide Identifier%)
 (define Identifier% (class object%
-                            (init given_id given_name)
-                            (define id given_id)
-                            (define name given_name)
+                            (init-field id name)
+                            (super-new)))
 
-                            (super-new)
-
-                            (define/public (get_id)
-                                           id)
-
-                            (define/public (get_name)
-                                           name)))
+(provide Player)
+(define Player (interface () getRow getSticks ))
 
 (provide HumanPlayer%)
 (define HumanPlayer% (class Identifier%
-                            (super-new)))
+                            (init id name)
+                            (super-new [id id] [name name])))
 
