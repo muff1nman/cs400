@@ -31,8 +31,8 @@
 (define (getRow board player )
   (define row_i (send player getRow ))
   (if (isValidRowIndex? board row_i ) 
-    ((printf "here?" ) row_i )
-    ((printf "Not valid row\n" ) (getRow board player))))
+    row_i 
+    ((printf "Invalid row index\n") (getRow board player))))
 
 (define (getSticks board player row_i)
   (define num_sticks (send player getSticks ))

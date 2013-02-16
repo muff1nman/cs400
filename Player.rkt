@@ -22,8 +22,7 @@
                                              inputted_num))
 
                             (define/public (getSticks)
-                                           (printf "Please the number of@;
-                                                   sticks to take: ")
+                                           (printf "Please the number of sticks to take: ")
                                            (define inputted_num (string->number (read-line
                                                                   (current-input-port))))
                                            (if (not(number? inputted_num))
