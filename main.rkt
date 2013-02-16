@@ -8,7 +8,7 @@
   (ormap isValidRow? board ))
 
 (define (isValidRow? row )
-  #f)
+  (> (length row) 0))
 
 ; a valid row is one that has at least one stick 
 (define (isValidRowIndex? board row_index )
