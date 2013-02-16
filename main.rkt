@@ -58,7 +58,7 @@
     (if (<= sticks 0 ) row (removeFromRow (rest row ) (- sticks 1) ))))
 
 (define (getRow board player )
-  (define row_i (send player getRow ))
+  (define row_i (send player getRow board))
   (if (isValidRowIndex? board row_i ) 
     row_i 
     ((lambda (board player) 
@@ -67,7 +67,7 @@
      board player)))
 
 (define (getSticks board player row_i)
-  (define num_sticks (send player getSticks ))
+  (define num_sticks (send player getSticks board))
   (if (isValidNumSticks? board row_i num_sticks) 
     num_sticks 
     ( (lambda (board player row_i) 
