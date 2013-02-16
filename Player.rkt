@@ -14,8 +14,33 @@
                             (super-new [id id] [name name])
 
                             (define/public (getRow)
+                                           (printf "Please enter a row: ")
+                                           (define inputted_num (string->number (read-line
+                                                                  (current-input-port))))
+                                           (if (not(number? inputted_num))
+                                             (getRow) inputted_num))
+
+                            (define/public (getSticks)
+                                             1)))
+
+(provide RandomPlayer%)
+(define RandomPlayer% (class* Identifier% (Player)
+                            (init id name)
+                            (super-new [id id] [name name])
+
+                            (define/public (getRow)
                                              1)
 
                             (define/public (getSticks)
                                              1)))
 
+(provide AIPlayer%)
+(define AIPlayer% (class* Identifier% (Player)
+                            (init id name)
+                            (super-new [id id] [name name])
+
+                            (define/public (getRow)
+                                             1)
+
+                            (define/public (getSticks)
+                                             1)))
