@@ -1,0 +1,30 @@
+
+======================
+Player 1 is next.
+Row 1: x x x
+Row 2: x x x
+Row 3: x x
+Player 1 is removing 2 sticks from row 1!
+
+======================
+Player 2 is next.
+Row 1: x
+Row 2: x x x
+Row 3: x x
+Player 2 is removing 1 stick from row 1!
+
+======================
+Player 1 is next.
+Row 1: 
+Row 2: x x x
+Row 3: x x
+Player 1 is removing 1 stick from row 2!
+
+======================
+Player 2 is next.
+Row 1: 
+Row 2: x x
+Row 3: x x
+1 is an invalid row index
+1 is an invalid row index
+1 is an invalid row index
