@@ -66,6 +66,14 @@
        (getRow board player))
      board player row_i)))
 
+(define (validGetRow board row_i)
+  (if (isValidRowIndex? board row_i)
+    row_i
+    ((lambda (board player bad_row)
+       (printf "~a is an invalid row index\n" bad_row) 
+       (getRow board player))
+     board player row_i)))
+
 (define (getSticks board player row_i)
   (define num_sticks (send player getSticks board row_i))
   (if (isValidNumSticks? board row_i num_sticks) 
