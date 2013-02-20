@@ -58,15 +58,9 @@
     (if (<= sticks 0 ) row (removeFromRow (rest row ) (- sticks 1) ))))
 
 (define (getRow board player )
-  (define row_i (send player getRow board))
-  (if (isValidRowIndex? board row_i ) 
-    row_i 
-    ((lambda (board player bad_row) 
-       (printf "~a is an invalid row index\n" bad_row) 
-       (getRow board player))
-     board player row_i)))
+  (validateRow board player (send player getRow board)))
 
-(define (validGetRow board row_i)
+(define (validateRow board player row_i)
   (if (isValidRowIndex? board row_i)
     row_i
     ((lambda (board player bad_row)
@@ -75,13 +69,15 @@
      board player row_i)))
 
 (define (getSticks board player row_i)
-  (define num_sticks (send player getSticks board row_i))
-  (if (isValidNumSticks? board row_i num_sticks) 
-    num_sticks 
+  (validateSticks board player row_i (send player getSticks board row_i)))
+
+(define (validateSticks board player row_i sticks)
+  (if (isValidNumSticks? board row_i sticks) 
+    sticks 
     ( (lambda (board player row_i bad_sticks) 
         (printf "~a is not a valid number of sticks\n" bad_sticks)
         (getSticks board player row_i )) 
-     board player row_i num_sticks)))
+     board player row_i sticks)))
 
 ; assumes there is only two players (see reverse)
 (define (NIM board players )
@@ -102,7 +98,7 @@
     (NIM newBoard (reverse players))))
 
 (define some_board (list '(x x x) '(x x x) '(x x) ) )
-(define players (list (new HumanPlayer% [id 1] [name "Player 1"]) 
+(define players (list (new RandomPlayer% [id 1] [name "Player 1"]) 
                       (new AIPlayer% [id 2] [name "Player 2"] )))
 
 (NIM some_board players)
