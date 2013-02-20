@@ -98,7 +98,7 @@
     (NIM newBoard (reverse players))))
 
 (define some_board (list '(x x x) '(x x x) '(x x) ) )
-(define players (list (new RandomPlayer% [id 1] [name "Player 1"]) 
-                      (new AIPlayer% [id 2] [name "Player 2"] )))
+(define players (list (new RandomPlayer% [id 1] [name "Spontaneous"]) 
+                      (new AIPlayer% [id 2] [name "Robot"] )))
 
 (NIM some_board players)
