@@ -1,0 +1,50 @@
+a) 
+  <stmts> -> <for> 
+          -> <for> <stmts>
+          -> <while>
+          -> <while> <stmts>
+  
+  <for>   -> for( <stmt>; <expr>; <expr> ) { <stmts> }        
+
+  <while> -> while( <expr> ) { <stmts> }
+  
+  <expr>  -> <term> < <term>
+          -> <term> > <term>
+          -> <term> == <term>
+
+b) 
+  <program>
+  main { <stmts> }
+  main { <stmt>; <stmts> }
+  main { <var> = <expr>; <stmts> }
+  main { a = <expr>; <stmts> }
+  main { a = <term>; <stmts> }
+  main { a = const; <stmts> }
+  main { a = const; <stmt>; <stmts> }
+  main { a = const; <var> = <expr>; <stmts> }
+  main { a = const; b = <expr>; <stmts> }
+  main { a = const; b = <term>; <stmts> }
+  main { a = const; b = const; <stmts> }
+  main { a = const; b = const; <stmt>; <stmts> }
+  main { a = const; b = const; <while> }
+  main { a = const; b = const; while( <expr> ) { <stmts> } }
+  main { a = const; b = const; while( <term> < <term> ) { <stmts> } }
+  main { a = const; b = const; while( <var> < <term> ) { <stmts> } }
+  main { a = const; b = const; while( a < <term> ) { <stmts> } }
+  main { a = const; b = const; while( a < const ) { <stmts> } }
+  main { a = const; b = const; while( a < const ) { <stmt>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { <var> = <expr>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = <expr>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = <term> + <term>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = <var> + <term>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = b + <term>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = b + <var>; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = b + a; <stmts> } }
+  main { a = const; b = const; while( a < const ) { b = b + a; <stmt>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; <var> = <expr>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; a = <expr>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; a = <term> - <term>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; a = <var> - <term>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; a = a - <term>; } }
+  main { a = const; b = const; while( a < const ) { b = b + a; a = a - const; } }
+
