@@ -1,0 +1,17 @@
+a) 
+   S -> {b,f,i,j,g},{d,e,h},{a,c,k} CHECK
+   A -> {b},{f,i,j},{g} CHECK 
+   B -> {a},{c},{k} CHECK 
+   C -> {d},{e},{h} CHECK
+   D -> {f},{i},{j} CHECK
+   E -> {c},{d,e,h},{b,f,g,i,j} CHECK
+   
+They are all pairwise disjoint.
+
+b)  a b c d e f j h i g k                  
+  S B A B C C A A C A A B
+  A - - - - - - - - - - -
+  B - - - - - - - - - - -
+  C - - - - - - - - - - -
+  D - - - - - - - - - - - 
+  E - - - - - - - - - - - 
