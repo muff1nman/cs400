@@ -23,12 +23,13 @@ end
 
 def parse (doubleHash, start, stack )
     output = [start]
-    while hasNonTerminal(start) do
+    limit = 40
+    while hasNonTerminal(start) and limit > 0 do
         # record index of nonTerminal
         # look up in doubleHash
         # if it is there, replace it with its value based whats on the stack
         #   and remove from the stack all values that were consumed
-
+        limit -= 1
         nonTerminal = getNonTerminal(start)
         if doubleHash.key? nonTerminal
             hash = doubleHash[nonTerminal]

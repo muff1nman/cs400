@@ -66,5 +66,28 @@ class TestParse < Test::Unit::TestCase
         assert_equal( expected, parse( nonTerminals, "S", "hfhf" ), "Failed simple test with complex tree")
     end
 
+    def test_main_complextree_complexsentence
+        nonTerminals = {
+            "S" => { "a" => "BCS", "b" => "ASE", "c" => "BCS", "d" => "CC", "e" => "CC", "f" => "ASE", "j" => "ASE", "h" => "CC", "i" => "ASE", "g" => "ASE", "k" => "BCS" },
+            "A" => { "b" => "bEC", "f" => "Da", "j" => "Da", "i" => "Da", "g" => "gB" },
+            "B" => { "a" => "aDE", "c" => "cD", "k" => "kAB" },
+            "C" => { "d" => "dEa", "e" => "eS", "h" => "hf" },
+            "D" => { "f" => "fSk", "j" => "jkC", "i" => "iB" },
+            "E" => { "b" => "Aa", "c" => "cb", "d" => "CS", "e" => "CS", "f" => "Aa", "j" => "Aa", "h" => "CS", "i" => "Aa", "g" => "Aa" }
+        }
+
+        expected = [
+            "S", 
+            "ASE",
+            "bECSE",
+            "bcbCSE",
+            "bcbhfSE",
+            "bcbhfCCE",
+            "bcbhfhfCE",
+            "bcbhfhfhfE",
+            "bcbhfhfhfbc" ]
+
+        assert_equal( expected, parse( nonTerminals, "S", "bcbhfhfhfcb" ), "Failed complex test with complex tree")
+    end
 end
         
