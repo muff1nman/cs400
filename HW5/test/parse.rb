@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'test/unit'
-require '../parse.rb'
+require_relative '../parse.rb'
 
 class TestParse < Test::Unit::TestCase
 
