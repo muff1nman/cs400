@@ -25,7 +25,6 @@ b)
   main { a = const; b = <expr>; <stmts> }
   main { a = const; b = <term>; <stmts> }
   main { a = const; b = const; <stmts> }
-  main { a = const; b = const; <stmt>; <stmts> }
   main { a = const; b = const; <while> }
   main { a = const; b = const; while( <expr> ) { <stmts> } }
   main { a = const; b = const; while( <term> < <term> ) { <stmts> } }

@@ -12,19 +12,16 @@ end
 def findTokensExpandedTo( original, new)
     firstIndex = findTokenExpanded( original, new) 
     stopAt = original[firstIndex + 1]
-    secondIndex = firstIndex
-    while ( secondIndex != new.length and stopAt != new[secondIndex] )
-        secondIndex += 1
-    end
-    new[firstIndex...secondIndex]
+    secondIndex = firstIndex + new.length - original.length
+    new[firstIndex..secondIndex]
 end
 
 def replaceIndexWith( array, index, newTokens) 
-    puts "Inside Replace Index With: "
-    puts array.inspect
-    puts index.inspect
-    puts newTokens.inspect
-    puts "......"
+    #puts "Inside Replace Index With: "
+    #puts array.inspect
+    #puts index.inspect
+    #puts newTokens.inspect
+    #puts "......"
 
     if index.length == 1
         newArray = Array.new
@@ -49,8 +46,8 @@ def getDoubleArrayFromFile( file )
 end
 
 def convertDoubleArrayToString( array )
-    puts "Testing convert array to string"
-    puts array.inspect
+    #puts "Testing convert array to string"
+    #puts array.inspect
     string = "["
     array.each do |element|
         string << "#{convertDoubleArrayToString(element)} " if element.kind_of?(Array)
@@ -60,19 +57,19 @@ def convertDoubleArrayToString( array )
 end
 
 def updateTreeStructure( array,indexInsertAt, countOfInsertions )
-    puts "HELP" if array.nil?
-    puts "array: #{array.inspect} end"
-    puts indexInsertAt.inspect
+    #puts "HELP" if array.nil?
+    #puts "array: #{array.inspect} end"
+    #puts indexInsertAt.inspect
     newArray = Array.new(array)
     countOfInsertions.times do
-        puts "Doin THIS #{indexInsertAt}"
-        puts array[indexInsertAt]
+        #puts "Doin THIS #{indexInsertAt}"
+        #puts array[indexInsertAt]
         newArray.insert( indexInsertAt , array[indexInsertAt] )
     end
-    puts "array: #{newArray.inspect} end"
+    #puts "array: #{newArray.inspect} end"
     (1..countOfInsertions).each do |p|
         tempArray = Array.new(newArray[indexInsertAt + p])
-        puts "p = #{p}"
+        #puts "p = #{p}"
         tempArray[-1] = p + array[indexInsertAt][-1]
         tempArray  << 0
         newArray[indexInsertAt + p] =  tempArray
@@ -82,7 +79,7 @@ def updateTreeStructure( array,indexInsertAt, countOfInsertions )
     end
     newArray.delete_at(indexInsertAt)
     #(indexInsertAt..array.length-1).each do 
-    puts "array: #{newArray.inspect} end"
+    #puts "array: #{newArray.inspect} end"
     return newArray
 
 
@@ -97,28 +94,38 @@ def create_array( input )
     oldline = []
 
     input.each do |newline|
-        puts "line:#{line}"
+        #puts "line:#{line}"
         if line == 1
             array << newline[0]
             oldline = newline
-            puts oldline
-            puts "HERE!"
+            #puts oldline
+            #puts "HERE!"
             line += 1
             next
         end
         line += 1
 
+        puts "oldline: #{oldline.inspect} end"
+        puts "newline: #{newline.inspect} end"
+
         indexToReplace = findTokenExpanded( oldline, newline)
-        puts indexToReplace.inspect
+        #puts indexToReplace.inspect
         newTokens = findTokensExpandedTo( oldline, newline )
-        puts array.inspect
+        puts "array: #{array.inspect} end"
+        puts "indexToReplace: #{indexToReplace.inspect} end"
+        puts "treeStructure: #{treeStructure.inspect} end"
+        puts "treeStructure[indexToReplace]: #{treeStructure[indexToReplace].inspect} end"
+        puts "new tokens: #{newTokens.inspect} end"
         array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
-        puts array.inspect
-        puts "tree struct: #{treeStructure.inspect} end"
-        puts "newtokens: #{newTokens.inspect} end"
+        #puts array.inspect
+        #puts "tree struct: #{treeStructure.inspect} end"
+        #puts "newtokens: #{newTokens.inspect} end"
         treeStructure = updateTreeStructure(treeStructure, indexToReplace, newTokens.length)
-        puts "tree struct: #{treeStructure.inspect} end"
-        puts treeStructure[indexToReplace].inspect
+        if treeStructure.length != newline.length
+            abort "Not GOOD!: mismatch of replacement length... did you change only one thing at line number #{line}?"
+        end
+        #puts "tree struct: #{treeStructure.inspect} end"
+        #puts treeStructure[indexToReplace].inspect
         oldline = newline
     end
 

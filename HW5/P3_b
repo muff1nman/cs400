@@ -1,22 +1,3 @@
-a) 
-   S -> {b,f,i,j,g},{d,e,h},{a,c,k} CHECK
-   A -> {b},{f,i,j},{g} CHECK 
-   B -> {a},{c},{k} CHECK 
-   C -> {d},{e},{h} CHECK
-   D -> {f},{i},{j} CHECK
-   E -> {c},{d,e,h},{b,f,g,i,j} CHECK
-   
-They are all pairwise disjoint.
-
-b)
-    a   b   c   d   e   f   j   h   i   g   k                  
-  S BCS ASE BCS CC  CC  ASE ASE CC  ASE ASE BCS
-  A -   bEC -   -   -   Da  Da  -   Da  gB  -  
-  B aDE -   cD  -   -   -   -   -   -   -   kAB
-  C -   -   -   dEa eS  -   -   hf  -   -   -  
-  D -   -   -   -   -   fSk jkC -   iB  -   -   
-  E -   Aa  cb  CS  CS  Aa  Aa  CS  Aa  Aa  -   
-
 S
 A S E 
 D a S E 

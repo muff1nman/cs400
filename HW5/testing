@@ -1,6 +1,17 @@
-<program>
-main { <stmts> }
-main { <stmt> ; <stmts> }
-main { <var> = <expr> ; <stmts> }
-main { a = <expr> ; <stmts> }
-main { a = <term> ; <stmts> }
+S
+A S E 
+D a S E 
+f S k a S E 
+f C C k a S E 
+f d E a C k a S E 
+f d A a a C k a S E 
+f d g B a a C k a S E 
+f d g c D a a C k a S E 
+f d g c j k C a a C k a S E 
+f d g c j k h f a a C k a S E 
+f d g c j k h f a a d E a k a S E 
+f d g c j k h f a a d A a a k a S E 
+f d g c j k h f a a d b E C a a k a S E 
+f d g c j k h f a a d b c b C a a k a S E 
+f d g c j k h f a a d b c b h f a a k a S E 
+f d g c j k h f a a d b c b h f a a k a B C S E 

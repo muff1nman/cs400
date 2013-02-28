@@ -50,6 +50,17 @@ class TestTree < Test::Unit::TestCase
         new = ["main", "{", "<stmt>", "}"]
         expected = 2
         assert_equal( expected, findTokenExpanded( old, new ), "Failed with push with one replace")
+        old = ["f", "d", "g", "c", "j", "k", "h", "f", "a", "a", "d", "b", "c", "b", "h", "f", "a", "a", "k", "a", "S", "E"]
+        new = ["f", "d", "g", "c", "j", "k", "h", "f", "a", "a", "d", "b", "c", "b", "h", "f", "a", "a", "k", "a", "B", "C", "S", "E"]
+        expected = 20
+        assert_equal( expected, findTokenExpanded( old, new ), "Failed with long replace")
+
+        old = ["f", "d", "E", "a", "C", "k", "a", "S", "E"]
+        new = ["f", "d", "A", "a", "a", "C", "k", "a", "S", "E"]
+        expected = 2
+        assert_equal( expected, findTokenExpanded( old, new ), "Failed with long replace")
+
+
     end
 
     def test_firstTokensExpandedTo
@@ -63,6 +74,12 @@ class TestTree < Test::Unit::TestCase
         new =  ["main", "{", "<var>", "<stmts>", "}"]
         expected = ["<var>"]
         assert_equal( expected, findTokensExpandedTo( old, new), "Failed with simple replace");
+
+        old = ["f", "d", "E", "a", "C", "k", "a", "S", "E"]
+        new = ["f", "d", "A", "a", "a", "C", "k", "a", "S", "E"]
+        expected = ["A", "a"]
+        assert_equal( expected, findTokensExpandedTo( old, new), "Failed with complex replace");
+
     end
 
     def test_replaceIndexWith
