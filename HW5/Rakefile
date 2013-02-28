@@ -2,4 +2,5 @@ task :default => [:test]
 
 task :test do
     ruby "test/parse.rb"
+    ruby "test/tree.rb"
 end
