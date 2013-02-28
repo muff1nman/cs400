@@ -45,15 +45,43 @@ def getDoubleArrayFromFile( file )
     array
 end
 
+class Array
+    def depth
+        map {|element| element.depth + 1 }.max
+    end
+end
+
+class Object
+    def depth
+        0
+    end
+end
+
+def getDepth( obj )
+    obj.depth
+end
+
+def convertDoubleArrayToString_helper( array )
+    #puts "Testing convert array to string"
+    #puts array.inspect
+    string = ""
+    array.each do |element|
+        depth = getDepth(element)
+        if depth == 0
+            string << "#{element} "
+        elsif depth > 1
+            string << "[#{convertDoubleArrayToString_helper(element)}] "
+        else
+            string << "#{convertDoubleArrayToString_helper(element)}"
+        end
+    end
+    string
+end
+
 def convertDoubleArrayToString( array )
     #puts "Testing convert array to string"
     #puts array.inspect
-    string = "["
-    array.each do |element|
-        string << "#{convertDoubleArrayToString(element)} " if element.kind_of?(Array)
-        string << "#{element} " if !(element.kind_of?(Array))
-    end
-    string += "]"
+    "[" + convertDoubleArrayToString_helper(array) + "]"
 end
 
 def updateTreeStructure( array,indexInsertAt, countOfInsertions )
@@ -122,7 +150,7 @@ def create_array( input )
         #puts "newtokens: #{newTokens.inspect} end"
         treeStructure = updateTreeStructure(treeStructure, indexToReplace, newTokens.length)
         if treeStructure.length != newline.length
-            abort "Not GOOD!: mismatch of replacement length... did you change only one thing at line number #{line}?"
+            puts "Not GOOD!: mismatch of replacement length... did you change only one thing at line number #{line}?"
         end
         #puts "tree struct: #{treeStructure.inspect} end"
         #puts treeStructure[indexToReplace].inspect

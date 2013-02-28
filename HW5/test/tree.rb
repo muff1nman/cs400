@@ -4,9 +4,16 @@ require 'test/unit'
 require_relative '../tree.rb'
 
 class TestTree < Test::Unit::TestCase
+    def test_getDepth
+        puts "TESTING getDepth"
+        assert_equal(0, getDepth("a"), "Single element failure")
+        assert_equal(1, getDepth(["a"]), "Single array failture")
+        assert_equal(2, getDepth(["a",["b"]]), "Nested array failture")
+    end
+
     def test_simple
         puts "Testing Simple Run"
-        expected = "[S [a ] [b [c ] ] ]"
+        expected = "[S a [b c ] ]"
         input = [
             ["S"],
             ["a","b"],
@@ -17,7 +24,7 @@ class TestTree < Test::Unit::TestCase
     
     def test_whole
         puts "Testing entire program"
-        expected = "[<program> [main ] [{ ] [<stmts> [<stmt> [<var> ] [= ] [<expr> ] ] [; ] [<stmts> ] ] [} ] ]"
+        expected = "[<program> main { [<stmts> [<stmt> <var> = <expr> ] ; <stmts> ] } ]"
         assert_equal(expected, create("test/test.input"), "Could not pass the entire program")
     end
     
@@ -149,20 +156,21 @@ class TestTree < Test::Unit::TestCase
     end
 
     def test_convertDoubleArrayToString
-        "Puts testing converDoubleArrayToString"
+        puts "Testing converDoubleArrayToString"
 
         simple = ["a"]
         string = "[a ]"
         assert_equal( string, convertDoubleArrayToString(simple), "Failed Convert simple")
 
         simple = ["a", ["b"], ["c"]]
-        string = "[a [b ] [c ] ]"
+        string = "[a b c ]"
         assert_equal( string, convertDoubleArrayToString(simple), "Failed Convert simple")
 
         array = ["a", ["b", ["g"],["f"]], ["c", ["d"],["e"]]]
-        string = "[a [b [g ] [f ] ] [c [d ] [e ] ] ]"
+        string = "[a [b g f ] [c d e ] ]"
         assert_equal( string, convertDoubleArrayToString(array), "Failed convert array to string")
 
     end
+
 end
         
