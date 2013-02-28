@@ -17,6 +17,10 @@ class TestParse < Test::Unit::TestCase
     def test_getNonTerminal
         a = ["S"]
         assert_equal("S", getNonTerminal(a), "Failed for a single NonTerminal")
+        a = ["b", "c", "B", "E" ]
+        assert_equal("B", getNonTerminal(a), "Failed for more than one NonTerminal")
+        r = ["b", "q", 4, "hello" ]
+        assert_equal(nil, getNonTerminal(r), "Failed for no nonTerminals")
     end
 end
         

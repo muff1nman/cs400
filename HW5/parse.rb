@@ -9,9 +9,10 @@ def hasNonTerminal( array )
 end
 
 def getNonTerminal( array )
+    toReturn = nil
     array.any? do |char|
-        @return = char if char == char.upcase
+        toReturn = char if char.is_a? String and char == char.upcase
     end
-    @return
+    toReturn
 end
 
