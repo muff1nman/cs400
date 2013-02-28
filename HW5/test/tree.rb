@@ -54,7 +54,7 @@ class TestTree < Test::Unit::TestCase
         old = ["S", ["child1"], ["child2"]]
         new = ["gch2", "gch3"]
         expected3 = ["S", ["child1", ["gch2"], ["gch3"]], ["child2"]]
-        assert_equal(expected3, replaceIndexWith(old, [0,0], new), "Failed with simple insert at back" )
+        assert_equal(expected3, replaceIndexWith(old, [1,0], new), "Failed with simple insert at back" )
         
     end
 

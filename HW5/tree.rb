@@ -19,8 +19,16 @@ def findTokensExpandedTo( original, new)
     new[firstIndex...secondIndex]
 end
 
-def replaceIndexWith( array, index, newTokens)
-    array[0...index] + [newTokens] + array.drop(index+1)
+def replaceIndexWith( array, index, newTokens) 
+    if index.length == 1
+        newArray = Array.new
+        newArray.push(*array[0..index[0]])
+        newArray.concat(newTokens.map { |x| [x] })
+        newArray.concat(array.drop(index[0]+1))
+        return newArray
+    end
+    array[index[0]] = replaceIndexWith( array[index[0]], index.drop(1), newTokens )
+    array
 end
 
 def getDoubleArrayFromFile( file )
@@ -45,8 +53,11 @@ end
 
 def updateTreeStructure( array,indexInsertAt, countOfInsertions )
     newArray = Array.new(array)
-    countOfInsertions.times { newArray.insert( indexInsertAt + 1 , Array.new(array[indexInsertAt]) <<  0)}
-    (1..countOfInsertions).each { |i| newArray[indexInsertAt + i][2] = i }
+    countOfInsertions.times { newArray.insert( indexInsertAt + 1 , Array.new(array[indexInsertAt]) )}
+    (1..countOfInsertions).each do |i|
+        newArray[indexInsertAt + i][-1] = i 
+        newArray[indexInsertAt + i] << 0
+    end
     newArray
 
 end
