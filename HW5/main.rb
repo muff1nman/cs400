@@ -18,7 +18,7 @@ nonTerminals = {
 }
 
 
-stack ||= ARGV[0]
+stack ||= ARGV[0].dup
 current = "S"
 
 steps =  parse(  nonTerminals, current, stack )
