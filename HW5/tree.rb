@@ -15,13 +15,34 @@ def replaceIndexWith( array, index, newTokens)
 end
 
 def getDoubleArrayFromFile( file )
+    array = []
+    File.open(file, 'r') do |f|
+        f.each_line do |line|
+            array << line.split(/[\n ]+/)
+        end
+    end
 
+    array
 end
 
 def convertDoubleArrayToString( array )
 
 end
 
+def create_array( input )
+    array = ["start"]
+
+    oldline = ["start"]
+    input.each do |newline|
+        indexToReplace = findTokenExpanded( oldline, newline)
+        newTokens = findTokensExpandedTo( oldline, newline )
+        array = replaceIndexWith( array, indexToReplace, newTokens )
+        oldline = newline
+    end
+
+    convertDoubleArrayToString( array )
+
+end
 
 def create( file )
     # open file, split into array
@@ -35,16 +56,6 @@ def create( file )
 
     input = getDoubleArrayFromFile( file )
 
-    array = ["start"]
-
-    oldline = ["start"]
-    input.each do |newline|
-        indexToReplace = findTokenExpanded( oldline, newline)
-        newTokens = findTokensExpandedTo( oldline, newline )
-        array = replaceIndexWith( array, indexToReplace, newTokens )
-        oldline = newline
-    end
-
-    convertDoubleArrayToString( array )
+    create_array( input )
     
 end

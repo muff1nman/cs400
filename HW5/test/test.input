@@ -1,0 +1,4 @@
+<program> 
+main { <stmts> }
+main { <stmt> ; <stmts> }
+main { <var> = <expr> ; <stmts> }
