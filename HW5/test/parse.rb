@@ -22,5 +22,12 @@ class TestParse < Test::Unit::TestCase
         r = ["b", "q", 4, "hello" ]
         assert_equal(nil, getNonTerminal(r), "Failed for no nonTerminals")
     end
+
+    def test_replaceNonTerminal
+        array1 = ["b", "A", "c"]
+        expected1 = ["b", "q", "c"]
+        assert_equal(expected1, replaceNonTerminal(array1), "Failed to replace simple")
+        array2 = ["a", "X", "X" ]
+    end
 end
         
