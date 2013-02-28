@@ -15,6 +15,12 @@ class TestTree < Test::Unit::TestCase
         assert_equal(expected,create_array(input), "Could not pass simple test" )
     end
     
+    def test_whole
+        puts "Testing entire program"
+        expected = "[<program> [main ] [{ ] [<stmts> [<stmt> [<var> ] [= ] [<expr> ] ] [; ] [<stmts> ] ] [} ] ]"
+        assert_equal(expected, create("test/test.input"), "Could not pass the entire program")
+    end
+    
     def test_getDoubleArrayFromFile
         puts "Testing DoubleArrayfromFile"
         expected = [

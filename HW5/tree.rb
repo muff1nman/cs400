@@ -140,6 +140,8 @@ def create( file )
 
     input = getDoubleArrayFromFile( file )
 
-    puts create_array( input )
+    puts "input from file: #{input.inspect} end"
+
+    create_array( input )
     
 end
