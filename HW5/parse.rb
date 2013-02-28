@@ -24,17 +24,28 @@ end
 def parse (doubleHash, start, stack )
     output = [start]
     limit = 40
+    indexOfLastTerminal = 0
+    current = stack
+    puts "Initial stack: #{stack}"
     while hasNonTerminal(start) and limit > 0 do
+        puts "Current step: #{start}"
         # record index of nonTerminal
         # look up in doubleHash
-        # if it is there, replace it with its value based whats on the stack
-        #   and remove from the stack all values that were consumed
+        # if it is there, replace it with its value based whats on the current
+        #   and remove from the current all values that were consumed
         limit -= 1
         nonTerminal = getNonTerminal(start)
         if doubleHash.key? nonTerminal
             hash = doubleHash[nonTerminal]
-            expandTo = hash[stack[0]]
+            expandTo = hash[current[0]]
             start = replaceNonTerminal( start, expandTo )
+            puts "Current step: #{start} Stack: #{stack}"
+            while current != '' and start[indexOfLastTerminal] == current[0]
+                puts "first: #{current[0]}\n"
+                current[0] = ''
+                puts "Current step: #{start} Stack: #{stack}"
+                indexOfLastTerminal += 1
+            end
         else 
             puts "Not sure whats going on here"
         end

@@ -85,7 +85,7 @@ class TestParse < Test::Unit::TestCase
             "bcbhfCCE",
             "bcbhfhfCE",
             "bcbhfhfhfE",
-            "bcbhfhfhfbc" ]
+            "bcbhfhfhfcb" ]
 
         assert_equal( expected, parse( nonTerminals, "S", "bcbhfhfhfcb" ), "Failed complex test with complex tree")
     end
