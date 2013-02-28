@@ -111,14 +111,14 @@ def create_array( input )
         indexToReplace = findTokenExpanded( oldline, newline)
         puts indexToReplace.inspect
         newTokens = findTokensExpandedTo( oldline, newline )
+        puts array.inspect
+        array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
+        puts array.inspect
         puts "tree struct: #{treeStructure.inspect} end"
         puts "newtokens: #{newTokens.inspect} end"
         treeStructure = updateTreeStructure(treeStructure, indexToReplace, newTokens.length)
         puts "tree struct: #{treeStructure.inspect} end"
         puts treeStructure[indexToReplace].inspect
-        puts array.inspect
-        array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
-        puts array.inspect
         oldline = newline
     end
 

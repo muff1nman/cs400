@@ -6,7 +6,7 @@ require_relative '../tree.rb'
 class TestTree < Test::Unit::TestCase
     def test_simple
         puts "Testing Simple Run"
-        expected = "[S [a] [b c]]"
+        expected = "[S [a ] [b [c ] ] ]"
         input = [
             ["S"],
             ["a","b"],
