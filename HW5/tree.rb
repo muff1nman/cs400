@@ -133,24 +133,24 @@ def create_array( input )
         end
         line += 1
 
-        puts "oldline: #{oldline.inspect} end"
-        puts "newline: #{newline.inspect} end"
+        #puts "oldline: #{oldline.inspect} end"
+        #puts "newline: #{newline.inspect} end"
 
         indexToReplace = findTokenExpanded( oldline, newline)
         #puts indexToReplace.inspect
         newTokens = findTokensExpandedTo( oldline, newline )
-        puts "array: #{array.inspect} end"
-        puts "indexToReplace: #{indexToReplace.inspect} end"
-        puts "treeStructure: #{treeStructure.inspect} end"
-        puts "treeStructure[indexToReplace]: #{treeStructure[indexToReplace].inspect} end"
-        puts "new tokens: #{newTokens.inspect} end"
+        #puts "array: #{array.inspect} end"
+        #puts "indexToReplace: #{indexToReplace.inspect} end"
+        #puts "treeStructure: #{treeStructure.inspect} end"
+        #puts "treeStructure[indexToReplace]: #{treeStructure[indexToReplace].inspect} end"
+        #puts "new tokens: #{newTokens.inspect} end"
         array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
         #puts array.inspect
         #puts "tree struct: #{treeStructure.inspect} end"
         #puts "newtokens: #{newTokens.inspect} end"
         treeStructure = updateTreeStructure(treeStructure, indexToReplace, newTokens.length)
         if treeStructure.length != newline.length
-            puts "Not GOOD!: mismatch of replacement length... did you change only one thing at line number #{line}?"
+            abort "Not GOOD!: mismatch of replacement length... did you change only one thing at line number #{line}?"
         end
         #puts "tree struct: #{treeStructure.inspect} end"
         #puts treeStructure[indexToReplace].inspect
@@ -175,7 +175,7 @@ def create( file )
 
     input = getDoubleArrayFromFile( file )
 
-    puts "input from file: #{input.inspect} end"
+    #puts "input from file: #{input.inspect} end"
 
     create_array( input )
     
