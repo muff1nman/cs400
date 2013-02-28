@@ -26,9 +26,9 @@ def parse (doubleHash, start, stack )
     limit = 40
     indexOfLastTerminal = 0
     current = stack
-    puts "Initial stack: #{stack}"
+    #puts "Initial stack: #{stack}"
     while hasNonTerminal(start) and limit > 0 do
-        puts "Current step: #{start}"
+        #puts "Current step: #{start}"
         # record index of nonTerminal
         # look up in doubleHash
         # if it is there, replace it with its value based whats on the current
@@ -39,11 +39,11 @@ def parse (doubleHash, start, stack )
             hash = doubleHash[nonTerminal]
             expandTo = hash[current[0]]
             start = replaceNonTerminal( start, expandTo )
-            puts "Current step: #{start} Stack: #{stack}"
+            #puts "Current step: #{start} Stack: #{stack}"
             while current != '' and start[indexOfLastTerminal] == current[0]
-                puts "first: #{current[0]}\n"
+                #puts "first: #{current[0]}\n"
                 current[0] = ''
-                puts "Current step: #{start} Stack: #{stack}"
+                #puts "Current step: #{start} Stack: #{stack}"
                 indexOfLastTerminal += 1
             end
         else 
@@ -51,6 +51,6 @@ def parse (doubleHash, start, stack )
         end
         output << start
     end
-    output.each { |line| puts "> #{line}" }
+    #output.each { |line| puts "> #{line}" }
     output
 end
