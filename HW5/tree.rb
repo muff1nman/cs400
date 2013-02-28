@@ -35,6 +35,19 @@ def getDoubleArrayFromFile( file )
 end
 
 def convertDoubleArrayToString( array )
+    string = "["
+    array.each do |element|
+        string << "[#{convertDoubleArrayToString(element)}] " if element.kind_of?(Array)
+        string << "#{element} " if !(element.kind_of?(Array))
+    end
+    string += "]"
+end
+
+def updateTreeStructure( array,indexInsertAt, countOfInsertions )
+    newArray = Array.new(array)
+    countOfInsertions.times { newArray.insert( indexInsertAt + 1 , Array.new(array[indexInsertAt]) <<  0)}
+    (1..countOfInsertions).each { |i| newArray[indexInsertAt + i][2] = i }
+    newArray
 
 end
 
@@ -42,10 +55,13 @@ def create_array( input )
     array = ["start"]
 
     oldline = ["start"]
+    treeStructure = [[0]]
+
     input.each do |newline|
         indexToReplace = findTokenExpanded( oldline, newline)
         newTokens = findTokensExpandedTo( oldline, newline )
-        array = replaceIndexWith( array, indexToReplace, newTokens )
+        treeStructure = updateTreeStructure(treeStructure, indexInsertAt, newTokens.length)
+        array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
         oldline = newline
     end
 
