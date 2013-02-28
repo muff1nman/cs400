@@ -21,6 +21,40 @@ class TestTree < Test::Unit::TestCase
 
     end
 
+    def test_findTokenExpanded
+        old =  ["main", "{", "<stmt>", "<stmts>", "}"]
+        new =  ["main", "{", "<var>", "=", "<expr>", "<stmts>", "}"]
+        expected = 2
+        assert_equal( expected, findTokenExpanded( old, new), "Failed withe simple replace");
 
+        old = ["main", "{", "<stmts>", "}"]
+        new = ["main", "{", "<stmt>", "<stmts>", "}"]
+        expected = 2
+        assert_equal( expected, findTokenExpanded( old, new ), "Failed with push to rightside")
+    end
+
+    def test_firstTokensExpandedTo
+        old =  ["main", "{", "<stmt>", "<stmts>", "}"]
+        new =  ["main", "{", "<var>", "=", "<expr>", "<stmts>", "}"]
+        expected = ["<var>", "=", "<expr>"]
+        assert_equal( expected, findTokensExpandedTo( old, new), "Failed with simple replace");
+    end
+
+    def test_replaceIndexWith
+        old = ["hello", "world"]
+        new = ["find", "me" ]
+        expected1 = [["find", "me"], "world"]
+
+        assert_equal(expected1, replaceIndexWith(old, 0, new), "Failed with simple insert at front" )
+
+        expected2 = [ "hello", ["find", "me"]]
+
+        assert_equal(expected2, replaceIndexWith(old, 1, new), "Failed with simple insert at back" )
+        
+    end
+
+    def convertDoubleArrayToString
+        array = ["a"]
+    end
 end
         

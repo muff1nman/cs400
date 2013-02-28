@@ -3,15 +3,24 @@
 # creates a tree given a file
 
 def findTokenExpanded( original, new )
-
+    (0...( original.length)).each do |i|
+        return i if original[i] != new[i]
+    end
+    nil
 end
 
 def findTokensExpandedTo( original, new)
-
+    firstIndex = findTokenExpanded( original, new) 
+    stopAt = original[firstIndex + 1]
+    secondIndex = firstIndex
+    while ( secondIndex != new.length and stopAt != new[secondIndex] )
+        secondIndex += 1
+    end
+    new[firstIndex...secondIndex]
 end
 
 def replaceIndexWith( array, index, newTokens)
-
+    array[0...index] + [newTokens] + array.drop(index+1)
 end
 
 def getDoubleArrayFromFile( file )
