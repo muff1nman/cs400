@@ -8,10 +8,15 @@ a)
    
 They are all pairwise disjoint.
 
-b)  a b c d e f j h i g k                  
+b)
+    a b c d e f j h i g k                  
   S B A B C C A A C A A B
-  A - - - - - - - - - - -
-  B - - - - - - - - - - -
-  C - - - - - - - - - - -
-  D - - - - - - - - - - - 
-  E - - - - - - - - - - - 
+  A - Z - - - D D - D Z -
+  B Z - Z - - - - - - - Z
+  C - - - Z Z - - Z - - -
+  D - - - - - Z Z - Z - - 
+  E - A Z C C A A C A A - 
+
+Z for consume
+
+fdgcjkhfaadbcbhfaakakbhfaicjkdcbacbhfedcbahfdcbahfcjkdcbahfdcbahfcb
