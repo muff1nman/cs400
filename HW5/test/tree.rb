@@ -45,6 +45,11 @@ class TestTree < Test::Unit::TestCase
         new = ["main", "{", "<stmt>", "<stmts>", "}"]
         expected = 2
         assert_equal( expected, findTokenExpanded( old, new ), "Failed with push to rightside")
+
+        old = ["main", "{", "<stmts>", "}"]
+        new = ["main", "{", "<stmt>", "}"]
+        expected = 2
+        assert_equal( expected, findTokenExpanded( old, new ), "Failed with push with one replace")
     end
 
     def test_firstTokensExpandedTo
@@ -52,6 +57,11 @@ class TestTree < Test::Unit::TestCase
         old =  ["main", "{", "<stmt>", "<stmts>", "}"]
         new =  ["main", "{", "<var>", "=", "<expr>", "<stmts>", "}"]
         expected = ["<var>", "=", "<expr>"]
+        assert_equal( expected, findTokensExpandedTo( old, new), "Failed with simple replace");
+
+        old =  ["main", "{", "<stmt>", "<stmts>", "}"]
+        new =  ["main", "{", "<var>", "<stmts>", "}"]
+        expected = ["<var>"]
         assert_equal( expected, findTokensExpandedTo( old, new), "Failed with simple replace");
     end
 
@@ -61,6 +71,7 @@ class TestTree < Test::Unit::TestCase
         new = ["two", "three" ]
         expected = ["one", ["two"], ["three"]]
         assert_equal(expected, replaceIndexWith(old, [0], new), "Failed with simple insert at front" )
+
 
         tree_old = [[0]]
         tree_new = [[1,0],[2,0]]
@@ -76,6 +87,13 @@ class TestTree < Test::Unit::TestCase
         expected2 = [ "hello", "world", ["find"], ["me"]]
 
         assert_equal(expected2, replaceIndexWith(old, [1], new), "Failed with simple insert at back" )
+
+        old = ["hello", "world"]
+        new = ["find" ]
+        expected1 = ["hello", ["find"], "world"]
+
+        assert_equal(expected1, replaceIndexWith(old, [0], new), "Failed with simple insert at front" )
+
 
         old = ["S", ["child1"], ["child2"]]
         new = ["gch2", "gch3"]
@@ -95,14 +113,11 @@ class TestTree < Test::Unit::TestCase
 
         new = [
             [1,1,0],
-            [1,2,0],
-            [3,1,0],
-            [3,2,0]
+            [2,1,0],
+            [2,2,0]
         ]
 
-        puts "ARE U RUNNING"
-
-        assert_equal( new, updateTreeStructure(old, 0, 2), "Failed general update structure")
+        assert_equal( new, updateTreeStructure(old, 0, 1), "Failed general update structure")
 
         old = [
             [0]

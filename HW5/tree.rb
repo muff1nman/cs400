@@ -78,7 +78,7 @@ def updateTreeStructure( array,indexInsertAt, countOfInsertions )
         newArray[indexInsertAt + p] =  tempArray
     end
     (indexInsertAt + countOfInsertions + 1...newArray.length).each do |i|
-        newArray[i][0] = newArray[i][0] +  1
+        #newArray[i][0] = newArray[i][0] +  1
     end
     newArray.delete_at(indexInsertAt)
     #(indexInsertAt..array.length-1).each do 
