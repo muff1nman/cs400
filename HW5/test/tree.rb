@@ -4,12 +4,19 @@ require 'test/unit'
 require_relative '../tree.rb'
 
 class TestTree < Test::Unit::TestCase
-    #def test_simple
-        #expected = "[S [a] [b c]]"
-        #assert_equal(expected,create("test.input"), "Could not pass simple test" )
-    #end
+    def test_simple
+        puts "Testing Simple Run"
+        expected = "[S [a] [b c]]"
+        input = [
+            ["S"],
+            ["a","b"],
+            ["a","c"]
+        ]
+        assert_equal(expected,create_array(input), "Could not pass simple test" )
+    end
     
     def test_getDoubleArrayFromFile
+        puts "Testing DoubleArrayfromFile"
         expected = [
             ["<program>"],
             ["main", "{", "<stmts>", "}"],
@@ -22,6 +29,7 @@ class TestTree < Test::Unit::TestCase
     end
 
     def test_findTokenExpanded
+        puts "Testing findTokenExpanded"
         old =  ["main", "{", "<stmt>", "<stmts>", "}"]
         new =  ["main", "{", "<var>", "=", "<expr>", "<stmts>", "}"]
         expected = 2
@@ -34,6 +42,7 @@ class TestTree < Test::Unit::TestCase
     end
 
     def test_firstTokensExpandedTo
+        puts "TEsting first Tokens Expaneded To"
         old =  ["main", "{", "<stmt>", "<stmts>", "}"]
         new =  ["main", "{", "<var>", "=", "<expr>", "<stmts>", "}"]
         expected = ["<var>", "=", "<expr>"]
@@ -41,6 +50,17 @@ class TestTree < Test::Unit::TestCase
     end
 
     def test_replaceIndexWith
+        puts "Testing replaceIndex Withh"
+        old = ["one"]
+        new = ["two", "three" ]
+        expected = ["one", ["two"], ["three"]]
+        assert_equal(expected, replaceIndexWith(old, [0], new), "Failed with simple insert at front" )
+
+        tree_old = [[0]]
+        tree_new = [[1,0],[2,0]]
+        assert_equal( tree_new, updateTreeStructure(tree_old,0,2), "Failed update")
+
+
         old = ["hello", "world"]
         new = ["find", "me" ]
         expected1 = ["hello", ["find"],[ "me"], "world"]
@@ -59,36 +79,50 @@ class TestTree < Test::Unit::TestCase
     end
 
     def test_updateTreeStructure
+        puts "Testing Update Tree Structure"
 
         old = [
-            [0],
             [1,0],
-            [2,0],
             [2,1,0],
             [2,2,0]
         ]
 
         new = [
-            [0],
-            [1,0],
             [1,1,0],
             [1,2,0],
-            [2,0],
-            [2,1,0],
-            [2,2,0]
+            [3,1,0],
+            [3,2,0]
         ]
 
-        assert_equal( new, updateTreeStructure(old, 1, 2), "Failed general update structure")
+        puts "ARE U RUNNING"
 
+        assert_equal( new, updateTreeStructure(old, 0, 2), "Failed general update structure")
+
+        old = [
+            [0]
+        ]
+        new = [
+            [1,0],
+            [2,0]
+        ]
+
+        assert_equal( new, updateTreeStructure(old, 0, 2), "Failed general update structure")
 
     end
 
-    def convertDoubleArrayToString
-        array = ["a", ["b", ["g", "f"]], ["c", ["d"],["e"]]]
+    def test_convertDoubleArrayToString
+        "Puts testing converDoubleArrayToString"
 
-         
-        string = "[a [b g f] [c d e]]"
+        simple = ["a"]
+        string = "[a ]"
+        assert_equal( string, convertDoubleArrayToString(simple), "Failed Convert simple")
 
+        simple = ["a", ["b"], ["c"]]
+        string = "[a [b ] [c ] ]"
+        assert_equal( string, convertDoubleArrayToString(simple), "Failed Convert simple")
+
+        array = ["a", ["b", ["g"],["f"]], ["c", ["d"],["e"]]]
+        string = "[a [b [g ] [f ] ] [c [d ] [e ] ] ]"
         assert_equal( string, convertDoubleArrayToString(array), "Failed convert array to string")
 
     end

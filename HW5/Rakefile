@@ -3,4 +3,5 @@ task :default => [:test]
 task :test do
     ruby "test/parse.rb"
     ruby "test/tree.rb"
+    #ruby -I"lib:test" "test/tree.rb" -n test_simple
 end

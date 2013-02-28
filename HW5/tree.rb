@@ -20,6 +20,12 @@ def findTokensExpandedTo( original, new)
 end
 
 def replaceIndexWith( array, index, newTokens) 
+    puts "Inside Replace Index With: "
+    puts array.inspect
+    puts index.inspect
+    puts newTokens.inspect
+    puts "......"
+
     if index.length == 1
         newArray = Array.new
         newArray.push(*array[0..index[0]])
@@ -43,38 +49,80 @@ def getDoubleArrayFromFile( file )
 end
 
 def convertDoubleArrayToString( array )
+    puts "Testing convert array to string"
+    puts array.inspect
     string = "["
     array.each do |element|
-        string << "[#{convertDoubleArrayToString(element)}] " if element.kind_of?(Array)
+        string << "#{convertDoubleArrayToString(element)} " if element.kind_of?(Array)
         string << "#{element} " if !(element.kind_of?(Array))
     end
     string += "]"
 end
 
 def updateTreeStructure( array,indexInsertAt, countOfInsertions )
+    puts "HELP" if array.nil?
+    puts "array: #{array.inspect} end"
+    puts indexInsertAt.inspect
     newArray = Array.new(array)
-    countOfInsertions.times { newArray.insert( indexInsertAt + 1 , Array.new(array[indexInsertAt]) )}
-    (1..countOfInsertions).each do |i|
-        newArray[indexInsertAt + i][-1] = i 
-        newArray[indexInsertAt + i] << 0
+    countOfInsertions.times do
+        puts "Doin THIS #{indexInsertAt}"
+        puts array[indexInsertAt]
+        newArray.insert( indexInsertAt , array[indexInsertAt] )
     end
-    newArray
+    puts "array: #{newArray.inspect} end"
+    (1..countOfInsertions).each do |p|
+        tempArray = Array.new(newArray[indexInsertAt + p])
+        puts "p = #{p}"
+        tempArray[-1] = p + array[indexInsertAt][-1]
+        tempArray  << 0
+        newArray[indexInsertAt + p] =  tempArray
+    end
+    (indexInsertAt + countOfInsertions + 1...newArray.length).each do |i|
+        newArray[i][0] = newArray[i][0] +  1
+    end
+    newArray.delete_at(indexInsertAt)
+    #(indexInsertAt..array.length-1).each do 
+    puts "array: #{newArray.inspect} end"
+    return newArray
+
+
 
 end
 
 def create_array( input )
-    array = ["start"]
-
-    oldline = ["start"]
     treeStructure = [[0]]
 
+    line = 1
+    array = []
+    oldline = []
+
     input.each do |newline|
+        puts "line:#{line}"
+        if line == 1
+            array << newline[0]
+            oldline = newline
+            puts oldline
+            puts "HERE!"
+            line += 1
+            next
+        end
+        line += 1
+
         indexToReplace = findTokenExpanded( oldline, newline)
+        puts indexToReplace.inspect
         newTokens = findTokensExpandedTo( oldline, newline )
-        treeStructure = updateTreeStructure(treeStructure, indexInsertAt, newTokens.length)
+        puts "tree struct: #{treeStructure.inspect} end"
+        puts "newtokens: #{newTokens.inspect} end"
+        treeStructure = updateTreeStructure(treeStructure, indexToReplace, newTokens.length)
+        puts "tree struct: #{treeStructure.inspect} end"
+        puts treeStructure[indexToReplace].inspect
+        puts array.inspect
         array = replaceIndexWith( array, treeStructure[indexToReplace], newTokens )
+        puts array.inspect
         oldline = newline
     end
+
+    array
 
     convertDoubleArrayToString( array )
 
@@ -92,6 +140,6 @@ def create( file )
 
     input = getDoubleArrayFromFile( file )
 
-    create_array( input )
+    puts create_array( input )
     
 end
