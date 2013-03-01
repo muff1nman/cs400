@@ -1,5 +1,6 @@
-(define name "William L. Bahn")
-(define user "wbahn")
+#lang racket
+(define name "Andrew DeMaria")
+(define user "ademaria")
 
 ; Lexical Environments and Closures
 
