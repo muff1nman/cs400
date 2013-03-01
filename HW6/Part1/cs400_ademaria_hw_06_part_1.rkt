@@ -342,7 +342,20 @@
 
 (define (fnlst c) 
   (let ((a 3) (b 5))
-      (list (lambda (x) (set! a (+ a b c)) (+ a b c x)) 
+      (list (lambda (x) (set! a (+ a b c)) 
+;              (display "a= ")
+;              (display a)
+;              (display "\n")
+;              (display "b= ")
+;              (display b)
+;              (display "\n")
+;              (display "c= ")
+;              (display c)
+;              (display "\n")
+;              (display "x= ")
+;              (display x)
+;              (display "\n")
+              (+ a b c x)) 
             (lambda (x) (set! b (- a b c)) (+ a b c x))
       )
   )
@@ -405,6 +418,35 @@
 
 ;**************************************************************************
 ;**************************************************************************
+
+
+(define A 3)
+(define B 5)
+(define C 3)
+(define D 2)
+(define (jack_andrew x)
+  (set! A (+ A B C))
+  (+ A B C x))
+(define (jill_andrew x)
+  (set! B (- A B C))
+  (+ A B C x))
+
+(define (jj1)
+  (display "jack-jill-jack-jill\n")
+  (display "jack: ") (display (jack_andrew D)) (display "\n")
+  (display "jill: ") (display (jill_andrew D)) (display "\n")
+  (display "jack: ") (display (jack_andrew D)) (display "\n")
+  (display "jill: ") (display (jill_andrew D)) (display "\n")
+
+  (set! A 3)
+  (set! B 5)
+  (display "jack-jill-jill-jack\n")
+  (display "jack: ") (display (jack_andrew D)) (display "\n")
+  (display "jill: ") (display (jill_andrew D)) (display "\n")
+  (display "jill: ") (display (jill_andrew D)) (display "\n")
+  (display "jack: ") (display (jack_andrew D)) (display "\n"))
+
+(jj1)
 
 
 ;==========================================================================
