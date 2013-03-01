@@ -391,23 +391,18 @@
 ; Put your computations here. Be sure to make them comments so that the
 ; file you submit will run.
 
-; NOTE!!! I have the values as they are when the function is called and not yet
-; taking into account any calls to set DURING the function (to see those, you
-; would have to look at the next row of the table. However, the return column is
-; different in that it represents the value when the function returns (after the
-; call to set
-; CALL   a    b    c    d    returns
-; jack   3    5    3    2    21
-; jill  11    5    3    2    19     
-; jack  11    3    3    2    25     
-; jill  17    3    3    2    33     
+; CALL   A    B    C    D    returns
+; jack  11    5    3    2    21
+; jill  11    3    3    2    19     
+; jack  17    3    3    2    25     
+; jill  17   11    3    2    33     
 
-; CALL   a    b    c    d    returns
-; jack   3    5    3    2    21     
-; jill  11    5    3    2    17     
-; jill  11    3    3    2    21     
-; jack  11    5    3    2    29     
-;       19
+; CALL   A    B    C    D    returns
+; jack  11    5    3    2    21     
+; jill  11    3    3    2    19
+; jill  11    5    3    2    21     
+; jack  19    5    3    2    29     
+
 ;**************************************************************************
 ;**************************************************************************
 
@@ -500,33 +495,84 @@
 (define DD 2)
 (define (adam)
   (set! AA_2 (+ AA_2 BB_2 CC))
+  (display "adam  ")
+  (display AA_1) (display "    ")
+  (display AA_2) (display "    ")
+  (display BB_1) (display "    ")
+  (display BB_2) (display "    ")
+  (display CC) (display "    ")
+  (display DD) (display "    ")
+  (display (+ AA_2 BB_2 CC DD))
+  (display "\n")
   (+ AA_2 BB_2 CC DD))
 (define (abby)
   (set! BB_2 (- AA_2 BB_2 CC))
+  (display "abby  ")
+  (display AA_1) (display "    ")
+  (display AA_2) (display "    ")
+  (display BB_1) (display "    ")
+  (display BB_2) (display "    ")
+  (display CC) (display "    ")
+  (display DD) (display "    ")
+  (display (+ AA_2 BB_2 CC DD))
+  (display "\n")
   (+ AA_2 BB_2 CC DD))
 (define (jack_p3)
   (set! AA_1 (+ AA_1 BB_1 CC))
+  (display "jack  ")
+  (display AA_1) (display "    ")
+  (display AA_2) (display "    ")
+  (display BB_1) (display "    ")
+  (display BB_2) (display "    ")
+  (display CC) (display "    ")
+  (display DD) (display "    ")
+  (display (+ AA_1 BB_1 CC DD))
+  (display "\n")
   (+ AA_1 BB_1 CC DD))
 (define (jill_p3)
   (set! BB_1 (- AA_1 BB_1 CC))
+  (display "jill  ")
+  (display AA_1) (display "    ")
+  (display AA_2) (display "    ")
+  (display BB_1) (display "    ")
+  (display BB_2) (display "    ")
+  (display CC) (display "    ")
+  (display DD) (display "    ")
+  (display (+ AA_1 BB_1 CC DD))
+  (display "\n")
   (+ AA_1 BB_1 CC DD))
 
 (define (aajj1)
       (begin
-        (display "adam: ") (display (adam)) (display "\n")
-        (display "abby: ") (display (abby)) (display "\n")
-        (display "adam: ") (display (adam)) (display "\n")
-        (display "abby: ") (display (abby)) (display "\n")
-        (display "jack: ") (display (jack_p3)) (display "\n")
-        (display "jill: ") (display (jill_p3)) (display "\n")
-        (display "adam: ") (display (adam)) (display "\n")
-        (display "abby: ") (display (abby)) (display "\n")
-        (display "jack: ") (display (jack_p3)) (display "\n")
-        (display "jill: ") (display (jill_p3)) (display "\n")
-        (display "adam: ") (display (adam)) (display "\n")
-        (display "abby: ") (display (abby)) (display "\n")
-        (display "jack: ") (display (jack_p3)) (display "\n")
-        (display "jill: ") (display (jill_p3)) (display "\n")))
+;        (display "adam: ") (display (adam)) (display "\n")
+;        (display "abby: ") (display (abby)) (display "\n")
+;        (display "adam: ") (display (adam)) (display "\n")
+;        (display "abby: ") (display (abby)) (display "\n")
+;        (display "jack: ") (display (jack_p3)) (display "\n")
+;        (display "jill: ") (display (jill_p3)) (display "\n")
+;        (display "adam: ") (display (adam)) (display "\n")
+;        (display "abby: ") (display (abby)) (display "\n")
+;        (display "jack: ") (display (jack_p3)) (display "\n")
+;        (display "jill: ") (display (jill_p3)) (display "\n")
+;        (display "adam: ") (display (adam)) (display "\n")
+;        (display "abby: ") (display (abby)) (display "\n")
+;        (display "jack: ") (display (jack_p3)) (display "\n")
+;        (display "jill: ") (display (jill_p3)) (display "\n")
+(adam)
+(abby)
+(adam)
+(abby)
+(jack_p3)
+(jill_p3)
+(adam)
+(abby)
+(jack_p3)
+(jill_p3)
+(adam)
+(abby)
+(jack_p3)
+(jill_p3)
+        ))
 
 (display "\n")
 (aajj1)
@@ -536,23 +582,23 @@
 ; Put your computations here. Be sure to make them comments so that the
 ; file you submit will run.
 
-; CALL   a    b    c    d    returns
-; adam
-; abby
-; adam
-; abby
-; jack
-; jill
-; adam
-; abby
-; jack
-; jill
-; adam
-; abby
-; jack
-; jill
-
+; CALL AA_1  AA_2  BB_1  BB_2   CC   DD    returns
+; adam    3    15     5     5    7    2    29
+; abby    3    15     5     3    7    2    27
+; adam    3    25     5     3    7    2    37
+; abby    3    25     5    15    7    2    49
+; jack   15    25     5    15    7    2    29
+; jill   15    25     3    15    7    2    27
+; adam   15    47     3    15    7    2    71
+; abby   15    47     3    25    7    2    81
+; jack   25    47     3    25    7    2    37
+; jill   25    47    15    25    7    2    49
+; adam   25    79    15    25    7    2    113
+; abby   25    79    15    47    7    2    135
+; jack   47    79    15    47    7    2    71
+; jill   47    79    25    47    7    2    81
+ 
 ;**************************************************************************
 ;**************************************************************************
-
+ 
 ;==========================================================================
