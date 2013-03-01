@@ -404,18 +404,23 @@
 ; Put your computations here. Be sure to make them comments so that the
 ; file you submit will run.
 
+; NOTE!!! I have the values as they are when the function is called and not yet
+; taking into account any calls to set DURING the function (to see those, you
+; would have to look at the next row of the table. However, the return column is
+; different in that it represents the value when the function returns (after the
+; call to set
 ; CALL   a    b    c    d    returns
-; jack
-; jill
-; jack
-; jill
+; jack   3    5    3    2    21
+; jill  11    5    3    2    19     
+; jack  11    3    3    2    25     
+; jill  17    3    3    2    33     
 
 ; CALL   a    b    c    d    returns
-; jack
-; jill
-; jill
-; jack
-
+; jack   3    5    3    2    21     
+; jill  11    5    3    2    17     
+; jill  11    3    3    2    21     
+; jack  11    5    3    2    29     
+;       19
 ;**************************************************************************
 ;**************************************************************************
 
@@ -424,27 +429,29 @@
 (define B 5)
 (define C 3)
 (define D 2)
-(define (jack_andrew x)
+(define (jack_andrew)
   (set! A (+ A B C))
-  (+ A B C x))
-(define (jill_andrew x)
+  (+ A B C D))
+(define (jill_andrew)
   (set! B (- A B C))
-  (+ A B C x))
+  (+ A B C D))
 
 (define (jj1)
   (display "jack-jill-jack-jill\n")
-  (display "jack: ") (display (jack_andrew D)) (display "\n")
-  (display "jill: ") (display (jill_andrew D)) (display "\n")
-  (display "jack: ") (display (jack_andrew D)) (display "\n")
-  (display "jill: ") (display (jill_andrew D)) (display "\n")
+  (display "jack: ") (display (jack_andrew)) (display "\n")
+  (display "jill: ") (display (jill_andrew)) (display "\n")
+  (display "jack: ") (display (jack_andrew)) (display "\n")
+  (display "jill: ") (display (jill_andrew)) (display "\n")
 
+  ; Need this since the original function called to refresh the functions at
+  ; this point
   (set! A 3)
   (set! B 5)
   (display "jack-jill-jill-jack\n")
-  (display "jack: ") (display (jack_andrew D)) (display "\n")
-  (display "jill: ") (display (jill_andrew D)) (display "\n")
-  (display "jill: ") (display (jill_andrew D)) (display "\n")
-  (display "jack: ") (display (jack_andrew D)) (display "\n"))
+  (display "jack: ") (display (jack_andrew)) (display "\n")
+  (display "jill: ") (display (jill_andrew)) (display "\n")
+  (display "jill: ") (display (jill_andrew)) (display "\n")
+  (display "jack: ") (display (jack_andrew)) (display "\n"))
 
 (jj1)
 
