@@ -376,10 +376,10 @@
 ; necessariy the same 'a' and 'b' in the 'fnlst'. They are just example
 ; identifiers. You can use them (or not).
 
-(define a 1)
-(define b 1)
-(define (jack x) 42)
-(define (jill x) 39)
+;(define a 1)
+; (define b 1)
+;(define (jack x) 42)
+;(define (jill x) 39)
 
          
 ; PART (b)
