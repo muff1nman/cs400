@@ -4,3 +4,11 @@
 (provide getTitle)
 (define (getTitle lst)
   1)
+
+(provide getAuthors)
+(define (getAuthors lst)
+  1)
+
+(provide getKeywords)
+(define (getKeywords lst)
+  1)

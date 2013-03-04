@@ -31,3 +31,13 @@
            '(Test-Driven Learning: Intrinsic Integration of Testing into the
                          CS/SE Curriculum)
            "Get Title general failure")
+
+(check-eq? (getAuthors (car articles))
+           '('(David Jansen) '(Hossein Saiedian))
+           "Get Authors general failure")
+
+(check-eq? (getKeywords (car articles))
+           '("Test-driven learning" "test-driven development" "extreme
+             programming" "pedagogy" "CS1")
+           "Get Keywords general failure")
+
