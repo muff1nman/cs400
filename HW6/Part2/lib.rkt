@@ -7,7 +7,7 @@
 
 (provide getAuthors)
 (define (getAuthors lst)
-  1)
+  (first (rest lst)))
 
 (provide getKeywords)
 (define (getKeywords lst)
