@@ -47,7 +47,7 @@
               "keywordSearch general failure")
 
 (check-equal? (keywordSearch "CS1" articles)
-              '((Teaching Design PAtterns in CS1: a Closed Laboratory Sequence
+              '((Teaching Design Patterns in CS1: a Closed Laboratory Sequence
                           based on the Game of Life)
                 (Test-Driven Learning: Intrinsic Integration of Testing into the
                              CS/SE Curriculum))
