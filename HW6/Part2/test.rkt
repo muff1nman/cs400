@@ -43,7 +43,7 @@
 
 (check-equal? (keywordSearch "Java" articles)
               '((Test-First Java Concurrency for the Classroom) 
-                (Computer Games as Motivation for Design Patters))
+                (Computer Games as Motivation for Design Patterns))
               "keywordSearch general failure")
 
 (check-equal? (keywordSearch "CS1" articles)
@@ -83,6 +83,5 @@
                  ((Carl Alphonce) (Michael Caspersen) (Adrienne Decker))
                  ("Object-orientation" "Design Patterns")))
               "matchFilter failure for when no match and exisiting elements in list")
-
 
 
