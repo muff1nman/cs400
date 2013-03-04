@@ -37,7 +37,7 @@
            "Get Authors general failure")
 
 (check-equal? (getKeywords (car articles))
-           '("Test-driven learning" "test-driven development" "extreme
-             programming" "pedagogy" "CS1")
+           '("Test-driven learning" "test-driven development" 
+             "extreme programming" "pedagogy" "CS1")
            "Get Keywords general failure")
 
