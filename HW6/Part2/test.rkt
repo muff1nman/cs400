@@ -41,3 +41,32 @@
              "extreme programming" "pedagogy" "CS1")
            "Get Keywords general failure")
 
+(check-equal? (keywordSearch "Java" articles)
+              '((Test-First Java Concurrency for the Classroom) 
+                (Computer Games as Motivation for Design Patters))
+              "keywordSearch general failure")
+
+(check-equal? (keywordSearch "CS1" articles)
+              '((Teaching Design PAtterns in CS1: a Closed Laboratory Sequence
+                          based on the Game of Life)
+                (Test-Driven Learning: Intrinsic Integration of Testing into the
+                             CS/SE Curriculum))
+              "keywordSearch general failure")
+
+(check-equal? (keywordSearch "Rader" articles)
+              '()
+              "keywordSearch for an empty search")
+
+(check-equal? (matchFilter 
+                "Java"
+                '((Test-First Java Concurrency for the Classroom)
+                 ((Mathias Ricken)(Robert Cartwright))
+                 ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
+                  "tools" "software engineering"))
+                '())
+                '(((Test-First Java Concurrency for the Classroom)
+                 ((Mathias Ricken)(Robert Cartwright))
+                 ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
+                  "tools" "software engineering")))
+                "matchFilter failure for a single matching article")
+
