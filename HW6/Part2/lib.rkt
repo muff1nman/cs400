@@ -11,4 +11,4 @@
 
 (provide getKeywords)
 (define (getKeywords lst)
-  1)
+  (first (rest (rest lst))))
