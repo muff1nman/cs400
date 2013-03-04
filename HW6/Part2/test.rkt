@@ -64,9 +64,25 @@
                  ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
                   "tools" "software engineering"))
                 '())
-                '(((Test-First Java Concurrency for the Classroom)
-                 ((Mathias Ricken)(Robert Cartwright))
-                 ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
+              '(((Test-First Java Concurrency for the Classroom)
+               ((Mathias Ricken)(Robert Cartwright))
+               ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
                   "tools" "software engineering")))
-                "matchFilter failure for a single matching article")
+              "matchFilter failure for a single matching article")
+
+(check-equal? (matchFilter
+                "Nothing"
+                '((Test-First Java Concurrency for the Classroom)
+                  ((Mathias Ricken)(Robert Cartwright))
+                  ("CS education" "Java" "JUnit" "unit testing" "concurrent programming"
+                   "tools" "software engineering"))
+                 '(((Killer "Killer Examples" for Design Patterns)
+                    ((Carl Alphonce) (Michael Caspersen) (Adrienne Decker))
+                    ("Object-orientation" "Design Patterns"))))
+              '(((Killer "Killer Examples" for Design Patterns)
+                 ((Carl Alphonce) (Michael Caspersen) (Adrienne Decker))
+                 ("Object-orientation" "Design Patterns")))
+              "matchFilter failure for when no match and exisiting elements in list")
+
+
 
