@@ -33,7 +33,7 @@
            "Get Title general failure")
 
 (check-equal? (getAuthors (car articles))
-           '('(David Jansen) '(Hossein Saiedian))
+           '((David Jansen) (Hossein Saiedian))
            "Get Authors general failure")
 
 (check-equal? (getKeywords (car articles))
