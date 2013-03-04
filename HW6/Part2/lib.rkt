@@ -4,7 +4,7 @@
 ; MAIN FUNCTION
 (provide keywordSearch)
 (define (keywordSearch keyword articles )
-  1)
+  (map getTitle (makeListMatching (createFilter keyword) articles)))
 
 (provide createFilter)
 (define (createFilter keyword)
