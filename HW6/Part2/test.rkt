@@ -27,16 +27,16 @@
       ((Michael Wick))
       ("Design Patterns" "Game of Life" "CS1" "Laboratory"))))
 
-(check-eq? (getTitle (car articles))
+(check-equal? (getTitle (car articles))
            '(Test-Driven Learning: Intrinsic Integration of Testing into the
                          CS/SE Curriculum)
            "Get Title general failure")
 
-(check-eq? (getAuthors (car articles))
+(check-equal? (getAuthors (car articles))
            '('(David Jansen) '(Hossein Saiedian))
            "Get Authors general failure")
 
-(check-eq? (getKeywords (car articles))
+(check-equal? (getKeywords (car articles))
            '("Test-driven learning" "test-driven development" "extreme
              programming" "pedagogy" "CS1")
            "Get Keywords general failure")
