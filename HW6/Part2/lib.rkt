@@ -3,7 +3,7 @@
 
 (provide getTitle)
 (define (getTitle lst)
-  1)
+  (first lst))
 
 (provide getAuthors)
 (define (getAuthors lst)
