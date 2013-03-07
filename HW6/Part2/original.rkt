@@ -1,3 +1,7 @@
+#!/usr/bin/env racket
+#lang racket
+
+(provide articles)
 (define articles '(
      ((Test-Driven Learning: Intrinsic Integration of Testing into the CS/SE Curriculum)
       ((David Jansen)(Hossein Saiedian))
