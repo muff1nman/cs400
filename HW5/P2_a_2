@@ -1,7 +1,0 @@
-<stmt>
-if <expr> then <stmt> else <stmt>
-if Expr1 then <stmt> else <stmt>
-if Expr1 then if <expr> then <stmt> else <stmt>
-if Expr1 then if Expr2 then <stmt> else <stmt>
-if Expr1 then if Expr2 then Stmt1 else <stmt>
-if Expr1 then if Expr2 then Stmt1 else Stmt2

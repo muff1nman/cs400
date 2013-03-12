@@ -1,7 +1,0 @@
-<stmt_if>
-if <expr> then <stmt_if>
-if Expr1 then <stmt_if> 
-if Expr1 then if <expr> then <stmt_noif> else <stmt_if> 
-if Expr1 then if Expr2 then <stmt_noif> else <stmt_if> 
-if Expr1 then if Expr2 then Stmt1 else <stmt_if> 
-if Expr1 then if Expr2 then Stmt1 else Stmt2 
