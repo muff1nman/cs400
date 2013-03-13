@@ -12,9 +12,9 @@ DIGIT   [0-9]
 
 ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+)  { printf("<real value=\"%s\">\n", yytext); }
 
-b   { printf("<imaginary value=\"%s\">\n", yytext); }
+imaginary   { printf("<imaginary value=\"%s\">\n", yytext); }
 
-c   { printf("<compex value=\"%s\">\n", yytext); }
+{DIGIT}i   { printf("<complex value=\"%s\">\n", yytext); }
 
 \+   { printf("<add value=\"%s\">\n", yytext); }
 
