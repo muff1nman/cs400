@@ -1,25 +1,36 @@
 %option noyywrap
 
 %{
-/*
- * Example based on code in lex & yacc by 
- * Levine, Mason and Brown
- */
 
 %}
+
+DIGIT   [0-9]
+
 %%
 
 [\t ]+		/* ignore white space */ ;
 
-[a-zA-Z]+ {
-	 printf("%s:  don't recognize, might be a noun\n", yytext);
-	}
+({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+)  { printf("<real value=\"%s\">\n", yytext); }
 
-\&.|\n		{ ECHO; /* normal default anyway */ }
+b   { printf("<imaginary value=\"%s\">\n", yytext); }
+
+c   { printf("<compex value=\"%s\">\n", yytext); }
+
+\+   { printf("<add value=\"%s\">\n", yytext); }
+
+-   { printf("<sub value=\"%s\">\n", yytext); }
+
+\n  {ECHO;}
 
 %%
 
-main()
+int main(int argc, char** argv)
 {
+    if ( argc > 1 ) {
+        yyin = fopen( argv[1], "r" );
+    } else {
+        yyin = stdin;
+    }
+
 	yylex();
 }
