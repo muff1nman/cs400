@@ -8,8 +8,11 @@ class TestComplex < Test::Unit::TestCase
         `make`
     end
 
+    def create_result_no_eol( type, expected )
+        "<#{type} value=\"#{expected}\">\n"
+
     def create_result( type, expected )
-        "<#{type} value=\"#{expected}\">\n\n"
+        create_result_no_eol( type, expected) + "\n"
     end
 
     def run_with( value )
@@ -124,6 +127,13 @@ class TestComplex < Test::Unit::TestCase
     end
 
     def test_multiple
+        test_input = "3+4"
+        assert_equal(
+            create_result_no_eol( "real", "3") +
+                create_result_no_eol( "add", "+") +
+                create_result_no_eol( "real", "4"),
+            run_with( test_input ),
+            "Failed simple sub")
 
     end
 
