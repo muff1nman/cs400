@@ -10,6 +10,7 @@ class TestComplex < Test::Unit::TestCase
 
     def create_result_no_eol( type, expected )
         "<#{type} value=\"#{expected}\">\n"
+    end
 
     def create_result( type, expected )
         create_result_no_eol( type, expected) + "\n"
@@ -71,42 +72,72 @@ class TestComplex < Test::Unit::TestCase
     def test_Real_decimal_negaitve
         test_input = "-38.5"
         assert_equal(
-            create_result( "real", test_input),
+            create_result_no_eol( "sub", "-") + 
+            create_result_no_eol( "real", "38.5") +
+            "\n",
             run_with( test_input),
-            "Failed simple Real Natural")
+            "Failed simple decimal Natural")
+
         test_input = "-.5"
         assert_equal(
-            create_result( "real", test_input),
+            create_result_no_eol( "sub", "-") + 
+            create_result_no_eol( "real", ".5") +
+            "\n",
             run_with( test_input),
-            "Failed simple Real Natural")
-        test_input = "-5."
-        assert_equal(
-            create_result( "real", test_input),
-            run_with( test_input),
-            "Failed simple Real Natural")
+            "Failed simple decimal Natural")
+
         test_input = "-."
         assert_not_equal(
-            create_result( "real", test_input),
+            create_result_no_eol( "sub", "-") + 
+            create_result_no_eol( "real", ".") +
+            "\n",
             run_with( test_input),
-            "Failed simple Real Natural")
+            "Failed simple decimal Natural")
     end
 
 
     def test_Real_integer
-        test_input = "-9"
-        assert_equal(
-            create_result( "real", test_input),
-            run_with( test_input),
-            "Failed simple Real Natural")
         test_input = "-234902"
         assert_equal(
-            create_result( "real", test_input),
+            create_result_no_eol( "sub", "-") + 
+            create_result_no_eol( "real", "234902") +
+            "\n",
             run_with( test_input),
             "Failed simple Real Natural")
     end
 
     def test_imaginary_simple
+        test_input = "4i"
+        assert_equal(
+            create_result( "complex", test_input),
+            run_with( test_input ),
+            "Failed simple imaginary")
 
+        # Optional
+        test_input = "7.4i"
+        assert_equal(
+            create_result( "complex", test_input),
+            run_with( test_input ),
+            "Failed optional decimal imaginary")
+
+        # Optional
+        test_input = "7.i"
+        assert_equal(
+            create_result( "complex", test_input),
+            run_with( test_input ),
+            "Failed optional decimal imaginary")
+
+        test_input = "i4"
+        assert_not_equal(
+            create_result( "complex", test_input),
+            run_with( test_input ),
+            "Failed simple imaginary")
+
+        test_input = "4ii"
+        assert_not_equal(
+            create_result( "complex", test_input),
+            run_with( test_input ),
+            "Failed simple imaginary")
     end
 
     def test_plus
@@ -126,15 +157,102 @@ class TestComplex < Test::Unit::TestCase
 
     end
 
-    def test_multiple
-        test_input = "3+4"
+    def test_multiple_no_complex
+        test_input = "4+3i"
         assert_equal(
-            create_result_no_eol( "real", "3") +
-                create_result_no_eol( "add", "+") +
-                create_result_no_eol( "real", "4"),
+            create_result_no_eol( "real", "4") +
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "complex", "3i") +
+            "\n",
             run_with( test_input ),
-            "Failed simple sub")
+            "Failed simple addition"
+        )
+
+        test_input = "-3--2i"
+        assert_equal(
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", "3") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "complex", "2i") +
+            "\n",
+            run_with( test_input ),
+            "Failed simple addition"
+        )
+
+        test_input = "23i-+1.2-34i"
+        assert_equal(
+            create_result_no_eol( "complex", "23i") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "real", "1.2") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "complex", "34i") +
+            "\n",
+            run_with( test_input ),
+            "Failed simple addition"
+        )
 
     end
 
+    def test_multiple_no_complex
+        test_input = "3+4"
+        assert_equal(
+            create_result_no_eol( "real", "3") +
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "real", "4") +
+            "\n",
+            run_with( test_input ),
+            "Failed simple addition"
+        )
+
+        test_input = "4.3+5.6"
+        assert_equal(
+            create_result_no_eol( "real", "4.3") +
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "real", "5.6") + 
+            "\n",
+            run_with( test_input ),
+            "Failed decimal addition"
+        )
+
+        test_input = "4.3-5.6"
+        assert_equal(
+            create_result_no_eol( "real", "4.3") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", "5.6") + 
+            "\n",
+            run_with( test_input ),
+            "Failed decimal subtraction"
+        )
+
+        test_input = "-.4+35+-23.5"
+        assert_equal(
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", ".4") +
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "real", "35") + 
+            create_result_no_eol( "add", "+") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", "23.5") +
+            "\n",
+            run_with( test_input ),
+            "Failed longer addition"
+        )
+
+        test_input = "-.4-35--23.5"
+        assert_equal(
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", ".4") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", "35") + 
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "sub", "-") +
+            create_result_no_eol( "real", "23.5") + 
+            "\n",
+            run_with( test_input ),
+            "Failed longer subtraction"
+        )
+    end
 end
+
