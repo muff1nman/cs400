@@ -1,3 +1,5 @@
+%option noyywrap
+
 %{
 /*
  * Example based on code in lex & yacc by 
