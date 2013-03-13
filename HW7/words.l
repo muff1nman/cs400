@@ -47,6 +47,12 @@ happpy |
 round |
 big  { printf("%s: is an adjective\n", yytext); }
 
+extremely |
+slowly |
+incredibly |
+often |
+only  { printf("%s: is an adverb\n", yytext); }
+
 
 [a-zA-Z]+ {
 	 printf("%s:  don't recognize, might be a noun\n", yytext);
