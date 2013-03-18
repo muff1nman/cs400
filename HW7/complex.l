@@ -6,15 +6,16 @@
 
 DIGIT   [0-9]
 DECIMAL ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+) 
+IMAGINARY ({DECIMAL})?i|i{DECIMAL}
 %%
 
 [\t ]+		/* ignore white space */ ;
 
 {DECIMAL}  { printf("<real value=\"%s\">\n", yytext); }
 
-imaginary   { printf("<imaginary value=\"%s\">\n", yytext); }
+{IMAGINARY}   { printf("<imaginary value=\"%s\">\n", yytext); }
 
-{DECIMAL}i   { printf("<complex value=\"%s\">\n", yytext); }
+{DECIMAL}[+-]{IMAGINARY}|{IMAGINARY}[+-]{DECIMAL}  { printf("<complex value=\"%s\">\n", yytext); }
 
 \+   { printf("<add value=\"%s\">\n", yytext); }
 
