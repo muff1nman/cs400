@@ -109,33 +109,33 @@ class TestComplex < Test::Unit::TestCase
     def test_imaginary_simple
         test_input = "4i"
         assert_equal(
-            create_result( "complex", test_input),
+            create_result( "imaginary", test_input),
             run_with( test_input ),
             "Failed simple imaginary")
 
         # Optional
         test_input = "7.4i"
         assert_equal(
-            create_result( "complex", test_input),
+            create_result( "imaginary", test_input),
             run_with( test_input ),
             "Failed optional decimal imaginary")
 
         # Optional
         test_input = "7.i"
         assert_equal(
-            create_result( "complex", test_input),
+            create_result( "imaginary", test_input),
             run_with( test_input ),
             "Failed optional decimal imaginary")
 
         test_input = "i4"
         assert_not_equal(
-            create_result( "complex", test_input),
+            create_result( "imaginary", test_input),
             run_with( test_input ),
             "Failed simple imaginary")
 
         test_input = "4ii"
         assert_not_equal(
-            create_result( "complex", test_input),
+            create_result( "imaginary", test_input),
             run_with( test_input ),
             "Failed simple imaginary")
     end
@@ -157,12 +157,12 @@ class TestComplex < Test::Unit::TestCase
 
     end
 
-    def test_multiple_no_complex
+    def test_multiple_no_imaginary
         test_input = "4+3i"
         assert_equal(
             create_result_no_eol( "real", "4") +
             create_result_no_eol( "add", "+") +
-            create_result_no_eol( "complex", "3i") +
+            create_result_no_eol( "imaginary", "3i") +
             "\n",
             run_with( test_input ),
             "Failed simple addition"
@@ -174,7 +174,7 @@ class TestComplex < Test::Unit::TestCase
             create_result_no_eol( "real", "3") +
             create_result_no_eol( "sub", "-") +
             create_result_no_eol( "sub", "-") +
-            create_result_no_eol( "complex", "2i") +
+            create_result_no_eol( "imaginary", "2i") +
             "\n",
             run_with( test_input ),
             "Failed simple addition"
@@ -182,12 +182,12 @@ class TestComplex < Test::Unit::TestCase
 
         test_input = "23i-+1.2-34i"
         assert_equal(
-            create_result_no_eol( "complex", "23i") +
+            create_result_no_eol( "imaginary", "23i") +
             create_result_no_eol( "sub", "-") +
             create_result_no_eol( "add", "+") +
             create_result_no_eol( "real", "1.2") +
             create_result_no_eol( "sub", "-") +
-            create_result_no_eol( "complex", "34i") +
+            create_result_no_eol( "imaginary", "34i") +
             "\n",
             run_with( test_input ),
             "Failed simple addition"
@@ -195,7 +195,7 @@ class TestComplex < Test::Unit::TestCase
 
     end
 
-    def test_multiple_no_complex
+    def test_multiple_no_imaginary
         test_input = "3+4"
         assert_equal(
             create_result_no_eol( "real", "3") +
