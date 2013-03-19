@@ -12,9 +12,9 @@ DECIMAL ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+)
 
 {DECIMAL}  { printf("<real value=\"%s\">\n", yytext); }
 
-imaginary   { printf("<imaginary value=\"%s\">\n", yytext); }
+{DECIMAL}i   { printf("<imaginary value=\"%s\">\n", yytext); }
 
-{DECIMAL}i   { printf("<complex value=\"%s\">\n", yytext); }
+complex   { printf("<complex value=\"%s\">\n", yytext); }
 
 \+   { printf("<add value=\"%s\">\n", yytext); }
 
