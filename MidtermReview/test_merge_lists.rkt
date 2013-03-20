@@ -24,3 +24,30 @@
   '(1 2 32)
   "Failed for right empty list")
 
+(check-equal?
+  (mergesort (list))
+  (list)
+  "Failed to sort empty list")
+
+(check-equal?
+  (mergesort (list 2))
+  (list 2)
+  "Failed to sort a single element")
+
+(check-equal?
+  (mergesort (list 2 4 5))
+  (list 2 4 5)
+  "Failed to sort a sorted list")
+
+(check-equal?
+  (mergesort (list 3 1 -8 2 5))
+  (list -8 1 2 3 5)
+  "Failed to sort an odd-sized human-random list")
+
+(check-equal?
+  (mergesort (list 6 4 2 1))
+  (list 1 2 4 6)
+  "Failed to sort an even-sized reverse-sorted list")
+
+
+

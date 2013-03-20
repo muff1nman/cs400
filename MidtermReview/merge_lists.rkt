@@ -12,3 +12,12 @@
             [else 
               (list* (first list2) (mergelists list1 (rest list2)))])]))
 
+(provide mergesort)
+(define (mergesort unsorted)
+  (cond
+    [(<= (length unsorted) 1) unsorted]
+    [else 
+      (mergelists
+        (mergesort (take unsorted (floor (/ (length unsorted) 2))))
+        (mergesort (drop unsorted (floor (/ (length unsorted) 2)))))]))
+
