@@ -15,12 +15,12 @@
   "Failed for online provided example with duplicate")
 
 (check-equal?
-  (mergelists '(2 32 1) (list))
+  (mergelists '(1 2 32) (list))
   '(1 2 32)
   "Failed for left empty list")
 
 (check-equal?
-  (mergelists (list) '(2 32 1) )
+  (mergelists (list) '(1 2 32) )
   '(1 2 32)
   "Failed for right empty list")
 
