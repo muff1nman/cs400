@@ -1,0 +1,4 @@
+  S = { a, c, e, f, b, d, g }
+  A = {e, c, e, f, b, d, g}
+  B = {c, e, f}
+  C = {b, d, g}

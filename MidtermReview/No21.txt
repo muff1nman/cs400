@@ -1,0 +1,31 @@
+
+21.
+<factor> = {id,open_paren}
+<term> = {id, open_paren}
+<expr> = {id, open_paren}
+<rel_expr> = {id, open_paren}
+
+22.
+
+<rel_expr>
+<expr> gt <expr>
+<term> add <term> gt <expr>
+<factor> add <term> gt <expr>
+id add <term> gt <expr>
+id add <factor> mod <factor> gt <expr>
+id add id mod <factor> gt <expr>
+id add id mod id gt <expr>
+id add id mod id gt <term>
+id add id mod id gt <factor> mult <factor>
+id add id mod id gt open_paren <expr> close_paren mult <factor>
+id add id mod id gt open_paren <term> sub <term> close_paren mult <factor>
+id add id mod id gt open_paren <factor> sub <term> close_paren mult <factor>
+id add id mod id gt open_paren id sub <term> close_paren mult <factor>
+id add id mod id gt open_paren id sub <factor> close_paren mult <factor>
+id add id mod id gt open_paren id sub id close_paren mult <factor>
+id add id mod id gt open_paren id sub id close_paren mult id
+
+
+
+<rel_expr>
+<expr> 
