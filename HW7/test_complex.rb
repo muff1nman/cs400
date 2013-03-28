@@ -327,6 +327,7 @@ class TestComplex < Test::Unit::TestCase
       test_input = "#C(3,-6)+#C(-5,-5)"
       assert_equal(
         create_result_no_eol("complex", "#C(3,-6)") +
+        create_result_no_eol("add", "+") +
         create_result_no_eol("complex", "#C(-5,-5)") +
         "\n",
         run_with( test_input ),
