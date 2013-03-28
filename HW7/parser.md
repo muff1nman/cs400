@@ -23,3 +23,7 @@ in the form:
 This removes any doubt about what should be treated as complex or as just real,
 operators and imaginary numbers.  This has been implemented in my lexer. Try it
 out.
+
+Also note that I have decided it is more correct to not recognize negative
+numbers and instead treat them as unary sub operators in most cases except for
+when within the complex idiom.
