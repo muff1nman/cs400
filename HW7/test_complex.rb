@@ -254,5 +254,87 @@ class TestComplex < Test::Unit::TestCase
             "Failed longer subtraction"
         )
     end
+
+    def test_single_complex
+      test_input = "#C(4,3)"
+      assert_equal(
+        create_result("complex", "#C(4,3)"),
+        run_with( test_input ),
+        "Failed simple complex token")
+
+      test_input = "#C(-4.0,-4.)"
+      assert_equal(
+        create_result("complex", test_input ),
+        run_with( test_input ),
+        "Failed simple complex token with negatives and decimals")
+
+      test_input = "#C(3)"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid complex")
+
+      test_input = "#C()"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid empty complex")
+
+      test_input = "#C(4,3"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid missing parens complex")
+
+      test_input = "C(4,3)"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid missing pound complex")
+
+      test_input = "#(4,3)"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid missing cee complex")
+
+      test_input = "C#(4,,3)"
+      assert_not_equal(
+        create_result("complex", test_input),
+        run_with( test_input ),
+        "Failed simple invalid extra comma complex")
+    end
+
+    def test_multipe_with_complex
+      test_input = "4i+#C(2,0)"
+      assert_equal(
+        create_result_no_eol("imaginary", "4i") + 
+        create_result_no_eol("add", "+") +
+        create_result_no_eol("complex", "#C(2,0)")+
+        "\n",
+        run_with( test_input ),
+        "Failed simple add with imaginary number")
+
+      test_input = "#C(-4,3)-4"
+      assert_equal(
+        create_result_no_eol("complex", "#C(-4,3)")+
+        create_result_no_eol("sub", "-") +
+        create_result_no_eol("real", "4") + 
+        "\n",
+        run_with( test_input ),
+        "Failed simple sub with imaginary number")
+
+      test_input = "#C(3,-6)+#C(-5,-5)"
+      assert_equal(
+        create_result_no_eol("complex", "#C(3,-6)") +
+        create_result_no_eol("complex", "#C(-5,-5)") +
+        "\n",
+        run_with( test_input ),
+        "Failed with two complex numbers")
+
+    end
+
+
+
 end
 
