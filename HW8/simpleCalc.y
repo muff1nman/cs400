@@ -15,30 +15,30 @@ statement:	NAME '=' expression
 	;
 
 expression:	expression '+' term { 
-                printf("%s<expression>: <expression> + <term> value: %d\n",reduce,$$); 
                 $$ = $1 + $3; 
+                printf("%s<expression>: <expression> + <term> value: %d\n",reduce,$$); 
             }
           |	expression '-' term { 
-                printf("%s<expression>: <expression> - <term> value: %d\n",reduce,$$); 
                 $$ = $1 - $3; 
+                printf("%s<expression>: <expression> - <term> value: %d\n",reduce,$$); 
             }
           |	term {
-                printf("%s<expression>: <term> value: %d\n",reduce,$$); 
                 $$ = $1;
+                printf("%s<expression>: <term> value: %d\n",reduce,$$); 
             }
           ;
 
 term: term '*' factor { 
-        printf("%s<term>: <term> * <factor> value: %d\n",reduce,$$);
         $$ = $1 * $3; 
+        printf("%s<term>: <term> * <factor> value: %d\n",reduce,$$);
       }
     | term '/' factor { 
-        printf("%s<term>: <term> / <factor> value: %d\n",reduce,$$);
         $$ = $1 / $3; 
+        printf("%s<term>: <term> / <factor> value: %d\n",reduce,$$);
       }
     | factor {
-        printf("%s<term>: <factor> value: %d\n",reduce,$$);
         $$ = $1;
+        printf("%s<term>: <factor> value: %d\n",reduce,$$);
       }
     ;
 
