@@ -1,3 +1,10 @@
+%{
+#include "simpleCalc.tab.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+%}
+
 %token NAME NUMBER
 %%
 statement:	NAME '=' expression
