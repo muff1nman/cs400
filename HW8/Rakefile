@@ -1,6 +1,8 @@
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
+  `make clean`
+  `make`
   t.test_files = FileList['1_test.rb']
   t.verbose = true
 end
