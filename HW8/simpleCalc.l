@@ -11,9 +11,9 @@
 DECIMAL     ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+) 
 DIGIT       [0-9]
 %%
-DIGIT+	{ yylval.ival = atoi(yytext); return INTEGER; }
+{DIGIT}+	{ yylval.ival = atoi(yytext); return INTEGER; }
 
-DECIMAL { yylval.fval = atof(yytext); return FLOAT; }
+{DECIMAL} { yylval.fval = atof(yytext); return FLOAT; }
 
 [ \t]	;		/* ignore white space */
 
