@@ -18,45 +18,46 @@ const char* reduce = "REDUCE: ";
 %token <ival> INTEGER
 %token <fval> FLOAT
 
-%type <ival> expression term factor
+%type <ival> iexpression iterm ifactor
 
 %%
-statement:	NAME '=' expression
-	|	expression		{ printf("= %d\n", $1); }
+statement:	NAME '=' iexpression
+	|	iexpression		{ printf("= %d\n", $1); }
 	;
 
-expression:	expression '+' term { 
+iexpression:	iexpression '+' iterm { 
                 $$ = $1 + $3; 
-                printf("%s<expression>: <expression> + <term> value: %d\n",reduce,$$); 
+                printf("%s<iexpression>: <iexpression> + <iterm> value: %d\n",reduce,$$); 
             }
-          |	expression '-' term { 
+          |	iexpression '-' iterm { 
                 $$ = $1 - $3; 
-                printf("%s<expression>: <expression> - <term> value: %d\n",reduce,$$); 
+                printf("%s<iexpression>: <iexpression> - <iterm> value: %d\n",reduce,$$); 
             }
-          |	term {
+          |	iterm {
                 $$ = $1;
-                printf("%s<expression>: <term> value: %d\n",reduce,$$); 
+                printf("%s<iexpression>: <iterm> value: %d\n",reduce,$$); 
             }
           ;
 
-term: term '*' factor { 
+iterm: iterm '*' ifactor { 
         $$ = $1 * $3; 
-        printf("%s<term>: <term> * <factor> value: %d\n",reduce,$$);
+        printf("%s<iterm>: <iterm> * <ifactor> value: %d\n",reduce,$$);
       }
-    | term '/' factor { 
+    | iterm '/' ifactor { 
         $$ = $1 / $3; 
-        printf("%s<term>: <term> / <factor> value: %d\n",reduce,$$);
+        printf("%s<iterm>: <iterm> / <ifactor> value: %d\n",reduce,$$);
       }
-    | factor {
+    | ifactor {
         $$ = $1;
-        printf("%s<term>: <factor> value: %d\n",reduce,$$);
+        printf("%s<iterm>: <ifactor> value: %d\n",reduce,$$);
       }
     ;
 
-factor: INTEGER {
+ifactor: INTEGER {
             $$ = $1;
         }
 ;
+
       /*
        *| float {
        *      $$ = $1;
