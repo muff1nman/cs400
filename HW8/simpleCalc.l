@@ -13,6 +13,10 @@ extern int yylval;
 %%
 /*---------------------------------------------------------------------------*/
 /* 5. Other C code that we need.                                           */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
  
 yyerror(char *errmsg)
 {
