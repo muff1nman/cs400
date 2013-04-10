@@ -9,13 +9,14 @@ const char* reduce = "REDUCE: ";
 %}
 
 %union {
-    double fval;
+    float  fval;
     int    ival;
     char*  sval;
 }
 
 %token <sval> NAME
-%token <ival> NUMBER
+%token <ival> INTEGER
+%token <fval> FLOAT
 
 %type <ival> expression term factor
 
@@ -52,5 +53,13 @@ term: term '*' factor {
       }
     ;
 
-factor: NUMBER
-      ;
+factor: INTEGER {
+            $$ = $1;
+        }
+;
+      /*
+       *| float {
+       *      $$ = $1;
+       *  }
+       *;
+       */
