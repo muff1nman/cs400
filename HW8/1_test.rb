@@ -44,7 +44,7 @@ class Exercise1 < Test::Unit::TestCase
   def test_complex_operator_precedence
     assert_equal(formatted_result("-2"), format_result(run_calculator("2+4/2-6")), "Failed division in the middle")
     assert_equal(formatted_result("36"), format_result(run_calculator("2+4*10-6")), "Failed multiplication in the middle")
-    puts derivation(run_calculator("4+6/6+6*7-8-9+23*6-2+4/2-3"))
+    # puts derivation(run_calculator("4+6/6+6*7-8-9+23*6-2+4/2-3"))
     assert_equal(formatted_result("165"), format_result(run_calculator("4+6/6+6*7-8-9+23*6-2+4/2-3")), "Failed a long random one")
   end
 
