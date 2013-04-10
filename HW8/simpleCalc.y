@@ -8,7 +8,17 @@ const char* reduce = "REDUCE: ";
 
 %}
 
-%token NAME NUMBER
+%union {
+    double fval;
+    int    ival;
+    char*  sval;
+}
+
+%token <sval> NAME
+%token <ival> NUMBER
+
+%type <ival> expression term factor
+
 %%
 statement:	NAME '=' expression
 	|	expression		{ printf("= %d\n", $1); }
