@@ -20,7 +20,7 @@ extern int yylval;
 
 yyerror(char *errmsg)
 {
-    fprintf(stderr, "%s\n", errmsg);
+    fprintf(stderr, "ERROR: %s\n", errmsg);
 }
 
 main()
