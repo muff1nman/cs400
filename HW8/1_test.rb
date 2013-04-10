@@ -34,4 +34,17 @@ class Exercise1 < Test::Unit::TestCase
     assert_equal(formatted_result("6"), run_calculator("3*4/2"), "Failed mix of multiplication and division")
   end
 
+  def test_simple_operator_precedence
+    assert_equal(formatted_result("14"), run_calculator("2+3*4"), "Failed multiplication before addition")
+    assert_equal(formatted_result("-10"), run_calculator("2-3*4"), "Failed multiplication before subtraction")
+    assert_equal(formatted_result("12"), run_calculator("10+4/2"), "Failed division before addition")
+    assert_equal(formatted_result("10"), run_calculator("12-6/3"), "Failed division before subtraction")
+  end
+
+  def test_complex_operator_precedence
+    assert_equal(formatted_result("-2"), run_calculator("2+4/2-6"), "Failed division in the middle")
+    assert_equal(formatted_result("36"), run_calculator("2+4*10-6"), "Failed multiplication in the middle")
+    assert_equal(formatted_result("165"), run_calculator("4+6/6+6*7−8−9+23*6−2+4/2−3"), "Failed a long random one")
+  end
+
 end
