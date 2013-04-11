@@ -26,8 +26,8 @@ void print_registers();
 
 %right '^'
 
-%type <ival> iexpression iterm ifactor ipower
-%type <fval> fexpression fterm ffactor fpower
+%type <ival> iexpression iterm ifactor ipower ineg
+%type <fval> fexpression fterm ffactor fpower fneg
 
 %%
 program: statement {
@@ -141,27 +141,47 @@ fterm: fterm '*' ffactor {
       }
     ;
 
-ifactor: ipower {
+ifactor: '-' ifactor {
+            $$ = -1 * $2;
+            printf("%s<ifactor>: - <ifactor> value: %d\n", reduce, $$);
+       }
+       | ineg {
+            $$ = $1;
+            printf("%s<ifactor>: <ineg> value: %d\n", reduce, $$);
+       }
+       ;
+
+ffactor: '-' ffactor {
+            $$ = -1.0 * $2;
+            printf("%s<ffactor>: - <ffactor> value: %f\n", reduce, $$);
+       }
+       | fneg {
+            $$ = $1;
+            printf("%s<ffactor>: <fneg> value: %f\n", reduce, $$);
+       }
+;
+
+ineg: ipower {
         $$ = $1;
         printf("%s<ifactor>: <ipower> value: %d\n",reduce,$$);
       }
        ;
 
-ffactor: ffactor '^' ffactor {
+fneg: fneg '^' fneg {
         $$ = pow($1,$3);
-        printf("%s<ffactor>: <ffactor> ^ <ffactor> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <fneg> ^ <fneg> value: %f\n",reduce,$$);
       }
-       | ifactor '^' ifactor  {
+       | ineg '^' ineg  {
         $$ = pow($1,$3);
-        printf("%s<ffactor>: <ifactor> ^ <ifactor> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <ineg> ^ <ineg> value: %f\n",reduce,$$);
       }
-       | ifactor '^' ffactor  {
+       | ineg '^' fneg  {
         $$ = pow($1,$3);
-        printf("%s<ffactor>: <ifactor> ^ <ffactor> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <ineg> ^ <fneg> value: %f\n",reduce,$$);
       }
-       | ffactor '^' ifactor  {
+       | fneg '^' ineg  {
         $$ = pow($1,$3);
-        printf("%s<ffactor>: <ffactor> ^ <ifactor> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <fneg> ^ <ineg> value: %f\n",reduce,$$);
       }
        | fpower
        ;
