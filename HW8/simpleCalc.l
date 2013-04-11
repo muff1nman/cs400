@@ -26,19 +26,19 @@ DIGIT       [0-9]
 %%
 {DIGIT}+	{ 
         yylval.ival = atoi(yytext); 
-        printf("TOKEN: INTEGER (%d from '%s')", yylval.ival, yytext);
+        printf("TOKEN: INTEGER (%d from '%s')\n", yylval.ival, yytext);
         return INTEGER; 
     }
 
 {DECIMAL} { 
         yylval.fval = atof(yytext); 
-        printf("TOKEN: FLOAT (%f from '%s')", yylval.fval, yytext);
+        printf("TOKEN: FLOAT (%f from '%s')\n", yylval.fval, yytext);
         return FLOAT; 
     }
 
 (r|R)[^0123456789]*{DIGIT} {
     yylval.sval = convert_register(yytext);
-    printf("TOKEN: REGISTER (%s from '%s')", yylval.sval, yytext);
+    printf("TOKEN: REGISTER (%s from '%s')\n", yylval.sval, yytext);
     return REGISTER;
 }
 
