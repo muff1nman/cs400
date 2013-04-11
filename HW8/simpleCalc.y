@@ -24,10 +24,11 @@ void print_registers();
 %token <ival> INTEGER
 %token <fval> FLOAT
 
-%right '^'
+/*%left '^'*/
+%right EXPON
 
-%type <ival> iexpression iterm ifactor ipower ineg
-%type <fval> fexpression fterm ffactor fpower fneg
+%type <ival> iexpression iterm ifactor ipower ineg iexp
+%type <fval> fexpression fterm ffactor fpower fneg fexp
 
 %%
 program: statement {
@@ -167,25 +168,63 @@ ineg: ipower {
       }
        ;
 
-fneg: fneg '^' fneg {
+fneg: fpower '^' fexp %prec EXPON {
         $$ = pow($1,$3);
-        printf("%s<fneg>: <fneg> ^ <fneg> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <fpower> ^ <fexp> value: %f\n",reduce,$$);
       }
-       | ineg '^' ineg  {
+      | fpower '^' fneg %prec EXPON {
         $$ = pow($1,$3);
-        printf("%s<fneg>: <ineg> ^ <ineg> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <fpower> ^ <fneg> value: %f\n",reduce,$$);
       }
-       | ineg '^' fneg  {
+       | ipower '^' iexp  %prec EXPON  {
         $$ = pow($1,$3);
-        printf("%s<fneg>: <ineg> ^ <fneg> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <ipower> ^ <iexp> value: %f\n",reduce,$$);
       }
-       | fneg '^' ineg  {
+       | ipower '^' ineg  %prec EXPON  {
         $$ = pow($1,$3);
-        printf("%s<fneg>: <fneg> ^ <ineg> value: %f\n",reduce,$$);
+        printf("%s<fneg>: <ipower> ^ <ineg> value: %f\n",reduce,$$);
       }
-       | fpower
+       | ipower '^' fexp  %prec EXPON  {
+        $$ = pow($1,$3);
+        printf("%s<fneg>: <ipower> ^ <fexp> value: %f\n",reduce,$$);
+      }
+       | ipower '^' fneg  %prec EXPON  {
+        $$ = pow($1,$3);
+        printf("%s<fneg>: <ipower> ^ <fneg> value: %f\n",reduce,$$);
+      }
+       | fpower '^' iexp  %prec EXPON  {
+        $$ = pow($1,$3);
+        printf("%s<fneg>: <fpower> ^ <iexp> value: %f\n",reduce,$$);
+      }
+       | fpower '^' ineg  %prec EXPON  {
+        $$ = pow($1,$3);
+        printf("%s<fneg>: <fpower> ^ <ineg> value: %f\n",reduce,$$);
+      }
+       | fpower {
+        $$ = $1;
+        printf("%s<fneg>: <fpower> value: %f\n", reduce, $$);
+}
        ;
 
+fexp: '-' fneg {
+        $$ = -1 * $2;
+        printf("%s<fexp>: - <fexp> value: %f\n", reduce, $$);
+}
+       | fpower {
+            $$ = $1;
+            printf("%s<fexp>: <fpower> value: %f\n", reduce, $$);
+       }
+;
+
+iexp: '-' iexp {
+        $$ = -1 * $2;
+        printf("%s<iexp>: - <iexp> value: %d\n", reduce, $$);
+}
+       | ipower {
+            $$ = $1;
+            printf("%s<iexp>: <fpower> value: %d\n", reduce, $$);
+       }
+;
 
 ipower: INTEGER {
             $$ = $1;

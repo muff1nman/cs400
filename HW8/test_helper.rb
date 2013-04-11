@@ -20,11 +20,11 @@ def derivation( input )
 end
 
 def float_assert( expected, calculation, error_message )
-  assert_in_epsilon( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.00001, error_message)
+  assert_in_epsilon( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
 end
 
 def float_not_assert( expected, calculation, error_message )
-  assert_not_in_epsilon( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.00001, error_message)
+  assert_not_in_epsilon( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
 end
 
 def register_values(output)
