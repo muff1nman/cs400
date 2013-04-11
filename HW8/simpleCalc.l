@@ -43,13 +43,13 @@ DIGIT       [0-9]
         return FLOAT; 
     }
 
-(r|R)[^01234]*{DIGIT} {
+(r|R)[^01234\n ]*[01234] {
     yylval.sval = convert_register(yytext);
     printf("TOKEN: IREGISTER (%s from '%s')\n", yylval.sval, yytext);
     return IREGISTER;
 }
 
-(r|R)[^56789]*{DIGIT} {
+(r|R)[^56789\n ]*[56789] {
     yylval.sval = convert_register(yytext);
     printf("TOKEN: FREGISTER (%s from '%s')\n", yylval.sval, yytext);
     return FREGISTER;
