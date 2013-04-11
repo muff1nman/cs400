@@ -209,12 +209,8 @@ fneg: fpower '^' fexp %prec EXPON {
 fexp: '-' fneg {
         $$ = -1 * $2;
         printf("%s<fexp>: - <fexp> value: %f\n", reduce, $$);
-}
-       | fpower {
-            $$ = $1;
-            printf("%s<fexp>: <fpower> value: %f\n", reduce, $$);
-       }
-;
+};
+
 
 iexp: '-' iexp {
         $$ = -1 * $2;
