@@ -22,6 +22,13 @@ const char* reduce = "REDUCE: ";
 %type <fval> fexpression fterm ffactor
 
 %%
+program: statement
+       | '{' statements'}'
+;
+
+statements: /* empty*/
+          | statement ';' statements
+;
 statement:	REGISTER '=' iexpression
 	|	iexpression		{ printf("= %d\n", $1); }
 	|	fexpression		{ printf("= %f\n", $1); }
