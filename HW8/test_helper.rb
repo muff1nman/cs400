@@ -28,7 +28,6 @@ def float_not_assert( expected, calculation, error_message )
 end
 
 def register_values(output)
-  puts "INSPECT: #{output.inspect}"
   output.lines[-10..-1].collect do |line|
     line[4...-1].to_f
   end
