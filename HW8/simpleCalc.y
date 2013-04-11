@@ -26,7 +26,7 @@ int register_index( const char* string );
 %type <fval> fexpression fterm ffactor
 
 %%
-program: statement
+program: statement 
        | '{' statements'}'
 ;
 
@@ -35,11 +35,9 @@ statements: /* empty*/
 ;
 statement:	IREGISTER '=' iexpression { 
                 integer_registers[register_index($1)] = $3;
-                printf("register index: %d\n", register_index($1));
             }
     |   FREGISTER '=' fexpression { 
-                printf("register index: %d\n", register_index($1)-5);
-                float_registers[register_index($1)] = $3;
+                float_registers[register_index($1) - 5] = $3;
             }
 	|	iexpression		{ printf("= %d\n", $1); }
 	|	fexpression		{ printf("= %f\n", $1); }
@@ -137,9 +135,15 @@ fterm: fterm '*' ffactor {
 ifactor: INTEGER {
             $$ = $1;
         }
+        | IREGISTER {
+            $$ = integer_registers[register_index($1)];
+        }
 ;
 ffactor: FLOAT {
             $$ = $1;
+        }
+        | FREGISTER {
+            $$ = float_registers[register_index($1) - 5];
         }
 ;
 
