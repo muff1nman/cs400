@@ -6,15 +6,24 @@
 #include <stdlib.h>
 #include <math.h>
  
-extern int yylval;
 %}
 
+DECIMAL     ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+) 
+DIGIT       [0-9]
 %%
-[0-9]+	{ yylval = atoi(yytext); return NUMBER; }
+{DIGIT}+	{ yylval.ival = atoi(yytext); return INTEGER; }
+
+{DECIMAL} { yylval.fval = atof(yytext); return FLOAT; }
+
 [ \t]	;		/* ignore white space */
+
 \n	return 0;	/* logical EOF */
+
 .	return yytext[0];
+
+
 %%
+
 /*---------------------------------------------------------------------------*/
 /* 5. Other C code that we need.                                           */
 
