@@ -1,7 +1,7 @@
 all: calc
 
 calc : simpleCalc.tab.c simpleCalc.tab.h simpleCalc.c
-	gcc simpleCalc.tab.c simpleCalc.tab.h simpleCalc.c -o calc
+	gcc simpleCalc.tab.c simpleCalc.tab.h simpleCalc.c -lm -o calc
 
 simpleCalc.c: simpleCalc.l
 	flex -L -o simpleCalc.c simpleCalc.l

@@ -24,8 +24,10 @@ void print_registers();
 %token <ival> INTEGER
 %token <fval> FLOAT
 
-%type <ival> iexpression iterm ifactor
-%type <fval> fexpression fterm ffactor
+%right '^'
+
+%type <ival> iexpression iterm ifactor ipower
+%type <fval> fexpression fterm ffactor fpower
 
 %%
 program: statement {
@@ -139,15 +141,40 @@ fterm: fterm '*' ffactor {
       }
     ;
 
+ifactor: ipower {
+        $$ = $1;
+        printf("%s<ifactor>: <ipower> value: %d\n",reduce,$$);
+      }
+       ;
 
-ifactor: INTEGER {
+ffactor: ffactor '^' ffactor {
+        $$ = pow($1,$3);
+        printf("%s<ffactor>: <ffactor> ^ <ffactor> value: %f\n",reduce,$$);
+      }
+       | ifactor '^' ifactor  {
+        $$ = pow($1,$3);
+        printf("%s<ffactor>: <ifactor> ^ <ifactor> value: %f\n",reduce,$$);
+      }
+       | ifactor '^' ffactor  {
+        $$ = pow($1,$3);
+        printf("%s<ffactor>: <ifactor> ^ <ffactor> value: %f\n",reduce,$$);
+      }
+       | ffactor '^' ifactor  {
+        $$ = pow($1,$3);
+        printf("%s<ffactor>: <ffactor> ^ <ifactor> value: %f\n",reduce,$$);
+      }
+       | fpower
+       ;
+
+
+ipower: INTEGER {
             $$ = $1;
         }
         | IREGISTER {
             $$ = integer_registers[register_index($1)];
         }
 ;
-ffactor: FLOAT {
+fpower: FLOAT {
             $$ = $1;
         }
         | FREGISTER {
