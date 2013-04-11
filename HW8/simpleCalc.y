@@ -7,9 +7,11 @@
 const char* reduce = "REDUCE: ";
 extern int* integer_registers;
 extern float* float_registers;
+int print = 0;
 
 int register_index( const char* string );
 void print_registers();
+void print_single_register();
 
 %}
 
@@ -27,7 +29,9 @@ void print_registers();
 %type <fval> fexpression fterm ffactor
 
 %%
-program: statement 
+program: statement {
+            print = 1;
+       }
        | '{' statements'}' {
             print_registers();
        }
@@ -37,9 +41,11 @@ statements: /* empty*/
           | statement ';' statements
 ;
 statement:	IREGISTER '=' iexpression { 
+                if (print == 1 ) printf("= %d\n", integer_registers[register_index($1)]);
                 integer_registers[register_index($1)] = $3;
             }
     |   FREGISTER '=' fexpression { 
+                if (print == 1 ) printf("= %f\n", float_registers[register_index($1)-5]);
                 float_registers[register_index($1) - 5] = $3;
             }
 	|	iexpression		{ printf("= %d\n", $1); }
@@ -164,4 +170,21 @@ void print_registers() {
     for( i = 0; i<5; ++i ) {
         printf("R%d: %f\n", i+5, float_registers[i] );
     }
+}
+
+void print_single_register() {
+    int i = 0;
+    for( i = 0; i<5; ++i ) {
+        if ( integer_registers[i] != 0 ) {
+            printf("= %d\n", integer_registers[i]);
+            return;
+        }
+    }
+    for( i = 0; i<5; ++i ) {
+        if ( float_registers[i] != 0.0 ) {
+            printf("= %f\n", float_registers[i]);
+            return;
+        }
+    }
+    printf("= %d\n", 0);
 }
