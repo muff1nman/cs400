@@ -6,6 +6,11 @@
 #include <stdlib.h>
 #include <math.h>
 
+int* integer_registers;
+float* float_registers;
+
+void init_registers();
+
 char* convert_register( const char* string ) {
     char* toReturn = (char*) malloc(3*sizeof(char));
     if (!toReturn){
@@ -36,10 +41,16 @@ DIGIT       [0-9]
         return FLOAT; 
     }
 
-(r|R)[^0123456789]*{DIGIT} {
+(r|R)[^0123456789\n ]*[01234] {
     yylval.sval = convert_register(yytext);
-    printf("TOKEN: REGISTER (%s from '%s')\n", yylval.sval, yytext);
-    return REGISTER;
+    printf("TOKEN: IREGISTER (%s from '%s')\n", yylval.sval, yytext);
+    return IREGISTER;
+}
+
+(r|R)[^0123456789\n ]*[56789] {
+    yylval.sval = convert_register(yytext);
+    printf("TOKEN: FREGISTER (%s from '%s')\n", yylval.sval, yytext);
+    return FREGISTER;
 }
 
 [ \t]	;		/* ignore white space */
@@ -59,7 +70,22 @@ yyerror(char *errmsg)
     fprintf(stderr, "ERROR: %s\n", errmsg);
 }
 
+void init_registers() {
+    int i;
+    integer_registers = (int*) malloc( sizeof(int) * 5 );
+    float_registers = (float*) malloc( sizeof(float) * 5);
+    if (!integer_registers || !float_registers ) {
+        perror("Not enough memory");
+        exit(1);
+    }
+    for(i = 0; i < 5; ++i ) {
+        integer_registers[i] = 0;
+        float_registers[i] = 0.0;
+    }
+}
+
 main()
 {
+    init_registers();
 	yyparse();
 }

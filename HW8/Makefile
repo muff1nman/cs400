@@ -10,4 +10,4 @@ simpleCalc.tab.c: simpleCalc.y
 	bison -d simpleCalc.y
 
 clean:
-	@rm -f *.c *.gch calc a.out *.h
+	@rm -f simpleCalc.tab.c simpleCalc.c simpleCalc.tab.h *.gch calc a.out *.o

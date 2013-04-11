@@ -5,6 +5,10 @@
 #include <math.h>
 
 const char* reduce = "REDUCE: ";
+extern int* integer_registers;
+extern float* float_registers;
+
+int register_index( const char* string );
 
 %}
 
@@ -14,7 +18,7 @@ const char* reduce = "REDUCE: ";
     char*  sval;
 }
 
-%token <sval> REGISTER
+%token <sval> FREGISTER IREGISTER
 %token <ival> INTEGER
 %token <fval> FLOAT
 
@@ -22,14 +26,19 @@ const char* reduce = "REDUCE: ";
 %type <fval> fexpression fterm ffactor
 
 %%
-program: statement
+program: statement 
        | '{' statements'}'
 ;
 
 statements: /* empty*/
           | statement ';' statements
 ;
-statement:	REGISTER '=' iexpression
+statement:	IREGISTER '=' iexpression { 
+                integer_registers[register_index($1)] = $3;
+            }
+    |   FREGISTER '=' fexpression { 
+                float_registers[register_index($1) - 5] = $3;
+            }
 	|	iexpression		{ printf("= %d\n", $1); }
 	|	fexpression		{ printf("= %f\n", $1); }
 	;
@@ -126,15 +135,20 @@ fterm: fterm '*' ffactor {
 ifactor: INTEGER {
             $$ = $1;
         }
+        | IREGISTER {
+            $$ = integer_registers[register_index($1)];
+        }
 ;
 ffactor: FLOAT {
             $$ = $1;
         }
+        | FREGISTER {
+            $$ = float_registers[register_index($1) - 5];
+        }
 ;
 
-      /*
-       *| float {
-       *      $$ = $1;
-       *  }
-       *;
-       */
+%%
+
+int register_index( const char* string ) {
+    return string[1] - '0';
+}
