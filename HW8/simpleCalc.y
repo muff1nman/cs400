@@ -9,6 +9,7 @@ extern int* integer_registers;
 extern float* float_registers;
 
 int register_index( const char* string );
+void print_registers();
 
 %}
 
@@ -27,7 +28,9 @@ int register_index( const char* string );
 
 %%
 program: statement 
-       | '{' statements'}'
+       | '{' statements'}' {
+            print_registers();
+       }
 ;
 
 statements: /* empty*/
@@ -151,4 +154,14 @@ ffactor: FLOAT {
 
 int register_index( const char* string ) {
     return string[1] - '0';
+}
+
+void print_registers() {
+    int i = 0;
+    for( i = 0; i<5; ++i ) {
+        printf("R%d: %d\n", i, integer_registers[i] );
+    }
+    for( i = 0; i<5; ++i ) {
+        printf("R%d: %f\n", i+5, float_registers[i] );
+    }
 }
