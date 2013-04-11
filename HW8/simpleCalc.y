@@ -45,9 +45,25 @@ fexpression:	fexpression '+' fterm {
                 $$ = $1 + $3; 
                 printf("%s<fexpression>: <fexpression> + <fterm> value: %f\n",reduce,$$); 
             }
+          | fexpression '+' iterm { 
+                $$ = $1 + $3; 
+                printf("%s<fexpression>: <fexpression> + <iterm> value: %f\n",reduce,$$); 
+            }
+          | iexpression '+' fterm { 
+                $$ = $1 + $3; 
+                printf("%s<fexpression>: <iexpression> + <fterm> value: %f\n",reduce,$$); 
+            }
           |	fexpression '-' fterm { 
                 $$ = $1 - $3; 
                 printf("%s<fexpression>: <fexpression> - <fterm> value: %f\n",reduce,$$); 
+            }
+          |	iexpression '-' fterm { 
+                $$ = $1 - $3; 
+                printf("%s<fexpression>: <iexpression> - <fterm> value: %f\n",reduce,$$); 
+            }
+          |	fexpression '-' iterm { 
+                $$ = $1 - $3; 
+                printf("%s<fexpression>: <fexpression> - <iterm> value: %f\n",reduce,$$); 
             }
           |	fterm {
                 $$ = $1;
@@ -73,9 +89,25 @@ fterm: fterm '*' ffactor {
         $$ = $1 * $3; 
         printf("%s<fterm>: <fterm> * <ffactor> value: %f\n",reduce,$$);
       }
+    | iterm '*' ffactor { 
+        $$ = $1 * $3; 
+        printf("%s<fterm>: <iterm> * <ffactor> value: %f\n",reduce,$$);
+      }
+    | fterm '*' ifactor { 
+        $$ = $1 * $3; 
+        printf("%s<fterm>: <fterm> * <ifactor> value: %f\n",reduce,$$);
+      }
     | fterm '/' ffactor { 
         $$ = $1 / $3; 
         printf("%s<fterm>: <fterm> / <ffactor> value: %f\n",reduce,$$);
+      }
+    | iterm '/' ffactor { 
+        $$ = $1 / $3; 
+        printf("%s<fterm>: <iterm> / <ffactor> value: %f\n",reduce,$$);
+      }
+    | fterm '/' ifactor { 
+        $$ = $1 / $3; 
+        printf("%s<fterm>: <fterm> / <ifactor> value: %f\n",reduce,$$);
       }
     | ffactor {
         $$ = $1;
