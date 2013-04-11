@@ -35,8 +35,10 @@ statements: /* empty*/
 ;
 statement:	IREGISTER '=' iexpression { 
                 integer_registers[register_index($1)] = $3;
+                printf("register index: %d\n", register_index($1));
             }
     |   FREGISTER '=' fexpression { 
+                printf("register index: %d\n", register_index($1)-5);
                 float_registers[register_index($1)] = $3;
             }
 	|	iexpression		{ printf("= %d\n", $1); }
@@ -144,5 +146,5 @@ ffactor: FLOAT {
 %%
 
 int register_index( const char* string ) {
-    return atoi((string + 1));
+    return string[1] - '0';
 }
