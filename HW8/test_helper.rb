@@ -1,5 +1,6 @@
+require 'shellwords'
 def run_calculator( input )
-  `echo "#{input}" | ./calc `
+  `echo '#{input}' | ./calc `
 end
 
 def formatted_result( output )
@@ -19,5 +20,5 @@ def derivation( input )
 end
 
 def test( expected, calculation, error_message )
-  assert_in_epsilon( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.00001, error_message)
+  assert_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
 end
