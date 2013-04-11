@@ -14,7 +14,7 @@ const char* reduce = "REDUCE: ";
     char*  sval;
 }
 
-%token <sval> NAME
+%token <sval> REGISTER
 %token <ival> INTEGER
 %token <fval> FLOAT
 
@@ -22,7 +22,7 @@ const char* reduce = "REDUCE: ";
 %type <fval> fexpression fterm ffactor
 
 %%
-statement:	NAME '=' iexpression
+statement:	REGISTER '=' iexpression
 	|	iexpression		{ printf("= %d\n", $1); }
 	|	fexpression		{ printf("= %f\n", $1); }
 	;

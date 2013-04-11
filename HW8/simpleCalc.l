@@ -5,6 +5,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+char* convert_register( const char* string ) {
+    char* toReturn = (char*) malloc(3*sizeof(char));
+    if (!toReturn){
+        perror("no more memory");
+        exit(1);
+    }
+
+    toReturn[0] = string[0];
+    toReturn[1] = string[strlen(string)-1];
+    toReturn[2] = '\0';
+    return toReturn;
+}
  
 %}
 
@@ -22,6 +35,12 @@ DIGIT       [0-9]
         printf("TOKEN: FLOAT (%f from '%s')", yylval.fval, yytext);
         return FLOAT; 
     }
+
+(r|R)[^0123456789]*{DIGIT} {
+    yylval.sval = convert_register(yytext);
+    printf("TOKEN: REGISTER (%s from '%s')", yylval.sval, yytext);
+    return REGISTER;
+}
 
 [ \t]	;		/* ignore white space */
 
