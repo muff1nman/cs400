@@ -10,7 +10,7 @@ require_relative 'test_helper.rb'
 class Exercise7 < Test::Unit::TestCase
   def test_simple_unary_neg
     float_assert( "-3", "-3", "Test simple integer unary neg")
-    float_assert( "-1.2". "-1.2", "Test simple float unary neg")
+    float_assert( "-1.2" "-1.2", "Test simple float unary neg")
   end
 
   def test_unary_operator_precedence
@@ -27,6 +27,11 @@ class Exercise7 < Test::Unit::TestCase
   def test_unary_cascade
     float_assert("3", "----3", "Test simple integer unary neg cascade")
     float_assert("-1.4", "---1.4", "Test simple float unary neg cascade")
+  end
+
+  def test_unary_complex
+    # TODO 
+    assert_true(false)
   end
 end
 
