@@ -19,6 +19,6 @@ def derivation( input )
   input.lines[0...-1].join('')
 end
 
-def test( expected, calculation, error_message )
+def float_assert( expected, calculation, error_message )
   assert_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
 end
