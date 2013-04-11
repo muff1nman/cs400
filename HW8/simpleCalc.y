@@ -11,7 +11,6 @@ int print = 0;
 
 int register_index( const char* string );
 void print_registers();
-void print_single_register();
 
 %}
 
@@ -172,19 +171,3 @@ void print_registers() {
     }
 }
 
-void print_single_register() {
-    int i = 0;
-    for( i = 0; i<5; ++i ) {
-        if ( integer_registers[i] != 0 ) {
-            printf("= %d\n", integer_registers[i]);
-            return;
-        }
-    }
-    for( i = 0; i<5; ++i ) {
-        if ( float_registers[i] != 0.0 ) {
-            printf("= %f\n", float_registers[i]);
-            return;
-        }
-    }
-    printf("= %d\n", 0);
-}
