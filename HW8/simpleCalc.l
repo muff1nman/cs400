@@ -11,9 +11,17 @@
 DECIMAL     ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+) 
 DIGIT       [0-9]
 %%
-{DIGIT}+	{ yylval.ival = atoi(yytext); return INTEGER; }
+{DIGIT}+	{ 
+        yylval.ival = atoi(yytext); 
+        printf("TOKEN: INTEGER (%d from '%s')", yylval.ival, yytext);
+        return INTEGER; 
+    }
 
-{DECIMAL} { yylval.fval = atof(yytext); return FLOAT; }
+{DECIMAL} { 
+        yylval.fval = atof(yytext); 
+        printf("TOKEN: FLOAT (%f from '%s')", yylval.fval, yytext);
+        return FLOAT; 
+    }
 
 [ \t]	;		/* ignore white space */
 
