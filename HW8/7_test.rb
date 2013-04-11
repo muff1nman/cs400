@@ -22,6 +22,8 @@ class Exercise7 < Test::Unit::TestCase
     float_assert("-3.0", "6./-2.0", "Test simple float division with unary")
     float_assert("-8", "4*-2" ,"Test simple integer multiplication with unary")
     float_assert("-8.0", "4.0*-2.0" ,"Test simple float multiplication with unary")
+    float_assert("-9","-3^2", "Test simple exponential")
+    float_assert("3","9^-2", "Test simple exponential")
   end
 
   def test_unary_cascade
@@ -30,8 +32,7 @@ class Exercise7 < Test::Unit::TestCase
   end
 
   def test_unary_complex
-    # TODO 
-    assert(false)
+    float_assert("19.999988556","-3*4^-9+2-3^2/-2*--4", "Long complex unary operations")
   end
 end
 
