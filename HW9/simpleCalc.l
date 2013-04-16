@@ -16,12 +16,24 @@ extern int verbose;
 
 %}
 
+%s COMMENT
+
 %%
 
 [rR][_A-Za-z]*[0-4] { yylval.ival = extract_reg(yytext); token(I_REG) ; return I_REG; }
 [rR][_A-Za-z]*[5-9] { yylval.ival = extract_reg(yytext); token(F_REG); return F_REG; }
 [0-9]+	{ yylval.ival = atoi(yytext); token(I_NUM); return I_NUM; }
 [0-9]+\.[0-9]*	{ yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
+<INITIAL>{
+            "/*" BEGIN(COMMENT); 
+}
+
+<COMMENT>{
+            "*/" BEGIN(INITIAL); token(COMMENT);
+            [^*]+  
+            "*"       
+}
+
 [ \t]	;		/* ignore white space */
 \n    	;		/* ignore white space */
 .	    {token(yytext[0]); return yytext[0];}
@@ -48,6 +60,7 @@ void token(int tkn)
 			case F_NUM: printf("TOKEN: %s (%g from %s)\n", "F_NUM", yylval.fval, yytext); break;
 			case I_REG: printf("TOKEN: %s (%i from %s)\n", "I_REG", yylval.ival, yytext); break;
 			case F_REG: printf("TOKEN: %s (%i from %s)\n", "F_REG", yylval.ival, yytext); break;
+            case COMMENT: printf("TOKEN: %s \n", "COMMENT"); break;
 			case 0    : printf("TOKEN: %s\n", "<<EOF>>"); break;
 			default   : printf("TOKEN: %c\n", tkn); break;
 		}

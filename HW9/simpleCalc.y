@@ -23,6 +23,7 @@ int   i_reg[5] = {0};
    int ival;
 }
 
+%token COMMENT
 %token <ival> I_REG
 %token <ival> F_REG
 %token <ival> I_NUM
