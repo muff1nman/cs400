@@ -67,7 +67,7 @@ int extract_reg(char *s)
 
 int main(int argc, char *argv[])
 {
-	if (1 <= argc)
+	if (1 < argc)
 	{
 		yyin = fopen(argv[1], "rt");
 		if (!yyin)

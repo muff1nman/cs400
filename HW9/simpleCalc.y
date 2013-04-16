@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define VERBOSE (0)
+#define VERBOSE (1)
 
 int endProgram(void);
 void rule(char *lhs, char *rhs, int type, void *ival);
