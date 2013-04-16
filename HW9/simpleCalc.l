@@ -17,6 +17,7 @@ extern int verbose;
 %}
 
 %s COMMENT
+%s ONELINECOMMMENT
 
 %%
 
@@ -26,12 +27,18 @@ extern int verbose;
 [0-9]+\.[0-9]*	{ yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
 <INITIAL>{
             "/*" BEGIN(COMMENT); 
+            "//" BEGIN(ONELINECOMMMENT);
 }
 
 <COMMENT>{
             "*/" BEGIN(INITIAL); token(COMMENT);
             [^*]+  
             "*"       
+}
+
+<ONELINECOMMMENT>{
+    \n  BEGIN(INITIAL); token(COMMENT);
+    [^\n]+
 }
 
 [ \t]	;		/* ignore white space */
