@@ -58,8 +58,10 @@ statement:
 	|	F_REG '=' i_expr	 		{	f_reg[$1] = $3; 	rule("statement", "F_REG '=' i_expr", 0, NULL); }
 	|	I_REG '=' f_expr	 		{	i_reg[$1] = $3; 	rule("statement", "I_REG '=' f_expr", 0, NULL); }
 	|	I_REG '=' i_expr	 		{	i_reg[$1] = $3; 	rule("statement", "I_REG '=' i_expr", 0, NULL); }
-	|	f_expr						{						rule("statement", "f_expr", 0, NULL); }
-	|	i_expr						{						rule("statement", "i_expr", 0, NULL); }
+	|	'?' f_expr					{	printf("ANS>%f\n",$2 ); rule("statement", "f_expr", 0, NULL); }
+	|	'?' i_expr					{	printf("ANS>%i\n",$2);  rule("statement", "i_expr", 0, NULL); }
+	|	f_expr						{                  			rule("statement", "f_expr", 0, NULL); }
+	|	i_expr						{                  			rule("statement", "i_expr", 0, NULL); }
 	;
 
 f_expr:
