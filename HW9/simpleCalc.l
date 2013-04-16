@@ -65,19 +65,57 @@ int extract_reg(char *s)
 	return ((reg<5)? reg : reg - 5); // Adjust fp reg index
 }
 
+int found_verbose( int argc, char** argv ) {
+    if ( argc > 1 ) {
+        return found_verbose_at( argv, argc - 1 );
+    } else {
+        return 0;
+    }
+}
+
+int found_verbose_at( char** argv, int location ) {
+    char* string = "-v";
+    if ( strcmp(string,argv[location]) == 0 ){
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 int main(int argc, char *argv[])
 {
-	if (1 < argc)
+	if (2 == argc)
 	{
-		yyin = fopen(argv[1], "rt");
-		if (!yyin)
-		{
-			printf("Failed to open input file <%s>\n", argv[1]);
-			exit(1);
-		}
-	}
-	else
+        if ( found_verbose( argc, argv ) == 0 ) {
+            yyin = fopen(argv[1], "rt");
+            if (!yyin)
+            {
+                printf("Failed to open input file <%s>\n", argv[1]);
+                exit(1);
+            }
+        } else {
+            verbose = 1;
+            yyin = stdin;
+        }
+	} 
+    else if ( 3 == argc ) {
+        if ( found_verbose( argc, argv) != 1 ) {
+            printf( "Incorrect arguments");
+            exit(1);
+        } else {
+            verbose = 1;
+            yyin = fopen(argv[1], "rt");
+            if (!yyin)
+            {
+                printf("Failed to open input file <%s>\n", argv[1]);
+                exit(1);
+            }
+        }
+
+    }
+	else {
 		yyin = stdin;
+    }
 	
 	yyparse();
 }

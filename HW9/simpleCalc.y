@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define VERBOSE (1)
+// Default verbosity if not set
+#define VERBOSE (0)
 
 int endProgram(void);
 void rule(char *lhs, char *rhs, int type, void *ival);
