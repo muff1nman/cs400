@@ -19,12 +19,15 @@ extern int verbose;
 %s COMMENT
 %s ONELINECOMMMENT
 
+DIGIT       [0-9]
+DECIMAL     ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+) 
 %%
 
 [rR][_A-Za-z]*[0-4] { yylval.ival = extract_reg(yytext); token(I_REG) ; return I_REG; }
 [rR][_A-Za-z]*[5-9] { yylval.ival = extract_reg(yytext); token(F_REG); return F_REG; }
-[0-9]+	{ yylval.ival = atoi(yytext); token(I_NUM); return I_NUM; }
-[0-9]+\.[0-9]*	{ yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
+{DIGIT}+	{ yylval.ival = atoi(yytext); token(I_NUM); return I_NUM; }
+{DECIMAL}	{ yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
+
 <INITIAL>{
             "/*" BEGIN(COMMENT); 
             "//" BEGIN(ONELINECOMMMENT);
