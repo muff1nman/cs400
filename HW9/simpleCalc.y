@@ -38,6 +38,8 @@ int   i_reg[5] = {0};
 %type <ival> i_term
 %type <ival> i_factor
 %type <ival> i_value
+%type <ival> i_neg
+%type <fval> f_neg
 
 %%
 program: 
@@ -98,16 +100,26 @@ i_term:
 	;
 
 f_factor:
-		f_value '^' f_factor		{	$$ = pow($1,$3);	rule("f_factor", "f_value '^' f_factor", 1, &$$); }
-	|	f_value '^' i_factor		{	$$ = pow($1,$3);	rule("f_factor", "f_value '^' i_factor", 1, &$$); }
-	|	i_value '^' f_factor		{	$$ = pow($1,$3);	rule("f_factor", "i_value '^' f_factor", 1, &$$); }
-	|	i_value '^' i_factor		{	$$ = pow($1,$3);	rule("f_factor", "i_value '^' i_factor", 1, &$$); }
-	|	f_value						{	$$ = $1;			rule("f_factor", "f_value", 1, &$$); }
+		f_neg '^' f_factor		{	$$ = pow($1,$3);	rule("f_factor", "f_neg '^' f_factor", 1, &$$); }
+	|	f_neg '^' i_factor		{	$$ = pow($1,$3);	rule("f_factor", "f_neg '^' i_factor", 1, &$$); }
+	|	i_neg '^' f_factor		{	$$ = pow($1,$3);	rule("f_factor", "i_neg '^' f_factor", 1, &$$); }
+	|	i_neg '^' i_factor		{	$$ = pow($1,$3);	rule("f_factor", "i_neg '^' i_factor", 1, &$$); }
+	|	f_neg						{	$$ = $1;			rule("f_factor", "f_neg", 1, &$$); }
 	;
 	
 i_factor:
-		i_value						{	$$ = $1;			rule("i_factor", "i_value", 0, &$$); }
+		i_neg						{	$$ = $1;			rule("i_factor", "i_neg", 0, &$$); }
 	;
+
+i_neg:
+        '-' i_neg                    {   $$ = -1 * $2;       rule("i_neg", "'-'i_neg", 0, &$$);}
+    |   i_value                     {   $$ = $1;            rule("i_neg", "i_value", 0, &$$);}
+    ;
+
+f_neg:
+        '-' f_neg                    {   $$ = -1 * $2;       rule("f_neg", "'-'f_neg", 1, &$$);}
+    |   f_value                     {   $$ = $1;            rule("f_neg", "f_value", 1, &$$);}
+    ;
 	
 f_value: 
 		F_NUM						{	$$ = $1;			rule("f_value", "F_NUM", 1, &$$); }
