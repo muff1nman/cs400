@@ -4,7 +4,6 @@ def run_calculator( input )
 end
 
 def run_calculator_without_display( input )
-  puts "Executing: #{input}"
   `echo '#{input}' | ./calc`
 end
 
@@ -13,7 +12,6 @@ def formatted_result( output )
 end
 
 def format_result( input )
-  puts "Result was[ #{input} ]"
   input.lines.last
 end
 
@@ -25,12 +23,20 @@ def derivation( input )
   input.lines[0...-1].join('')
 end
 
-def float_assert( expected, calculation, error_message )
-  assert_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
+def float_assert( expected, calculation, error_message, noprint=false )
+  if noprint
+    assert_in_delta( expected.to_f, extract_float(format_result(run_calculator_without_display(calculation))), 0.001, error_message)
+  else
+    assert_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
+  end
 end
 
-def float_not_assert( expected, calculation, error_message )
-  assert_not_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
+def float_not_assert( expected, calculation, error_message, noprint=false )
+  if noprint
+    assert_not_in_delta( expected.to_f, extract_float(format_result(run_calculator_without_display(calculation))), 0.001, error_message)
+  else
+    assert_not_in_delta( expected.to_f, extract_float(format_result(run_calculator(calculation))), 0.001, error_message)
+  end
 end
 
 def register_values(output)
@@ -40,8 +46,8 @@ def register_values(output)
 end
 
 def program_assert( expected_array, calculation, error_message )
-  actual_array = register_values(run_calculator(calculation))
+  actual_array = register_values(run_calculator_without_display(calculation))
   (0..10).each do |i|
-    float_assert( expected_array[i].to_f, actual_array[i].to_f, error_message)
+    assert_in_delta( expected_array[i].to_f, actual_array[i].to_f, 0.001, error_message)
   end
 end

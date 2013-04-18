@@ -10,6 +10,7 @@
 #define VERBOSE (0)
 
 int endProgram(void);
+void print_registers();
 void rule(char *lhs, char *rhs, int type, void *ival);
 
 int verbose = VERBOSE;
@@ -139,6 +140,17 @@ void rule(char *lhs, char *rhs, int type, void *val)
 
 int endProgram(void)
 {
+    print_registers();
 	return 0;
+}
+
+void print_registers() {
+    int i = 0;
+    for( i = 0; i<5; ++i ) {
+        printf("R%d: %d\n", i, i_reg[i] );
+    }
+    for( i = 0; i<5; ++i ) {
+        printf("R%d: %f\n", i+5, f_reg[i] );
+    }
 }
 
