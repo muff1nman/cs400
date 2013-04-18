@@ -17,16 +17,17 @@ class Exercise5 < Test::Unit::TestCase
   def test_correct_register_usage
     puts "\nNOTE: The program should complain about errors.  This is expected"
     (0..4).each do |i|
-      float_not_assert("3.0", "{R#{i}=1.5;R#{i}*2;}","Simple improper integer register#{i} save", true)
+      float_not_assert("3.0", "{R#{i}=1.5;?R#{i}*2;}","Simple improper integer register#{i} save", true)
     end
-    (5..9).each do |i|
-      float_not_assert("6", "{R#{i}=2;R#{i}*3;}", "Simple improper float register#{i} save", true)
-    end
+    # Not a valid test either since a float can be recognized as an integer
+    #(5..9).each do |i|
+      #float_not_assert("6", "{R#{i}=2;?R#{i}*3;}", "Simple improper float register#{i} save", true)
+    #end
     puts "NOTE: Do not expect any more errors beyond this point"
   end
 
   def test_register_start_value_is_zero
-    float_assert("0", "{R2*3;}", "Test for register initialized to zero", true)
+    float_assert("0", "{?R2*3;}", "Test for register initialized to zero", true)
   end
 
 
