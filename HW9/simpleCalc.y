@@ -139,8 +139,6 @@ void rule(char *lhs, char *rhs, int type, void *val)
 
 int endProgram(void)
 {
-	printf("Press ENTER to exit:");
-	fgetc(stdin);
 	return 0;
 }
 

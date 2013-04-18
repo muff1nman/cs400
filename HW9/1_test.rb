@@ -50,7 +50,7 @@ class Exercise1 < Test::Unit::TestCase
 
   def test_from_file
     `rm -f 0_test_input.txt`
-    `echo '2+4*10-6' > 0_test_input.txt`
+    `echo '?2+4*10-6' > 0_test_input.txt`
     assert_equal( formatted_result("36"), format_result(`./calc 0_test_input.txt`), "Failed to parse from file")
   end
 

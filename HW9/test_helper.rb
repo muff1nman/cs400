@@ -1,18 +1,24 @@
 require 'shellwords'
 def run_calculator( input )
-  `echo '#{input}' | ./calc `
+  run_calculator_without_display "?#{input}"
+end
+
+def run_calculator_without_display( input )
+  puts "Executing: #{input}"
+  `echo '#{input}' | ./calc`
 end
 
 def formatted_result( output )
-  "= #{output}\n"
+  "ANS>#{output}\n"
 end
 
 def format_result( input )
+  puts "Result was[ #{input} ]"
   input.lines.last
 end
 
 def extract_float(input)
-  input[2...-1].to_f
+  input[4...-1].to_f
 end
 
 def derivation( input )
