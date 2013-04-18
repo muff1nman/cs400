@@ -12,6 +12,8 @@
 int extract_reg(char *s);
 void token(int tkn);
 
+float normalize_float( const char* float_string );
+
 extern int verbose;
 
 %}
@@ -27,6 +29,7 @@ DECIMAL     ({DIGIT}+(\.{DIGIT}*)?)|({DIGIT}*\.{DIGIT}+)
 [rR][_A-Za-z]*[5-9] { yylval.ival = extract_reg(yytext); token(F_REG); return F_REG; }
 {DIGIT}+	{ yylval.ival = atoi(yytext); token(I_NUM); return I_NUM; }
 {DECIMAL}	{ yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
+{DECIMAL}[eE]-?{DIGIT}+ { yylval.fval = atof(yytext); token(F_NUM); return F_NUM; }
 
 <INITIAL>{
             "/*" BEGIN(COMMENT); 
@@ -76,6 +79,43 @@ void token(int tkn)
 		}
 	}
 }
+
+// returns a zero based index for the first e|E in string otherwise returns -1.  
+int find_e( const char* string ) {
+    char* e_lower;
+    char* e_upper;
+
+    e_lower = strchr( string, (int) 'e' );
+    e_upper = strchr( string, (int) 'E' );
+
+    if( NULL == e_lower && NULL == e_upper ) {
+        return -1;
+    } else if ( NULL == e_lower ) {
+        return e_upper - string;
+    } else if ( NULL == e_upper ) {
+        return e_lower - string;
+    } else {
+        return e_lower < e_upper ? 
+            e_lower - string : e_upper - string;
+    }
+}
+
+// This function extracts a float value from a string that contains a float
+float normalize_float( const char* float_string ) {
+    float value = 0;
+    float base_value = 0;
+    float exponent_value = 0;
+    int e_index = find_e( float_string);
+
+    // There is no exponential value so treat it like a regular float encoded in
+    // a string
+    if( e_index < 0 ) {
+        return atof( float_string );
+    } else {
+        return atof( float_string );
+    }
+}
+
 
 // This function assumes that the string passed is a properly recognized token
 int extract_reg(char *s)

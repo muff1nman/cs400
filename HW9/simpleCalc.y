@@ -14,6 +14,7 @@ void print_registers();
 void rule(char *lhs, char *rhs, int type, void *ival);
 
 int verbose = VERBOSE;
+int should_print_registers = 0;
 float f_reg[5] = {0};
 int   i_reg[5] = {0};
 
@@ -47,6 +48,7 @@ program:
 										return endProgram(); 
 									}
 	|	'{' statements '}'			{	rule("program", "'{' statements '}'", 0, NULL);
+                                        should_print_registers = 1;
 										return endProgram();
 									}
 	;
@@ -152,7 +154,9 @@ void rule(char *lhs, char *rhs, int type, void *val)
 
 int endProgram(void)
 {
-    print_registers();
+    if( should_print_registers == 1 ) {
+        print_registers();
+    }
 	return 0;
 }
 
