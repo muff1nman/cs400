@@ -2,7 +2,7 @@
     - It allows for different types to be used as tokens.  For example you can
       have tokens of type integer and string and set yylval with either type.
 2. Why shouldn’t the variable yytext be referenced in the Bison input file?
-    - yytext is used by Bison as a buffer and can be modified at any time so it
+    - yytext is used by the lexer as a buffer and can be modified at any time so it
       is not a good idea
 3. What is meant when Bison issues a shift/reduce, reduce/reduce, shift/shift
    conflict warning?
@@ -49,17 +49,50 @@
       align with function calls.
 7. Why are stack-dynamic variables generally referred to as “automatic”
    variables.
-    -
+    - They are automatically allocated and deallocated upon calling a function
+      and upon return to the callee scope.
 8. What is meant when a language is described as “strongly typed”?
+    - 6.13
+    - It means that type errors are always checked for and detected either at
+      compilation or during run time. 
 9. What is meant by “dynamic type binding”? What are some of the advantages and
    disadvantages?
+    - 5.4.2.2
+    - The type of a variable is not specified in the declaration statement and
+      variables are not bound to a specific type until they are assigned a
+      value.  In addition, the type of a variable can change during execution.
 10. What is the difference between “load time” binding and “runtime” binding?
     Give an example of each.
+    - Runtime binding is an association of a type or value to a variable during
+      program execution whereas load time binding is when a program is loaded
+      into memory to be run.
+    - In javascript a variable is bound to a type during runtime
+        var a = "hello";
+        a = 23
+    - In C++ a variable is bound to an actual physical memory location during
+      load time.
+
 11. What is meant by “type coercion”? Describe the difference between implicit
     and explicit coercion.
+    - 
 12. What is the difference between a formal parameter and an actual parameter?
+    - A formal parameter describes the type and name of a parameter that can be
+      passed into a function whereas an actual parameter is the actual variable
+      and its value used to pass in during program execution.
 13. What is the difference between a positional parameter and a keyword
     parameter? What are some advantages and disadvantages of each?
+    - A positional parameter is determined by its location relative to the other
+      parameters passed into a function, whereas keyword parameters are named
+      and can appear in any order when calling the function.
+    - The advantage of using a positional parameter is that it can be concise
+      when the list of values is short. It also is safe and can easily be
+      checked.
+    - A disadvantage of using positional parameters is that it is difficult to
+      omit parameters.
+    - The advantage of using keyword parameters is that it can make remembering
+      the parameters easier when the list of parameters is long.  You can also
+      specify parameters in any order
+    - 
 14. Strictly speaking, what is the difference between a procedure and a
     function?
 15. What is meant by “pass-by-value”? What are the advantages and disadvantages?
@@ -74,7 +107,9 @@
     declaration must include the number of elements in each dimension except
     one, which may be left blank. Which dimension is optional and why is it not
     necessary?
+    - 
 19. What is printed by the C statement: printf(“%s”, &(1+2)[”Hello World”]+3);
+    - World
 20. In C, how are arguments corresponding to an ellipsis as the formal parameter
     list handled?
 
