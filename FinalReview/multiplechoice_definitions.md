@@ -59,7 +59,6 @@ K. Finite automaton
       of the tokens of programming languages can be described by regular
       grammars. The syntax of whole programming languages, with minor
       exceptions, can be described by context-free grammars.
-    
 L. Regular grammar
     - see Finite Automaton
 M. Context-free grammar
@@ -75,7 +74,6 @@ M. Context-free grammar
       remainder of the chapter, we refer to context-free grammars simply as
       grammars. Furthermore, the terms BNF and grammar are used
       interchangeably.
-    
 N. Pushdown automaton
     - pg 193
     - see todo
@@ -103,23 +101,30 @@ P. Higher order function
 Q. Lexical scope
     - search powerpoints?
 R. Regular expression
-    - 
+    - pattern matching
 S. Pairwise-disjoint
-    - 
+    - see todo
+    - pg 188
 T. Alphabet
-    - 
+    - set of characters that can be used in the language
 U. Lexical analysis
-    - 
+    - Same as syntax analysis?
 V. Referential transparency
-    - 
-W. Semantics
-    - 
+    - 7.2.2.2
+    - pg 327
+    - any two expressions in the program that have the same value can be
+      substituted for one another anywhere in the program, without affecting the
+      action of the program. The value of a referentially transparent function
+      depends entirely on its parameters.
+    - Furthermore, the value of the function cannot depend on the order in which
+      its parameters are evaluated.
 X. Grammatical ambiguity
-    - 
+    - A grammar that generates a sentential form for which there are two or more
+      distinct parse trees is said to be ambiguous
 Y. Left-most derivation
     - pg 120
     - the replaced nonterminal is always the left-most nontermianl in the
       previous line.
 Z. Dynamic scope
-    - 
-    
+    - 5.5.6
+    - see todo
