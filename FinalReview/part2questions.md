@@ -39,17 +39,32 @@
 5. Describe the advantages and disadvantages of static, implicit heap-dynamic,
    explicit heap-dynamic, and stack-dynamic (a.k.a., automatic variables).
    - static 
-       - Advantages:  It is very efficient from an addressing perspective and there is no overhead for addressing.  In addition they are convenient for  subprograms that need a sense of history. 
-       - Disadvantages: There is reduced flexibility and a program with static variables alone cannot support recursion.  Also, subprograms cannot share storage. 
+       - Advantages:  It is very efficient from an addressing perspective and
+         there is no overhead for addressing.  In addition they are convenient
+         for  subprograms that need a sense of history. 
+       - Disadvantages: There is reduced flexibility and a program with static
+         variables alone cannot support recursion.  Also, subprograms cannot
+         share storage. 
    - stack-dynamic 
-       - Advantages:  By using this type of binding, programs can use recursion. In addition, with this type of storage, locals can share the same storage.  
-       - Disadvantages: are that there is additional overhead from memory address calculation and from allocation and deallocation during runtime.  Also subprograms cannot be history sensitive.
+       - Advantages:  By using this type of binding, programs can use recursion.
+         In addition, with this type of storage, locals can share the same
+         storage i.e. storage conservation.  
+       - Disadvantages: are that there is additional overhead from memory
+         address calculation and from allocation and deallocation during
+         runtime.  Also subprograms cannot be history sensitive. more
+         inefficient memory references
    - explicit heap-dynamic 
-       - Advantages: are that dynamic structures can be allowed to grow and shrink during runtime. Also, pointers can be easily passed between method calls without having to pass an entire structure of memory.  
-       - Disadvantages: are that it is difficult to use references and pointers correctly.  Also, heap management is complex and costly.
+       - Advantages: are that dynamic structures can be allowed to grow and
+         shrink during runtime. Also, pointers can be easily passed between
+         method calls without having to pass an entire structure of memory.  
+       - Disadvantages: are that it is difficult to use references and pointers
+         correctly.  Also, heap management is complex and costly (inefficient)
    - implicit heap-dynamic 
-       - Advantages: are that variables are very flexible and that they can be safer than explicit heap management because programmer errors are less common.  
-       - Disadvantages: are that there is additional overhead to deal with the dynamic attributes and there is less error detection by the compiler.
+       - Advantages: are that variables are very flexible and that they can be
+         safer than explicit heap management because programmer errors are less
+         common.  
+       - Disadvantages: are that there is additional overhead to deal with the
+         dynamic attributes and there is less error detection by the compiler.
 6. What type of variables, in terms of lifetimes, are “needed” in order to
    support recursive functions? Explain why this is so.
     - Stack Dynamic variables are needed to support recursive functions because
@@ -70,6 +85,7 @@
     - The type of a variable is not specified in the declaration statement and
       variables are not bound to a specific type until they are assigned a
       value.  In addition, the type of a variable can change during execution.
+      It is also harder to type check.
 10. What is the difference between “load time” binding and “runtime” binding?
     Give an example of each.
     - Runtime binding is an association of a type or value to a variable during
@@ -83,7 +99,10 @@
 
 11. What is meant by “type coercion”? Describe the difference between implicit
     and explicit coercion.
-    - TODO
+    - type coercion is implicit type conversion.
+    - The difference between implicit and explicit is that one the compiler does
+      automatically based on the operands and the other is done on purpose by
+      the programmer.
 12. What is the difference between a formal parameter and an actual parameter?
     - A formal parameter describes the type and name of a parameter that can be
       passed into a function whereas an actual parameter is the actual variable
@@ -138,10 +157,14 @@
     declaration must include the number of elements in each dimension except
     one, which may be left blank. Which dimension is optional and why is it not
     necessary?
-    - 
+    - The inner most dimension (first) is optional.  This is because the
+      compiler needs to know the size of elements so that it can perform pointer
+      arithmetic on the array to get individual elements.
 19. What is printed by the C statement: printf(“%s”, &(1+2)[”Hello World”]+3);
     - World
 20. In C, how are arguments corresponding to an ellipsis as the formal parameter
     list handled?
-    - 
+    - They are converted to the desired type at runtime which often needs to be
+      specified as well.  In the case of printf, the format specifiers take care
+      of this job.
 
