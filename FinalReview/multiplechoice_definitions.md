@@ -108,7 +108,7 @@ S. Pairwise-disjoint
 T. Alphabet
     - set of characters that can be used in the language
 U. Lexical analysis
-    - Same as syntax analysis?
+    - TODO
 V. Referential transparency
     - 7.2.2.2
     - pg 327

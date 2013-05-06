@@ -6,7 +6,16 @@
       is not a good idea
 3. What is meant when Bison issues a shift/reduce, reduce/reduce, shift/shift
    conflict warning?
-    - ?
+    - shift/reduce
+        - This conflict appears when bison can either reduce based on the
+          current token and contents of the stack or it can shift based on the
+          next token coming up. Bison will choose to shift.
+    - reduce/reduce
+        - This conflict appears when there are two or more production rules that
+          can apply to a given input. Bison will choose the first rule
+          encountered.
+    - shift/shift
+        - 
 4. Describe the following attributes of a variable: Name, Address, Value, Type,
    Lifetime, and Scope.
     - Name
@@ -74,7 +83,7 @@
 
 11. What is meant by “type coercion”? Describe the difference between implicit
     and explicit coercion.
-    - 
+    - TODO
 12. What is the difference between a formal parameter and an actual parameter?
     - A formal parameter describes the type and name of a parameter that can be
       passed into a function whereas an actual parameter is the actual variable
@@ -95,13 +104,35 @@
     - 
 14. Strictly speaking, what is the difference between a procedure and a
     function?
+    - A function resembles a mathematical function and ideally has no
+      side-effects and exibits referential transparency.  A procedure on the
+      other hand is more similar to a sub-program and may not guarentee
+      referential transparency.
 15. What is meant by “pass-by-value”? What are the advantages and disadvantages?
+    - pass-by-value means that before a function call, a duplicate copy of the
+      value is made to be passed into the function rather than just a pointer or
+      reference to a memory location being passed.
+
+    - The advantages are that it is safer, because the callee function's copy
+      will not get modified. Also, it is easier to work with from a programmers
+      perpective.
+    - The disadvantages are that it can be slower because the entire value has
+      to be copied which can be slow especially for large objects. ANYTHING
+      ELSE?
+    - CHECK
 16. In C, the statement printf(“%f”, x); works the same way regardless of
     whether x is a float or a double. Why?
+    - It treats both as a double and is able to coerce any float values to
+      doubles as this is a widening operation and there is no loss of data.
 17. In C, parameters are always passed by value. Yet the concept of
     “pass-by-reference” is generally used to describe how arrays and strings are
     passed to a function. Resolve the apparent discrepancy in terms of the
     difference between semantics and how semantics are implemented.
+    - It is true that every function call is pass-by-value, yet strings and
+      arrays are not passed in as their entire representation, rather a pointer
+      to a starting memory location is passed which is still considered a
+      "value" although in the function that pointer can be deferenced to get the
+      full array or string.
 18. In C, when an array is passed to a function and the formal parameter is not
     declared merely as a pointer to the type of data stored in the array, the
     declaration must include the number of elements in each dimension except
@@ -112,4 +143,5 @@
     - World
 20. In C, how are arguments corresponding to an ellipsis as the formal parameter
     list handled?
+    - 
 
